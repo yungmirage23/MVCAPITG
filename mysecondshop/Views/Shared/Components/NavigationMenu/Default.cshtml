@@ -1,0 +1,20 @@
+﻿@model IEnumerable<string>
+	<section class="home-menu">
+        <div class="container">
+          <div class="swiper swiper-container-menu">
+            <div class="swiper-wrapper">
+				@foreach(string category in Model)
+				{
+					<a class="swiper-slide @(category==ViewBag.SelectedCategory?"aactive":"w")"
+					asp-action="Shop"
+					asp-controller="Home"
+					asp-route-category="@category"
+					asp-route-productPage="1"
+					>@category</a>
+				}
+			</div>
+			<div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+		  </div>
+		</div>
+	</section>

@@ -1,0 +1,47 @@
+﻿ <div
+  class="modal fade"
+  id="registration"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-registr">
+    <div class="modal-content">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+      <div class="icon-header">
+        <img src="~/img/icon_login.svg" />
+        <div class="header-text">Регистрация</div>
+      </div>
+      <div class="modal-form">
+        <form method="post">
+          <div class="inpt">
+            <input class="phone" type="text" name="" placeholder="Телефон" />
+          </div>
+          <div class="inpt">
+            <input class="pass" name=""type="text" placeholder="Пароль" />
+          </div>
+          <div class="inpt">
+            <input class="pass" name=""type="text" placeholder="Подтвердите пароль" />
+          </div>
+          <div class="error-txt">Пользователь с таким номером телефона уже зарегистрирован.</div>
+          <div class="check-block">
+            <div class="line">
+              <input type="checkbox" id="r-mail">
+              <label for="r-mail">Хочу получать выгодные предложения от магазина</label>
+            </div>
+            <div class="line">
+              <input type="checkbox" id="r-pol" checked>
+              <label for="r-pol" ><span>Принимаю условия </span><a href="">Пользовательского соглашения, Политики конфиденциальности</a><span</label>
+            </div>
+          </div>
+          <button class="green-btn">Зарегистрироваться</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

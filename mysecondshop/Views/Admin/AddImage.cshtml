@@ -1,0 +1,10 @@
+﻿@using mysecondshop.Models.ViewModels
+@model ImageViewModel
+<form asp-action="AddImage" method="post" enctype="multipart/form-data">   
+
+    <input asp-for="ImageCaption"/>
+    <input asp-for="ImageDescription"/>
+    <input asp-for="MyImage"/>
+
+    <input class="btn-primary"type="submit"/>
+</form>

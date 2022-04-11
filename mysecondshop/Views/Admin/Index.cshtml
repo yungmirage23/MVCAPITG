@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Item>
+@{
+	ViewBag.Title = "All Items";
+	Layout = "_AdminLayout";
+}
+<table class="container table table-striped table-bordered text-center text-nowrap align-middle">
+	<tr>
+		<th class="text-right">ID</th>
+		<th>Имя</th>
+		<th>Категория</th>
+		<th>Описание</th>
+		<th class="text-right">Цена</th>
+		<th class="text-right">Время добавления</th>
+		<th class="text-center">Изображение</th>
+		<th class="text-center">Действия</th>
+	</tr>
+	@foreach(var item in Model)
+	{
+		<tr>
+			<td class="text-right">@item.Id</td>
+			<td>@item.Name</td>
+			<td>@item.Category</td>
+			<td>@item.Description</td>
+			<td class="text-right">@item.Price.ToString("c")</td>
+			<td class="text-right">@item.addedTime</td>
+			<td class="text-center">
+				<img src="~/uploads/@item.ImagePath"style="width:50%;">
+			</td>
+			<td class="text-center">
+				<form class=""asp-action="Delete" method="post">
+					<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-itemId="@item.Id">Изменить</a>
+					<input type="hidden" name="Id" value="@item.Id">
+					<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+					
+				</form>
+			</td>
+		</tr>
+	}
+</table>
+<div class="text-center">
+	<a asp-action="Create" class="btn btn-primary">Добавить товар</a>
+</div>

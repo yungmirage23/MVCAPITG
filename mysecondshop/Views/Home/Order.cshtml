@@ -1,0 +1,257 @@
+﻿@model Item
+<section class="order-menu">
+      <div class="container">
+        <div class="order-wrapper">
+          <div class="order-description">
+            <div class="item-photo">
+            </div>
+            <div class="menu">
+              <div class="items-name">@Model.Name</div>
+              <div class="menu-rating">
+                <span><img src="/img/star-bigger.svg" /></span>
+                <span><img src="/img/star-bigger.svg" /></span>
+                <span><img src="/img/star-bigger.svg" /></span>
+                <span><img src="/img/star-bigger.svg" /></span>
+                <span><img src="/img/star-bigger.svg" /></span>
+              </div>
+              <div class="menu-reviews">Кол-во отзывов:&nbsp;<span>23</span></div>
+              <div class="menu-price">
+                <div class="text">Цена за уп.</div>
+                <div  class="digit"><span id="price">@Model.Price</span>&nbsp;UAH</div>
+              </div>
+              <div class="menu-qip">
+                <div class="text">Кол-во шт в упаковке</div>
+                <div class="digit">4 шт.</div>
+              </div>
+              <div class="menu-quantity">
+                <div class="text">Количество</div>
+                <div class="quantity">
+                  <div class="b-minus"><img src="/img/minus.svg" alt="" /></div>
+                  <div class="digit-sm"><span class="jq">1</span>шт</div>
+                  <div class="b-plus"><img src="/img/plus.svg" alt="" /></div>
+                </div>
+              </div>
+              <div class="small-text">Ед. изм.: упаковка</div>
+              <div class="menu-summary">
+                <div class="text">Итого к оплате</div>
+                <div  class="digit"><span id="summary">@Model.Price</span>&nbsp;UAH</div>
+              </div>
+              <div class="buttons">
+                <button class="button-big">Купить</button>
+                <button class="button-small" href="#"
+                  ><img src="/img/shopping-cart-white.svg" alt=""
+                /></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<section class="description-menu">
+      <div class="container">
+        <div class="description-wrapper">
+          <div class="description-block">
+            <ul class="nav nav-tabs">
+              <li class="nav-item"><a class="nav-link active"data-bs-toggle="tab" href="#about_product">О товаре</a></li>
+              <li class="nav-item"><a class="nav-link"data-bs-toggle="tab" href="#parameters_product">Параметры</a></li>
+              <li class="nav-item"><a class="nav-link "data-bs-toggle="tab" href="#reviews_product">Отзывы</a></li>
+            </ul>
+            
+            <div class="tab-content">
+              <div id="about_product" class="tab-pane active ">
+                <h1>Описание</h1>
+                <div class="description-text">
+                  <p>
+                    Полутвердый пластичный однородный сыр, слегка ломкий на
+                    изгибе. Пажитник придает легкое ореховое послевкусие. В Италии
+                    считается столовым сыром, который подходит к любому времени
+                    суток и к любому блюду и к вину
+                  </p>
+                  <p>Вес головки 500 г. +/-10%. Цена за 1 кг.<br /></p>
+                  <p>
+                    Продукция компании Alpenville изготовлена преимущественно из
+                    Шарангского молока
+                  </p>
+                </div>
+                
+              </div>
+              <div id="parameters_product" class="tab-pane fade">
+                <ul>
+                  <li>
+                    <b>Калории: </b>420</li>
+                  <li>
+                    <b>Жиры: </b>54</li>
+                  <li>
+                    <b>Белки: </b>27</li>
+                  <li>
+                    <b>Углеводы: </b>18</li>
+                  <li>
+                    <b>Масса: </b>500<span>&nbsp;грамм</span></li>
+                </ul>
+                
+              </div>
+              <div id="reviews_product" class="tab-pane fade">
+                <h1>Отзывы</h1>
+                <div class="swiper slider-reviews">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="review-header">
+                        <div class="avatar">
+                          <img href="#" src="/img/rev_photo.png">
+                        </div>
+                        <div class="user-info">
+                          <div class="name">Анатолий Петров <span><img src="/img/message.svg"></span></div>
+                          <div class="rating">
+                            <span class="active"></span>
+                            <span class="active"></span>
+                            <span class="active"></span>
+                            <span class="active"></span>
+                            <span class=""></span>
+                          </div>
+                            <a  class="social-link"href="">vk.com/anatoliy</a>
+                        </div>
+                      </div>
+                      <div class="review-text">
+                        Заказал 5кг мяса, живу в Московской области.
+                        Как и обещал оператор, привезли через 1,5 часа.
+                        Свежее, как будто было живое еще по дороге.
+                        Действительно натуральные продукты. 
+                        Я обязательно буду заказывать дальше. 
+                        А теперь подробнее о плюсах и минусах всего магази...
+                        <div class="read-full"><a href="#">Читать полностью</a></div>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="review-header">
+                        <div class="avatar">
+                          <img href="#" src="/img/rev_photo.png">
+                        </div>
+                        <div class="user-info">
+                          <div class="name">Анатолий Петров <span><img src="/img/message.svg"></span></div>
+                          <div class="rating">
+                            <span class="active"></span>
+                            <span class="active"></span>
+                            <span class="active"></span>
+                            <span class="active"></span>
+                            <span class=""></span>
+                          </div>
+                            <a  class="social-link"href="">vk.com/anatoliy</a>
+                        </div>
+                      </div>
+                      <div class="review-text">
+                        Заказал 5кг мяса, живу в Московской области.
+                        Как и обещал оператор, привезли через 1,5 часа.
+                        Свежее, как будто было живое еще по дороге.
+                        Действительно натуральные продукты. 
+                        Я обязательно буду заказывать дальше. 
+                        А теперь подробнее о плюсах и минусах всего магази...
+                        <div class="read-full"><a href="#">Читать полностью</a></div>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="review-header">
+                        <div class="avatar">
+                          <img href="#" src="/img/rev_photo.png">
+                        </div>
+                        <div class="user-info">
+                          <div class="name">Анатолий Петров <span><img src="/img/message.svg"></span></div>
+                          <div class="rating">
+                            <span class="active"></span>
+                            <span class="active"></span>
+                            <span class="active"></span>
+                            <span class="active"></span>
+                            <span class=""></span>
+                          </div>
+                            <a  class="social-link"href="">vk.com/anatoliy</a>
+                        </div>
+                      </div>
+                      <div class="review-text">
+                        Заказал 5кг мяса, живу в Московской области.
+                        Как и обещал оператор, привезли через 1,5 часа.
+                        Свежее, как будто было живое еще по дороге.
+                        Действительно натуральные продукты. 
+                        Я обязательно буду заказывать дальше. 
+                        А теперь подробнее о плюсах и минусах всего магази...
+                        <div class="read-full"><a href="#">Читать полностью</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-button-next"><span>Ещё</span><img src="/img/arrowA.svg"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bonus-menu">
+            <div class="bonus-header">Закажите на 3000 RUB и получите</div>
+            <div class="bonus-money">
+              <img src="/img/bonus-pig.svg" alt="" />
+              <b>30 RUB &nbsp;</b><span>на бонусный счет</span>
+            </div>
+            <div class="bonus-delivery">
+              <img src="/img/free-car.svg" />
+              <span>Бесплатная доставка</span>
+            </div>
+            <div class="bonus-minorder">
+              <b>1000</b><span>(минимальный заказ)</span>
+            </div>
+            <div class="bonus-goal-menu">
+              <div class="slider">
+                <div class="range-line" data-mins="0" data-maxs="3000">
+                  <div style="width: 60%" class="green-line"></div>
+                  <div class="round"></div>
+                </div>
+              </div>
+            </div>
+            <div class="bonus-footer">
+              Осталось <b>1988 RUB</b> до бесплатной доставки
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+<section class="home-delivery-banner">
+      <div class="container">
+        <div class="block">
+          <img src="/img/benzvito.png" alt="" />
+          <h2>Бесплатная доставка по Кривому Рогу и Области от 23 UAH!</h2>
+          <a href="#">Оформить</a>
+        </div>
+      </div>
+</section>
+
+
+<script>
+        $(".b-minus").click(function()
+        {
+            if(parseInt($(".jq").text())>1)
+            {
+            let numberOne=(parseInt($(".jq").text()));
+            numberOne--;
+            let Summary=(parseInt($("#summary").text()));
+            let price=parseInt($("#price").text());
+            $("#summary").text(Summary-price);
+            $(".jq").text(numberOne);
+            }
+            
+        });
+        $(".b-plus").click(function()
+        {
+            let numberOne=(parseInt($(".jq").text()));
+            numberOne++;
+            let price=parseInt($("#price").text());
+            $("#summary").text(price*numberOne);
+            $(".jq").text(numberOne);
+            
+        });
+</script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+      var swiperReviews = new Swiper(".slider-reviews", {
+        slidesPerView: 2,
+        spaceBetween: 16.77,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+</script>

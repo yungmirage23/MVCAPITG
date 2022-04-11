@@ -1,0 +1,65 @@
+﻿@using mysecondshop.Models.ViewModels
+@model LoginModel
+@{
+	Layout = "_Layout";
+}
+
+<div
+  class="modal fade"
+  id="sss"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+<div class="modal-content">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="icon-header">
+        <img src="~/img/icon_login.svg" />
+        <div class="header-text">Войти в личный кабинет</div>
+      </div>
+      <div class="modal-form">
+        <form>
+            <input id="return" type="hidden" asp-for="ReturnUrl" />
+          <div class="inpt">
+            <input asp-for="Name"class="phone" placeholder="Телефон"value="Admin" />
+            <div><span asp-validation-for="Name" class="text-danger"></span></div>
+          </div>
+          <div class="inpt">
+            <input asp-for="Password" class="pass" placeholder="Пароль"value="Secret123$"/>
+            <div><span asp-validation-for="Password" class="text-danger"></span></div>
+          </div>
+          <div class="error-txt">Не правильный логин или пароль</div>
+          <div class="forgot-pass">Забыли пароль?</div>
+            <button id="enter" class="green_btn">Войти</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <span>Впервые у нас?</span><a id="registration">Зарегистрироваться</a>
+      </div>
+</div>
+</div>
+</div>
+<script>
+    $( document ).ready(function() {
+    $("#sss").modal("show");
+});
+</script>
+
+    
+@*    $("form").submit(function(event) {
+       event.preventDefault();
+       
+       var dataObject = { 
+           'Name': $(".phone").val(), 
+           'Password': $(".pass").val(),
+           'ReturnUrl': $("#return").val()
+       };
+       $.ajax({
+        type: "POST",
+        url: "Account/Login",
+        data: JSON.stringify(dataObject),
+        contentType: "application/json; charset=utf-8",
+        success: successFunc
+        });
+    });*@

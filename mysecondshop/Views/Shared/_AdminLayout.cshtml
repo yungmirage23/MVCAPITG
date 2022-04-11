@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap-grid.css" />
+    <link rel="stylesheet" href="~/css/first.css" />
+    <link rel="stylesheet" href="~/css/first.css" />
+</head>
+
+<body>      
+    <header class="bg-info d-flex flex-row align-items-center justify-content-around">
+        <div>
+            <h4>@ViewBag.Title</h4>
+        </div>
+        <div>
+            <ul class="d-flex align-items-center nav">
+                <li>
+                    <a class="btn btn-lg btn-warning" asp-action="Index"asp-controller="Admin">Товары</a>
+                </li>
+                <li>
+                    <a class="btn btn-lg btn-warning" asp-action="List"asp-controller="Admin">Ожидают отправку</a>
+                </li>
+                <li>
+                    <a class="btn btn-lg btn-warning" asp-action="Create"asp-controller="Admin">Добавить товар</a>
+                </li>
+                <li>
+                    <a class="btn btn-lg btn-warning" asp-action="AddImage"asp-controller="Admin">Загрузка изображения</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <a class="btn btn-lg btn-danger" asp-action="Logout"asp-controller="Account">Выйти</a>
+        </div>
+    </header>
+    <div class="conteiner-fluid bg-secondary p-1">
+        @if(TempData["message"]!=null){
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        @RenderBody()
+    </div>
+</body>
+</html>
