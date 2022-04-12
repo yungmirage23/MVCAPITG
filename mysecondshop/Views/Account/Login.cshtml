@@ -21,10 +21,10 @@
         <form>
             <input id="return" type="hidden" asp-for="ReturnUrl" />
           <div class="inpt">
-            <input asp-for="Name"name="Name"class="phone" placeholder="Телефон"value="" />
+            <input asp-for="Phone"class="phone" placeholder="Телефон"value="" />
           </div>
           <div class="inpt">
-            <input asp-for="Password"name="Password" class="pass" placeholder="Пароль"value=""/>
+            <input asp-for="Password" class="pass" placeholder="Пароль"value=""/>
           </div>
           <div id="valid" class="error-txt">Не правильный логин или пароль</div>
           <div class="error-txt validation"></div>
@@ -40,10 +40,11 @@
 </div>
 
 <script>
-    $("form").validate({
+    $("#enter").click(function(){
+        $("form").validate({ 
         errorLabelContainer:".validation",
         rules: {
-            Name:{
+            Phone:{
                 number:true,
                 required:true,
                 minlength:10,
@@ -56,7 +57,7 @@
             }
         },
         messages: {
-            Name:{
+            Phone:{
                 number:"Пожалуйста, введите корректный номер телефона",
                 required:"Поле номер телефона обязательно для заполнения",
                 minlength:"Номер телефона должен состоять минимум из 8 цифр",
@@ -70,9 +71,10 @@
         },
         success: "valid",
         submitHandler: function(event)
-        {    
+        {
+            $("#valid").css("display","none");
             var dataObject = {
-                'Name': $(".phone").val(), 
+                'Phone': $(".phone").val(), 
                 'Password': $(".pass").val(),
                 'ReturnUrl': $("#return").val()
             };
@@ -83,10 +85,12 @@
                 contentType: "application/json; charset=utf-8",
                 success: successFunc
             });
+            return false;
             function successFunc(response) {
                 switch(response.status){
                     case true:
                     $("#login").modal('toggle');
+                    location.reload();
                     break;
                     case false:
                     $("#valid").css("display","block");
@@ -95,45 +99,22 @@
             };
         }
     });
-</script>
-
-
-
-@*<script>
-   $("form").submit(function(event) {
-       event.preventDefault();
-       
-       var dataObject = { 
-           'Name': $(".phone").val(), 
-           'Password': $(".pass").val(),
-           'ReturnUrl': $("#return").val()
-       };
-       $.ajax({
-        type: "POST",
-        url: "Account/Login",
-        data: JSON.stringify(dataObject),
-        contentType: "application/json; charset=utf-8",
-        success: successFunc
-        });
     });
 
-    function successFunc(response) {
-    alert("Hello: " + response.Name + " .\nCurrent Date and Time: " + response.Password);
-    };
-</script>*@
-
+        
+</script>
 
 <script>
    $("#registration").click(function() {
        $('#login').modal('toggle');
        $.ajax({
-        url:"/Home/RegistrationPartial",
+        url:"/Account/RegistrationPartial",
         type:"Get",
         success: function(response){
             $(".modalwindow").html(response);
-            $('#registration').modal('toggle');
+            $('#registration').modal('show');
        }
-    })
+    });
    });
 </script>
 

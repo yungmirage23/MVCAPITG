@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
@@ -124,8 +127,14 @@
                   </a>
                 </div>
                 <div class="menu-user">
-                  <a returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"class="profile"><img src="~/img/person.svg"/></a>
-                  <a class="cart"><img src="~/img/shopping-cart.svg" /></a>
+                    @if(SignInManager.IsSignedIn(User))
+                    {
+                    <a>Привет, @User.Identity.Name</a>
+                    }
+                    else{
+                    <a returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"class="profile"><img src="~/img/person.svg"/></a>
+                    }
+                    <a class="cart"><img src="~/img/shopping-cart.svg"/></a>
                 </div>
               </div>
             </div>
@@ -185,34 +194,17 @@
    $(".profile").click(function() {
    var url="/Account/Login";
    var ReturnUrl=$(this).attr("returnUrl");
-   var fulladrs=url+'/?returnUrl='+ReturnUrl;
+   var fulladrs=url+'?returnUrl='+ReturnUrl;
    $.ajax({
-        url:"/Account/Login",
+        url:fulladrs,
         type:"Get",
         success: function(response){
             $(".modalwindow").html(response);
             $('#login').modal('show');
         }
-    })
+    });
    });
 </script>
-
-<script>
-   $(".cart").click(function() {
-   var url="/Account/Login";
-   var ReturnUrl=$(this).attr("returnUrl");
-   var fulladrs=url+'/?returnUrl='+ReturnUrl;
-   $.ajax({
-        url:"/Home/RegistrationPartial",
-        type:"Get",
-        success: function(response){
-            $(".modalwindow").html(response);
-            $('#registration').modal('toggle');
-        }
-    })
-   });
-</script>
-
 
     <script type="text/javascript">
     $(document).ready(function() {

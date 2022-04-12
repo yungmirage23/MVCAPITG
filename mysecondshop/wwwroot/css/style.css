@@ -219,6 +219,7 @@ body.page-is-changing::before {
   text-decoration-line: underline;
   color: #00AC4E;
   text-align: center;
+  cursor: pointer;
 }
 .modal-dialog .modal-content button {
   border: none;
@@ -251,6 +252,7 @@ body.page-is-changing::before {
 .modal-dialog .modal-content .modal-footer a {
   text-decoration: none;
   color: #00AC4E;
+  cursor: pointer;
 }
 *:focus {
   outline: -webkit-focus-ring-color auto 0px;
@@ -331,6 +333,10 @@ header .menu-right .menu-contact a img {
 header .menu-right .menu-user a,
 header .menu-right .menu-user button {
   margin-left: 30px;
+}
+header .menu-right .menu-user a img,
+header .menu-right .menu-user button img {
+  cursor: pointer;
 }
 header .menu-right .menu-user button {
   background: none;

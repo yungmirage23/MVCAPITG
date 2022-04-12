@@ -33,7 +33,7 @@ namespace mysecondshop.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await userManager.FindByNameAsync(loginModel.Name);
+                IdentityUser user = await userManager.FindByNameAsync(loginModel.Phone);
                 if (user != null)
                 {
                     await singInManager.SignOutAsync();
@@ -45,12 +45,12 @@ namespace mysecondshop.Controllers
                             "/",
                             path.Split("/").Select(s => System.Net.WebUtility.UrlEncode(s))
                         );*/
-                        var serverlogin = new Response { name = "login", dateTime = DateTime.Now.ToLongTimeString(), status = true };
+                        var serverlogin = new Response {returnUrl=loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = true };
                         return Json(serverlogin);
                     }
                 }
             }
-            var serverfail = new Response { name = "login", dateTime = DateTime.Now.ToLongTimeString(), status = false };
+            var serverfail = new Response { returnUrl=loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = false };
             ModelState.AddModelError("", "Непрвильный логин или пароль, повторите ещё раз");
             return Json(serverfail);
         }
@@ -59,6 +59,27 @@ namespace mysecondshop.Controllers
         public ActionResult RegistrationPartial(string returnUrl)
         {
             return PartialView(new LoginModel { ReturnUrl = returnUrl });
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> RegistrationPartial([FromBody]LoginModel loginModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (userManager.Users.FirstOrDefault(u => u.PhoneNumber == loginModel.Phone) == null)
+                {
+                    var user = new IdentityUser
+                    {
+                        UserName=loginModel.Phone,
+                        PhoneNumber = loginModel.Phone,
+                    };
+                    await userManager.CreateAsync(user,loginModel.Password);
+                    var serverlogin = new Response { returnUrl=loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = true };
+                    return Json(serverlogin);
+                } 
+            }
+            var serverfail = new Response { returnUrl = loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = false };
+            return Json(serverfail);
         }
 
 

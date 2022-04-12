@@ -8,7 +8,14 @@ var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnect
 var IdentityConnectionString = builder.Configuration.GetConnectionString("IdentityConnectionString");
 // Add services to the container.
 builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(IdentityConnectionString));
-builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts =>
+{
+    opts.Password.RequiredLength = 8;
+    opts.Password.RequireNonAlphanumeric = false;
+    opts.Password.RequireDigit = false;
+    opts.Password.RequireUppercase = false;
+    opts.Password.RequireLowercase = false;
+}).AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ConnectionString));
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddScoped<IRepository,EFRepository>();

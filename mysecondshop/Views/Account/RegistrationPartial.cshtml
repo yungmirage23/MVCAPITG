@@ -1,4 +1,6 @@
-﻿ <div
+﻿@using mysecondshop.Models.ViewModels
+@model LoginModel
+ <div
   class="modal fade"
   id="registration"
   tabindex="-1"
@@ -18,30 +20,107 @@
         <div class="header-text">Регистрация</div>
       </div>
       <div class="modal-form">
-        <form method="post">
+        <form>
           <div class="inpt">
-            <input class="phone" type="text" name="" placeholder="Телефон" />
+            <input asp-for="Phone" class="phone" placeholder="Телефон" />
           </div>
           <div class="inpt">
-            <input class="pass" name=""type="text" placeholder="Пароль" />
+            <input asp-for="Password" class="pass" placeholder="Пароль" />
           </div>
           <div class="inpt">
-            <input class="pass" name=""type="text" placeholder="Подтвердите пароль" />
-          </div>
-          <div class="error-txt">Пользователь с таким номером телефона уже зарегистрирован.</div>
+            <input name="Confirmpass" class="pass" type="password" placeholder="Подтвердите пароль" />
+          </div>     
+          <div id="valid" class="error-txt">Пользователь с таким номером телефона уже зарегистрирован.</div>
+          <div class="error-txt validation"></div>
           <div class="check-block">
             <div class="line">
               <input type="checkbox" id="r-mail">
               <label for="r-mail">Хочу получать выгодные предложения от магазина</label>
             </div>
             <div class="line">
-              <input type="checkbox" id="r-pol" checked>
-              <label for="r-pol" ><span>Принимаю условия </span><a href="">Пользовательского соглашения, Политики конфиденциальности</a><span</label>
+              <input name="Policy" type="checkbox" id="r-pol"  checked>
+              <label><span>Принимаю условия </span><a href="">Пользовательского соглашения, Политики конфиденциальности</a></label>
             </div>
           </div>
-          <button class="green-btn">Зарегистрироваться</button>
+          <button id="enter" class="green-btn">Зарегистрироваться</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+    $("#enter").click(function(){
+        $("form").validate({
+        errorLabelContainer:".validation",
+        rules: {
+            Phone:{
+                number:true,
+                required:true,
+                minlength:10,
+                maxlength:12,
+            },
+            Password: {
+                required: true,
+                minlength:8,
+                maxlength:13,
+            },
+            Confirmpass: {
+                required: true,
+                equalTo: Password,
+            },
+            Policy:{
+                required:true,
+            },
+        },
+        messages: {
+            Phone:{
+                number:"Пожалуйста, введите корректный номер телефона",
+                required:"Поле номер телефона обязательно для заполнения",
+                minlength:"Номер телефона должен состоять минимум из 8 цифр",
+                maxlength:"Номер телефона должен состоять максисум из 13 цифр",
+            },
+            Password: {
+                required: "Поле пароль обязательно для заполнения",
+                minlength:"Минимальная длина пароля 8 символов",
+                maxlength:"Длина пароля не должна быть больше 12 символов",
+            },
+            Confirmpass: {
+                required: "Подтвердите свой пароль",
+                equalTo: "Пароли не совпадают",
+            },
+            Policy:{
+                required:"Пожалуйста, прочтите и примите пользовательское соглашение",
+            },
+        },
+        success: "valid",
+        submitHandler: function(event)
+        {   
+            var dataObject = {
+                'Phone': $(".phone").val(), 
+                'Password': $(".pass").val(),
+                'ReturnUrl': $("#return").val()
+            };
+            $.ajax({
+                type: "POST",
+                url: "Account/RegistrationPartial",
+                data: JSON.stringify(dataObject),
+                contentType: "application/json; charset=utf-8",
+                success: successFunc
+            });
+            function successFunc(response) {
+                switch(response.status){
+                    case true:
+                    $("#registration").modal('toggle');
+                    break;
+                    case false:
+                    $("#valid").css("display","block");
+                    break;
+                }
+            };
+        }
+    });
+    });
+
+    
+</script>
