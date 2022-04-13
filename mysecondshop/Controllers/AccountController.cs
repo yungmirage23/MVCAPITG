@@ -31,9 +31,10 @@ namespace mysecondshop.Controllers
         [HttpPost]
         public async Task<JsonResult> Login([FromBody]LoginModel loginModel)
         {
+
             if (ModelState.IsValid)
             {
-                IdentityUser user = await userManager.FindByNameAsync(loginModel.Phone);
+                IdentityUser user = await userManager.FindByNameAsync(loginModel.Phone.Replace("+", "").Replace("(","").Replace(")","").Replace("-",""));
                 if (user != null)
                 {
                     await singInManager.SignOutAsync();
@@ -51,7 +52,7 @@ namespace mysecondshop.Controllers
                 }
             }
             var serverfail = new Response { returnUrl=loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = false };
-            ModelState.AddModelError("", "Непрвильный логин или пароль, повторите ещё раз");
+            ModelState.AddModelError("", "Непрвильный номер телефона или пароль, повторите ещё раз");
             return Json(serverfail);
         }
 
@@ -70,8 +71,8 @@ namespace mysecondshop.Controllers
                 {
                     var user = new IdentityUser
                     {
-                        UserName=loginModel.Phone,
-                        PhoneNumber = loginModel.Phone,
+                        UserName=loginModel.Phone.Replace("+","").Replace("(","").Replace(")","").Replace("-",""),
+                        PhoneNumber =loginModel.Phone,
                     };
                     await userManager.CreateAsync(user,loginModel.Password);
                     var serverlogin = new Response { returnUrl=loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = true };

@@ -48,17 +48,17 @@
     </div>
   </div>
 </div>
-
+<script>
+    $(".phone").mask("+38(999)999-9999",{autoclear: false});
+</script>
 <script>
     $("#enter").click(function(){
         $("form").validate({
         errorLabelContainer:".validation",
         rules: {
             Phone:{
-                number:true,
                 required:true,
-                minlength:10,
-                maxlength:12,
+                minlength:15,
             },
             Password: {
                 required: true,
@@ -75,10 +75,8 @@
         },
         messages: {
             Phone:{
-                number:"Пожалуйста, введите корректный номер телефона",
                 required:"Поле номер телефона обязательно для заполнения",
-                minlength:"Номер телефона должен состоять минимум из 8 цифр",
-                maxlength:"Номер телефона должен состоять максисум из 13 цифр",
+                minlength:"Номер телефона должен состоять минимум из 10 цифр",
             },
             Password: {
                 required: "Поле пароль обязательно для заполнения",
@@ -111,6 +109,7 @@
             function successFunc(response) {
                 switch(response.status){
                     case true:
+                    location.reload();
                     $("#registration").modal('toggle');
                     break;
                     case false:

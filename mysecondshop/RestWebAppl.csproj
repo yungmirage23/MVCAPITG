@@ -27,6 +27,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\lib\bootstrap\" />
     <Folder Include="wwwroot\lib\ajax\" />
+    <Folder Include="wwwroot\lib\jquery-masked-input\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
