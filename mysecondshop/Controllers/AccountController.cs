@@ -83,6 +83,11 @@ namespace mysecondshop.Controllers
             return Json(serverfail);
         }
 
+        public IActionResult Cabinet()
+        {
+            return View();
+        }
+
 
         public async Task<ActionResult> Logout(string returnUrl = "/")
         {

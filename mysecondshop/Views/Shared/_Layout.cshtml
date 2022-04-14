@@ -130,7 +130,7 @@
                 <div class="menu-user">
                     @if(SignInManager.IsSignedIn(User))
                     {
-                    <a>Привет, @User.Identity.Name</a>
+                    <a asp-action="Cabinet"asp-controller="Account">Привет, @User.Identity.Name</a>
                     }
                     else{
                     <a returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"class="profile"><img src="~/img/person.svg"/></a>
