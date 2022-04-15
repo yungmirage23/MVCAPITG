@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using mysecondshop.Models;
+using RestWebAppl.Models;
 
 #nullable disable
 
-namespace mysecondshop.Migrations
+namespace RestWebAppl.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20220331145333_Initial1")]

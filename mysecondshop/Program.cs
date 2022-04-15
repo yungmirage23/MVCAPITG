@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using mysecondshop.Models;
+using RestWebAppl.Models;
 using Newtonsoft.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +8,7 @@ var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnect
 var IdentityConnectionString = builder.Configuration.GetConnectionString("IdentityConnectionString");
 // Add services to the container.
 builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(IdentityConnectionString));
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts =>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(opts =>
 {
     opts.Password.RequiredLength = 8;
     opts.Password.RequireNonAlphanumeric = false;

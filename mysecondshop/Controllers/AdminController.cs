@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using mysecondshop.Models;
-using mysecondshop.Models.ViewModels;
+using RestWebAppl.Models;
+using RestWebAppl.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
-namespace mysecondshop.Controllers
+namespace RestWebAppl.Controllers
 {
     [Authorize]
     public class AdminController : Controller

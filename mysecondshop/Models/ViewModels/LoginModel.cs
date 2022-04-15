@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace mysecondshop.Models.ViewModels
+namespace RestWebAppl.Models.ViewModels
 {
     public class LoginModel
     {

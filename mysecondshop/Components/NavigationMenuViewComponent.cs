@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using mysecondshop.Models;
+using RestWebAppl.Models;
 using System.Linq;
-namespace mysecondshop.Components
+namespace RestWebAppl.Components
 {
     public class NavigationMenuViewComponent:ViewComponent
     {

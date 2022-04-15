@@ -1,4 +1,4 @@
-﻿namespace mysecondshop.Models
+﻿namespace RestWebAppl.Models
 {
 	public class Response
 	{

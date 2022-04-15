@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using mysecondshop.Models;
-namespace mysecondshop.Components
+using RestWebAppl.Models;
+namespace RestWebAppl.Components
 {
     public class CartSummaryViewComponent:ViewComponent
     {

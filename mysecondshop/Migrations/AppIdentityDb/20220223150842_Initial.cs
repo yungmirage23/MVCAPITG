@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace mysecondshop.Migrations.AppIdentityDb
+namespace RestWebAppl.Migrations.AppIdentityDb
 {
     public partial class Initial : Migration
     {

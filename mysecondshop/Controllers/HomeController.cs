@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using mysecondshop.Infrastructure;
-using mysecondshop.Models;
-using mysecondshop.Models.ViewModels;
+using RestWebAppl.Infrastructure;
+using RestWebAppl.Models;
+using RestWebAppl.Models.ViewModels;
 
-namespace mysecondshop.Controllers
+namespace RestWebAppl.Controllers
 {
     public class HomeController : Controller
     {

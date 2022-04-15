@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-namespace mysecondshop.Models
+namespace RestWebAppl.Models
 {
     public static class IdentitySeedData
     {

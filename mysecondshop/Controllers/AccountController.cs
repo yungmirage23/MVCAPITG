@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-using mysecondshop.Models.ViewModels;
-using mysecondshop.Models;
+using RestWebAppl.Models.ViewModels;
+using RestWebAppl.Models;
 using System.Threading.Tasks;
 using System.Net;
 
-namespace mysecondshop.Controllers
+namespace RestWebAppl.Controllers
 {
     [Authorize]
     public class AccountController : Controller

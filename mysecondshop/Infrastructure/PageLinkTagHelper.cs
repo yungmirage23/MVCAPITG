@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using mysecondshop.Models.ViewModels;
+using RestWebAppl.Models.ViewModels;
 
-namespace mysecondshop.Infrastructure
+namespace RestWebAppl.Infrastructure
 {
     [HtmlTargetElement("ul", Attributes = "page-model")]
     public class PageLinkTagHelper : TagHelper
@@ -29,6 +29,8 @@ namespace mysecondshop.Infrastructure
         public string UlClass { get; set; }
         public string PageClassNormal { get; set; }
         public string PageClassSelected { get; set; }
+        public string PageClassActive { get; set; }
+        public string PageClassDisabled { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -51,10 +53,12 @@ namespace mysecondshop.Infrastructure
                 li.InnerHtml.AppendHtml(tag);
                 result.InnerHtml.AppendHtml(li);
             }
+
             TagBuilder lil = new TagBuilder("li");
             TagBuilder al = new TagBuilder("a");
-            TagBuilder img = new TagBuilder("img");
-            al.Attributes["href"] = urlHelper.Action(PageAction, new { itemPage = (pageModel.CurrentPage) + 1 });
+            TagBuilder img = new TagBuilder("img");  
+            al.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = (pageModel.CurrentPage) + 1 });
+          //  al.AddCssClass(0 == pageModel.CurrentPage ? PageClassActive : PageClassDisabled);
             img.MergeAttribute("src", "/img/icon.svg");
             al.InnerHtml.AppendHtml(img);
             lil.InnerHtml.AppendHtml(al);

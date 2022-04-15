@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-namespace mysecondshop.Models
+namespace RestWebAppl.Models
 {
     public class Cart
     {

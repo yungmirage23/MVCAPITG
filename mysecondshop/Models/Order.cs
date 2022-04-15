@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-namespace mysecondshop.Models
+namespace RestWebAppl.Models
 {
     public class Order
     {

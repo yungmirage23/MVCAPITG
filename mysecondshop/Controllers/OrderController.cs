@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using mysecondshop.Models;
+using RestWebAppl.Models;
 using System.Linq;
 
-namespace mysecondshop.Controllers
+namespace RestWebAppl.Controllers
 {
     public class OrderController : Controller
     {

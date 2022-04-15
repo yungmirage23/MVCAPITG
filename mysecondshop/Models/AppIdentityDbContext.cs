@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-namespace mysecondshop.Models
+using RestWebAppl.Models;
+namespace RestWebAppl.Models
 {
-    public class AppIdentityDbContext:IdentityDbContext<IdentityUser>
+    public class AppIdentityDbContext:IdentityDbContext<ApplicationUser>
     {
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options) { }
     }

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using mysecondshop.Infrastructure;
-namespace mysecondshop.Models
+using RestWebAppl.Infrastructure;
+namespace RestWebAppl.Models
 {
     public class SessionCart:Cart
     {

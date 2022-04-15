@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using mysecondshop.Models;
+using RestWebAppl.Models;
 
 #nullable disable
 
-namespace mysecondshop.Migrations.AppIdentityDb
+namespace RestWebAppl.Migrations.AppIdentityDb
 {
     [DbContext(typeof(AppIdentityDbContext))]
     [Migration("20220223150842_Initial")]

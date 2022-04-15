@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-namespace mysecondshop.Models
+namespace RestWebAppl.Models
 {
     public class EFOrderRepository:IOrderRepository
     {

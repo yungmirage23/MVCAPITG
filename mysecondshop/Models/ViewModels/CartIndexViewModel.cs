@@ -1,4 +1,4 @@
-﻿namespace mysecondshop.Models.ViewModels
+﻿namespace RestWebAppl.Models.ViewModels
 {
     public class CartIndexViewModel
     {

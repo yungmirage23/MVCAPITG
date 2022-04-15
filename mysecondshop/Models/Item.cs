@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace mysecondshop.Models
+namespace RestWebAppl.Models
 {
     
     public class Item

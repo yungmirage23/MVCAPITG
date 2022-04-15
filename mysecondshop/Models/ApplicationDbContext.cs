@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
 
 
-namespace mysecondshop.Models
+namespace RestWebAppl.Models
 {
     public class ApplicationDbContext:DbContext
     {

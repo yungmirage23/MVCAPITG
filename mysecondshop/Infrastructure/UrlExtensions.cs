@@ -1,4 +1,4 @@
-﻿namespace mysecondshop.Infrastructure
+﻿namespace RestWebAppl.Infrastructure
 {
     public static class UrlExtensions
     {
