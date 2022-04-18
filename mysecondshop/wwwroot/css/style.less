@@ -413,19 +413,29 @@ header {
             }
         }
 
-        .menu-user {    
-            a,
-            button {
-                margin-left: 30px;
-                img{
-                    cursor:pointer;
-                }
-            }
+        .menu-user {
+            display: flex;
+            align-items: center;
 
-            button {
-                background: none;
-                border: none;
-                padding: 0;
+            a {
+                margin-left: 30px;
+                text-decoration: none;
+
+                div {
+                    width: 70px;
+                    height: 70px;
+                    overflow: hidden;
+                    border-radius: 50%;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+
+                img {
+                    cursor: pointer;
+                }
             }
         }
     }
@@ -1598,11 +1608,12 @@ footer {
                             height: 75px;
                             left: 223px;
                             top: 369px;
-                            background: #00AC4E;
+                            background-color:transparent;
                             border-radius: 12px;
                         }
 
                         .load-photo {
+                            cursor:pointer;
                             padding-left: 18px;
                             font-weight: 500;
                             font-size: 18px;

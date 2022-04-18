@@ -9,7 +9,6 @@ namespace RestWebAppl.Models
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
-        Database.EnsureCreated();
         }
         public DbSet<Item> Items { get; set; }
         public DbSet<Order> Orders { get; set; }

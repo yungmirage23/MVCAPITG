@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestWebAppl.Models;
 
@@ -11,9 +12,10 @@ using RestWebAppl.Models;
 namespace RestWebAppl.Migrations.AppIdentityDb
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220415095726_Identity1")]
+    partial class Identity1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,9 +165,6 @@ namespace RestWebAppl.Migrations.AppIdentityDb
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("AdditionalPhone")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -178,10 +177,12 @@ namespace RestWebAppl.Migrations.AppIdentityDb
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -203,6 +204,7 @@ namespace RestWebAppl.Migrations.AppIdentityDb
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PatronymicName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -223,6 +225,7 @@ namespace RestWebAppl.Migrations.AppIdentityDb
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<byte[]>("UserPhoto")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");

@@ -330,18 +330,26 @@ header .menu-right .menu-contact a {
 header .menu-right .menu-contact a img {
   margin-right: 5px;
 }
-header .menu-right .menu-user a,
-header .menu-right .menu-user button {
+header .menu-right .menu-user {
+  display: flex;
+  align-items: center;
+}
+header .menu-right .menu-user a {
   margin-left: 30px;
+  text-decoration: none;
 }
-header .menu-right .menu-user a img,
-header .menu-right .menu-user button img {
+header .menu-right .menu-user a div {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+header .menu-right .menu-user a div img {
+  width: 100%;
+  height: auto;
+}
+header .menu-right .menu-user a img {
   cursor: pointer;
-}
-header .menu-right .menu-user button {
-  background: none;
-  border: none;
-  padding: 0;
 }
 .home-banner {
   z-index: 0;
@@ -1292,10 +1300,11 @@ footer .footer .footer-right .sing-in span {
   height: 75px;
   left: 223px;
   top: 369px;
-  background: #00AC4E;
+  background-color: transparent;
   border-radius: 12px;
 }
 .user-cabinet .personal-wrapper #tab-personal .tab-wrapper .data-name .photo-menu .load-photo {
+  cursor: pointer;
   padding-left: 18px;
   font-weight: 500;
   font-size: 18px;

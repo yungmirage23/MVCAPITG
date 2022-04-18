@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager 
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -129,12 +129,23 @@
                 </div>
                 <div class="menu-user">
                     @if(SignInManager.IsSignedIn(User))
-                    {
-                    <a asp-action="Cabinet"asp-controller="Account">Привет, @User.Identity.Name</a>
+                        {
+                        var currentuser = await UserManager.GetUserAsync(User);
+                        <a asp-action="Cabinet"asp-controller="Account">
+                            @if(currentuser.UserPhoto!=null)
+                            {
+                                var userPhoto = Convert.ToBase64String(currentuser.UserPhoto);
+                                <div class="obertka"><img id="avatar" src="data:image/jpeg;base64,@userPhoto"/></div>
+                            }
+                            else
+                            {
+                            <span>Привет, @User.Identity.Name</span>
+                            }
+                            </a>
                     }
-                    else{
-                    <a returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"class="profile"><img src="~/img/person.svg"/></a>
-                    }
+                       else{
+                            <a returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"class="profile"><img src="~/img/person.svg"/></a>
+                        }
                     <a class="cart"><img src="~/img/shopping-cart.svg"/></a>
                 </div>
               </div>
