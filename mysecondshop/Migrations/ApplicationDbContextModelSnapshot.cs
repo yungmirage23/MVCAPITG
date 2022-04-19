@@ -45,7 +45,7 @@ namespace RestWebAppl.Migrations
 
                     b.HasIndex("OrderID");
 
-                    b.ToTable("CartLine");
+                    b.ToTable("CartLine", (string)null);
                 });
 
             modelBuilder.Entity("mysecondshop.Models.Item", b =>
@@ -78,7 +78,7 @@ namespace RestWebAppl.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("mysecondshop.Models.Order", b =>
@@ -113,7 +113,7 @@ namespace RestWebAppl.Migrations
 
                     b.HasKey("OrderID");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("mysecondshop.Models.CartLine", b =>

@@ -20,8 +20,8 @@
                 <div  class="digit"><span id="price">@Model.Price</span>&nbsp;UAH</div>
               </div>
               <div class="menu-qip">
-                <div class="text">Кол-во шт в упаковке</div>
-                <div class="digit">4 шт.</div>
+                <div class="text">Вес</div>
+                <div class="digit">500 гр.</div>
               </div>
               <div class="menu-quantity">
                 <div class="text">Количество</div>
@@ -38,9 +38,9 @@
               </div>
               <div class="buttons">
                 <button class="button-big">Купить</button>
-                <button class="button-small" href="#"
-                  ><img src="/img/shopping-cart-white.svg" alt=""
-                /></button>
+                    <button id="AddToCart" type="submit" class="button-small">
+                        <img src="/img/shopping-cart-white.svg"/>
+                    </button>
               </div>
             </div>
           </div>
@@ -218,6 +218,26 @@
         </div>
       </div>
 </section>
+
+@*$.ajax({
+            traditional: true,
+            url:"/Home/AddToCart",
+            type:"POST",
+            data:JSON.stringify({itemid:"2"}),
+            dataType:"text",
+            contentType:"application/json",
+            success: function(data) {
+                alert(data);
+            },
+        });*@
+<script>
+    $(function() {
+    $("#AddToCart").click(function(){
+        var datar={itemid: "aaa"};
+        $.post("/Home/AddToCart",{itemid:"@Model.Id"}).done(function(data){console.log(data.stutus);location.reload();});
+    });
+    });
+</script>
 
 
 <script>

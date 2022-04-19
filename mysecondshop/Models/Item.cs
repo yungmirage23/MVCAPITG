@@ -6,7 +6,6 @@ namespace RestWebAppl.Models
     
     public class Item
     {
-        
         public Guid Id { get; set; }
         [Required(ErrorMessage ="Пожалуйста, введите название товара")]
         public string Name { get; set; }

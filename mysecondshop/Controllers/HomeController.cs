@@ -16,9 +16,9 @@ namespace RestWebAppl.Controllers
             Repository = repository;
             cart = cartService;
         }
-        public ActionResult Testing(string returnUrl)
+        public IActionResult Testing()
         {
-            return PartialView(new LoginModel { ReturnUrl = returnUrl });
+            return View();
         }
 
 
@@ -57,8 +57,51 @@ namespace RestWebAppl.Controllers
         public IActionResult Payment() => View("Payment");
 
         public IActionResult Support() => View("Support");
-        public IActionResult Cart() => View();
+        public IActionResult Cart() => View(new CartIndexViewModel { Cart= GetCart()});
+        [HttpPost]
+        public JsonResult AddToCart(Guid itemid)
+        {
+            Item item =Repository.Items.FirstOrDefault(p=>p.Id == itemid);
+            if (item != null)
+            {
+                Cart cart = GetCart();
+                cart.AddItem(item, 1);
+                SaveCart(cart);
+            }
+            Response response = new Response()
+            {
+                dateTime = DateTime.Now.ToShortTimeString(),
+                status = true
+            };
+            return Json(response);
+        }
+        public RedirectToActionResult RemoveFormCart(Guid itemid)
+        {
+            Item item = Repository.Items
+                .FirstOrDefault(p => p.Id == itemid);
+            if (item != null)
+            {
+                Cart cart = GetCart();
+                cart.RemoveLine(item);
+                SaveCart(cart);
+            }
+            if (cart.Lines.Count() == 1)
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Cart");
+        }
+        private Cart GetCart()
+        {
+            Cart cart = HttpContext.Session.GetJson<Cart>("Cart") ?? new Cart();
+            return cart;
+        }
+        private void SaveCart(Cart cart)
+        {
+            HttpContext.Session.SetJson("Cart", cart);
+        }
     }
+    
     /*
        public ViewResult Cart(string returnUrl)
        {
@@ -90,15 +133,4 @@ namespace RestWebAppl.Controllers
            }
            return RedirectToAction("Shop", new { returnUrl });
        }*/
-
-    /* private Cart GetCart()
-     {
-         Cart cart = HttpContext.Session.GetJson<Cart>("Cart") ?? new Cart();
-         return cart;
-     }
-
-     private void SaveCart(Cart cart)
-     {
-         HttpContext.Session.SetJson("Cart", cart);
-     }*/
 }

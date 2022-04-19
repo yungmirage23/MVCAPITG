@@ -7,36 +7,23 @@
           <div class="cart-items">
             <div class="cart-header">Корзина</div>
             <div class="items-wrapper">
-              <div class="cart-item">
+            @foreach(var line in Model.Cart.Lines){
+            <div class="cart-item">
                 <div class="item-delete">
-                  <div class="delete_btn">
+                  <a asp-action="RemoveFormCart" asp-route-itemid="@line.Item.Id" class="delete_btn">
                     <img src="~/img/x-delete.svg" />
-                  </div>
+                  </a>
                 </div>
                 <div class="item-image"></div>
-                <div class="item-name">Хачапури</div>
+                <div class="item-name">@line.Item.Name</div>
                 <div class="quantity">
-                  <div class="b-minus"><img src="/img/minus.svg" alt="" /></div>
-                  <div class="digit-sm"><span class="jq">1</span></div>
-                  <div class="b-plus"><img src="/img/plus.svg" alt="" /></div>
+                  <div class="b-minus">-</div>
+                  <div class="digit-sm"><span class="jq">@line.Quantity</span></div>
+                  <div class="b-plus">+</div>
                 </div>
-                <div class="item-summary"><span id="digit">350</span> UAH</div>
+                <div class="item-summary"><span id="digit">@line.Item.Price</span> UAH</div>
               </div>
-              <div class="cart-item">
-                <div class="item-delete">
-                  <div class="delete_btn">
-                    <img src="~/img/x-delete.svg" />
-                  </div>
-                </div>
-                <div class="item-image"></div>
-                <div class="item-name">Хачапури</div>
-                <div class="quantity">
-                  <div class="b-minus"><img src="/img/minus.svg" alt="" /></div>
-                  <div class="digit-sm"><span class="jq">1</span></div>
-                  <div class="b-plus"><img src="/img/plus.svg" alt="" /></div>
-                </div>
-                <div class="item-summary"><span id="digit">350</span> UAH</div>
-              </div>
+            }
             </div>
             <div class="bonus-menu">
               <div class="bonus-header">Закажите на 3000 RUB и получите</div>

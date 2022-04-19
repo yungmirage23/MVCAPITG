@@ -1506,6 +1506,7 @@ footer .footer .footer-right .sing-in span {
 .cart-menu .cart-wrapper .cart-items .items-wrapper .cart-item .item-name {
   font-size: 18px;
   line-height: 21px;
+  width: 250px;
 }
 .cart-menu .cart-wrapper .cart-items .items-wrapper .cart-item .quantity {
   margin: 0px 63px 0px 75px;

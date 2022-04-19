@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager 
+@inject Cart cartservise
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -36,11 +37,9 @@
   </head>
 
   <body>
-<button class="green-btn"data-bs-toggle="modal" data-bs-target="#sms-confirm" ></button>
 <a class="btn-warning"asp-action="Testing" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()" asp-controller="Home">Test</a>
     <div class="wrapper">
       <div class="modalwindow">
-
       </div>
       <header>
         <div class="row"></div>
@@ -146,7 +145,10 @@
                        else{
                             <a returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"class="profile"><img src="~/img/person.svg"/></a>
                         }
-                    <a class="cart"><img src="~/img/shopping-cart.svg"/></a>
+                    <a asp-action="Cart" class="cart"><img src="~/img/shopping-cart.svg"/></a>
+                    @if(cartservise.Lines.Count()>0){
+                        <span>Товаров в корзине: @cartservise.Lines.Count()</span>
+                    }
                 </div>
               </div>
             </div>
