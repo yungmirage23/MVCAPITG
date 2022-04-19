@@ -1728,3 +1728,177 @@ footer .footer .footer-right .sing-in span {
 .cart-menu .cart-wrapper .bonus-cart-wrapper .promo-menu .promo-enter .promo-button:hover {
   color: black;
 }
+.cofirmation-menu {
+  margin-bottom: 60px;
+}
+.cofirmation-menu .confirmation-wrapper {
+  padding-top: 40px;
+  display: flex;
+  justify-content: space-around;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .order-header {
+  color: #333333;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 50px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper {
+  padding-top: 25px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .order-head {
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 20px;
+  margin-bottom: 15px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item {
+  display: flex;
+  align-items: center;
+  margin: 25px 0 25px 0;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .item-delete {
+  margin-right: 5px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .item-image {
+  background: #00AC4E;
+  border-radius: 3.50806px;
+  width: 77.88px;
+  height: 57.53px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .item-name {
+  padding-left: 25px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 15px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .quantity {
+  margin: 0px 63px 0px 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  height: 47px;
+  background: #FCFCFC;
+  border: 1px solid #EBEBEB;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-size: 12.6509px;
+  line-height: 19px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .quantity .digit-sm {
+  margin-left: 25px;
+  margin-right: 23px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .quantity .b-minus,
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .quantity .b-plus {
+  cursor: pointer;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .item-summary {
+  font-weight: 500;
+  font-size: 19.9203px;
+  line-height: 17px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer {
+  padding-top: 200px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .tabs-wrapper {
+  display: flex;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .tabs-wrapper .tab-deliver,
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .tabs-wrapper .tab-selfdel {
+  padding: 10px 24px;
+  background-color: #EBEBEB;
+  border-radius: 9.59274px;
+  color: #828282;
+  font-weight: 500;
+  font-size: 14.6903px;
+  line-height: 11px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .tabs-wrapper .tab-deliver.active,
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .tabs-wrapper .tab-selfdel.active {
+  background-color: #00AC4E;
+  color: #EBEBEB;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .tabs-wrapper .tab-selfdel {
+  margin-left: 10px;
+  padding: 10px 18px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .bonus-info-menu {
+  background: #FFFFFF;
+  box-shadow: 0px 0px 28.763px rgba(0, 0, 0, 0.06);
+  border-radius: 9.58767px;
+  display: flex;
+  justify-content: space-between;
+  padding: 34px 30px 40px 30px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .bonus-info-menu .total-sm {
+  width: 250px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .bonus-info-menu .total-sm .sum,
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .bonus-info-menu .total-sm .del-bonus {
+  display: flex;
+  margin-bottom: 16px;
+  justify-content: space-between;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .bonus-info-menu .total-sm .sum .label,
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .bonus-info-menu .total-sm .del-bonus .label,
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .bonus-info-menu .total-sm .sum .digit,
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .bonus-info-menu .total-sm .del-bonus .digit {
+  font-weight: 500;
+  font-size: 13.0516px;
+  line-height: 20px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .bonus-info-menu .total-sm .del-bonus .digit {
+  color: #00AC4E;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .bonus-info-menu .total-total {
+  font-weight: 500;
+  font-size: 15.3403px;
+  line-height: 23px;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .bonus-info-menu .total-total .total-sum {
+  font-size: 19px;
+  line-height: 24px;
+}
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper {
+  margin-bottom: 50px;
+}
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-district,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-fio,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-phone,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-adress,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-payment {
+  margin-bottom: 16px;
+}
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-district .label,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-fio .label,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-phone .label,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-adress .label,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-payment .label {
+  font-size: 15.6716px;
+  line-height: 24px;
+}
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-district .input-val input,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-fio .input-val input,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-phone .input-val input,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-adress .input-val input,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-payment .input-val input {
+  width: 451px;
+  height: 64.02px;
+  background: #FCFCFC;
+  border: 1.1194px solid #EBEBEB;
+  box-sizing: border-box;
+  border-radius: 7.11356px;
+  border-style: none;
+}
+.cofirmation-menu .confirmation-wrapper .delivery-info .submit-btn {
+  font-weight: 500;
+  font-size: 15.6716px;
+  line-height: 24px;
+  color: #FFFFFF;
+  padding: 18px 32px;
+  background: #00AC4E;
+  border-radius: 5.59701px;
+  text-decoration: none;
+  margin-bottom: 30px;
+}

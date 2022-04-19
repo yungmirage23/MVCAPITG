@@ -1,30 +1,120 @@
-﻿@model Order
-<div class="container w-25">
-<h2>Подтверждение</h2>
-<p>Пожалуйста напишите детали заказа и в скором времени мы отправим ваш заказ!</p>
-<div asp-validation-summary="All" class="text-danger"></div>
-<form asp-action="Checkout"method="post" >
-	<h3>Доставить: </h3>
-	<div class="form-group">
-		<label>Имя получателя:</label><input asp-for="Name"class="form-control" />
-	</div>
-	<h2>Адрес доставки: </h2>
-	<div class="form-group">
-		<label>Страна:</label><input asp-for="Country"class="form-control" />
-	</div>
-	<div class="form-group">
-		<label>Город:</label><input asp-for="City"class="form-control" />
-	</div>
-	<div class="form-group">
-		<label>Улица:</label><input asp-for="Line1"class="form-control" />
-	</div>
-	<div class="checkbox">
-		<label>
-			<input asp-for="GiftWrap"/>Перезвонить для уточнения
-		</label>
-	</div>
-	<div class="text-center">
-		<input class="btn btn-primary" type="submit" value="Подтвердить заказ" />
-	</div>
-</form>
-</div>
+﻿<section class="cofirmation-menu">
+  <div class="container">
+    <div class="confirmation-wrapper">
+      <div class="order-info">
+        <div class="order-header">
+          Оформление заказа
+        </div>
+        <div class="orders-wrapper">
+          <div class="order-head">
+            Вы заказали:
+          </div>
+          <div class="items-wrapper">
+            <div class="cart-item">
+              <div class="item-delete">
+                <div class="delete_btn">
+                  <img src="/img/x-delete.svg" />
+                </div>
+              </div>
+              <div class="item-image"></div>
+              <div class="item-name">Хачапури</div>
+              <div class="quantity">
+                <div class="b-minus"><img src="/img/minus.svg" alt="" /></div>
+                <div class="digit-sm"><span class="jq">1</span></div>
+                <div class="b-plus"><img src="/img/plus.svg" alt="" /></div>
+              </div>
+              <div class="item-summary"><span id="digit">350</span> UAH</div>
+            </div>
+          </div>
+        </div>
+        <div class="bonus-footer">
+          <div class="tabs-wrapper">
+            <div class="tab-deliver active">
+              Доставка
+            </div>
+            <div class="tab-selfdel">
+              Самовывоз (- 20%)
+            </div>
+          </div>
+          <div class="bonus-info-menu">
+            <div class="total-sm">
+              <div class="sum">
+                <div class="label">
+                  Итого
+                </div>
+                <div class="digit">
+                  700 UAH 
+                </div>
+              </div>
+              <div class="del-bonus">
+                <div class="label">
+                  Доставка
+                </div>
+                <div class="digit">
+                  0  UAH
+                </div>
+              </div>
+            </div>
+            <div class="total-total">
+              <div class="total-label">
+                Итого к оплате
+              </div>
+              <div class="total-sum">
+                700 UAH
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="delivery-info">
+        <div class="info-wrapper">
+          <div class="deliver-district">
+            <div class="label">
+              Район доставки
+            </div>
+            <div class="input-val">
+              <input placeholder="Выбрать">
+            </div>
+          </div>
+          <div class="deliver-fio">
+            <div class="label">
+              ФИО
+            </div>
+            <div class="input-val">
+              <input placeholder="Введите Ваше полное имя">
+            </div>
+          </div> 
+          <div class="deliver-phone">
+            <div class="label">
+              Телефон
+            </div>
+            <div class="input-val">
+              <input placeholder="+380">
+            </div>
+          </div>
+          <div class="deliver-adress">
+            <div class="label">
+              Адрес доставки
+            </div>
+            <div class="input-val">
+              <input placeholder="Введите адрес доставки">
+            </div>
+          </div>
+          <div class="deliver-payment">
+            <div class="label">
+              Способ оплаты
+            </div>
+            <div class="input-val">
+              <input placeholder="Наличные">
+            </div>
+          </div> 
+        </div>
+        <a class="submit-btn">
+          Оформить заказ
+        </a>              
+      </div>
+      
+      
+    </div>
+  </div>
+</section>

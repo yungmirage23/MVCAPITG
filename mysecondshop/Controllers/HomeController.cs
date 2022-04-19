@@ -59,13 +59,13 @@ namespace RestWebAppl.Controllers
         public IActionResult Support() => View("Support");
         public IActionResult Cart() => View(new CartIndexViewModel { Cart= GetCart()});
         [HttpPost]
-        public JsonResult AddToCart(Guid itemid)
+        public JsonResult AddToCart(Guid itemid,int quantity)
         {
             Item item =Repository.Items.FirstOrDefault(p=>p.Id == itemid);
             if (item != null)
             {
                 Cart cart = GetCart();
-                cart.AddItem(item, 1);
+                cart.AddItem(item, quantity);
                 SaveCart(cart);
             }
             Response response = new Response()

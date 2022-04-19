@@ -1,4 +1,5 @@
 ﻿@using RestWebAppl.Models.ViewModels
+@using RestWebAppl.Infrastructure
 @model ItemsListViewModel
 <section class="home-banner">
         <div class="container">
@@ -72,7 +73,7 @@
             <nav aria-label="Page navigation example">
             @if(@Model.PagingInfo.TotalPages>1)
             {
-                <ul class="pagination" page-model="@Model.PagingInfo" page-action="Shop"page-classes-enabled=true ul-class="pagination" a-class="page-link" li-class="page-item" page-class-normal="" page-class-selected="aactive" ></ul>
+                <ul class="pagination" page-model="@Model.PagingInfo" page-action="Shop" page-classes-enabled=true ul-class="pagination" a-class="page-link" li-class="page-item" page-class-normal="" page-class-selected="aactive" ></ul>
             }
             </nav>
         </div>

@@ -145,10 +145,11 @@
                        else{
                             <a returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"class="profile"><img src="~/img/person.svg"/></a>
                         }
-                    <a asp-action="Cart" class="cart"><img src="~/img/shopping-cart.svg"/></a>
-                    @if(cartservise.Lines.Count()>0){
+                    <a asp-action="Cart" class="cart"><img src="~/img/shopping-cart.svg"/>
+                        @if(cartservise.Lines.Count()>0){
                         <span>Товаров в корзине: @cartservise.Lines.Count()</span>
                     }
+                    </a>
                 </div>
               </div>
             </div>
