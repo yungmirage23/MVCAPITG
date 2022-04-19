@@ -57,6 +57,7 @@ namespace RestWebAppl.Controllers
         public IActionResult Payment() => View("Payment");
 
         public IActionResult Support() => View("Support");
+        public IActionResult Cart() => View();
     }
     /*
        public ViewResult Cart(string returnUrl)

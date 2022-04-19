@@ -1,49 +1,95 @@
 ﻿@using RestWebAppl.Models.ViewModels;
 @model CartIndexViewModel
-<div class="push">
-<h1>Ваша корзина</h1>
-<div class="d-flex flex-column">
-<table class="table table-striped justify-content-center">
-	<thead>
-		<tr>
-			<th>Количество</th>
-			<th>Товар</th>
-			<th class="text-right">Цена</th>
-			<th class="text-right">Итог</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach(var p in Model.Cart.Lines)
-		{
-			<tr>
-				<td class="text-center">@p.Quantity</td>
-				<td class="text-left">@p.Item.Name</td>
-				<td class="text-right">@p.Item.Price.ToString("c")</td>
-				<td class="text-right">@((p.Quantity*p.Item.Price).ToString("c"))</td>
-				<td>
-					<form asp-action="RemoveFormCart"method="post">
-						<input type="hidden" name="id" value="@p.Item.Id">
-						<input type="hidden" name="returnUrl" value="@Model.ReturnUrl">
-						<button type="submit" class="btn btn-sm btn-danger">
-							Удалить
-						</button>
-					</form>
-				</td>
-			</tr>
-		}
-	</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="3" class="text-right">Всего:</td>
-				<td class="text-right">
-					@Model.Cart.ComputeTotalValue().ToString("c")
-				</td>
-			</tr>
-		</tfoot>
-</table> 
-<div class="text-center">
-	<a class="btn btn-primary" href="@Model.ReturnUrl">Продолжить покупки</a>
-	<a class="btn btn-primary" asp-action="Checkout"asp-controller="Order">Оформить заказ</a>
-</div>
-</div>
-</div>
+
+<section class="cart-menu">
+      <div class="container">
+        <div class="cart-wrapper">
+          <div class="cart-items">
+            <div class="cart-header">Корзина</div>
+            <div class="items-wrapper">
+              <div class="cart-item">
+                <div class="item-delete">
+                  <div class="delete_btn">
+                    <img src="~/img/x-delete.svg" />
+                  </div>
+                </div>
+                <div class="item-image"></div>
+                <div class="item-name">Хачапури</div>
+                <div class="quantity">
+                  <div class="b-minus"><img src="/img/minus.svg" alt="" /></div>
+                  <div class="digit-sm"><span class="jq">1</span></div>
+                  <div class="b-plus"><img src="/img/plus.svg" alt="" /></div>
+                </div>
+                <div class="item-summary"><span id="digit">350</span> UAH</div>
+              </div>
+              <div class="cart-item">
+                <div class="item-delete">
+                  <div class="delete_btn">
+                    <img src="~/img/x-delete.svg" />
+                  </div>
+                </div>
+                <div class="item-image"></div>
+                <div class="item-name">Хачапури</div>
+                <div class="quantity">
+                  <div class="b-minus"><img src="/img/minus.svg" alt="" /></div>
+                  <div class="digit-sm"><span class="jq">1</span></div>
+                  <div class="b-plus"><img src="/img/plus.svg" alt="" /></div>
+                </div>
+                <div class="item-summary"><span id="digit">350</span> UAH</div>
+              </div>
+            </div>
+            <div class="bonus-menu">
+              <div class="bonus-header">Закажите на 3000 RUB и получите</div>
+              <div class="bonus-money">
+                <img src="/img/bonus-pig.svg" alt="" />
+                <b>30 RUB &nbsp;</b><span>на бонусный счет</span>
+              </div>
+              <div class="bonus-delivery">
+                <img src="/img/free-car.svg" />
+                <span>Бесплатная доставка</span>
+              </div>
+              <div class="bonus-minorder">
+                <b>1000</b><span>(минимальный заказ)</span>
+              </div>
+              <div class="bonus-goal-menu">
+                <div class="slider">
+                  <div class="range-line" data-mins="0" data-maxs="3000">
+                    <div style="width: 60%" class="green-line"></div>
+                    <div class="round"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bonus-footer">
+                Осталось <b>1988 UAH</b> до бесплатной доставки
+              </div>
+            </div>
+          </div>
+          <div class="bonus-cart-wrapper">
+            <div class="cart-order">
+              <div class="order-header">Заказ <span>№47593</span></div>
+              <div class="items-summary">
+                <div class="items-in-cart">Товаров в корзине</div>
+                <div class="summary-digit"><span>700</span> UAH</div>
+              </div>
+              <div class="promo-code">
+                <div class="promo">Промокод</div>
+                <div class="code">- <span>100</span> UAH</div>
+              </div>
+              <div class="total-summary">
+                <div class="total-header">Итого к оплате</div>
+                <div class="total-digit"><span>600</span> UAH</div>
+              </div>
+              <div class="green-btn">Оформить заказ</div>
+            </div>
+            <div class="promo-menu">
+              <div class="promo-header">Промокод</div>
+              <div class="promo-enter">
+                <input class="promo-input" placeholder="Введите промокод" />
+                <a class="promo-button">Подтвердить</a>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+</section>

@@ -924,10 +924,11 @@ footer {
     color: #FFFFFF;
     text-decoration: none;
     padding: 14px 38px;
+    cursor:pointer;
 
     &:hover {
         text-decoration: none;
-        color: white;
+        color: black;
     }
 }
 
@@ -1822,6 +1823,308 @@ footer {
                             span {
                                 margin-right: 8px;
                             }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.cart-menu {
+    padding-top: 45px;
+
+    .cart-wrapper {
+        display: flex;
+        justify-content: space-between;
+
+        .cart-items {
+            .cart-header {
+                font-weight: 500;
+                font-size: 28px;
+                line-height: 50px;
+                color: #333333;
+                margin-bottom: 13px;
+            }
+
+            .items-wrapper {
+                .cart-item {
+                    display: flex;
+                    align-items: center;
+                    margin: 20px 0 22px;
+                    .item-delete{
+                        cursor:pointer;
+                    }
+                    .item-image {
+                        background: #00AC4E;
+                        border-radius: 5px;
+                        width: 111px;
+                        height: 82px;
+                        margin: 0px 38px 0 15px;
+                    }
+
+                    .item-name {
+                        font-size: 18px;
+                        line-height: 21px;
+                    }
+
+                    .quantity {
+                        margin: 0px 63px 0px 75px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 128px;
+                        height: 47px;
+                        background: #FCFCFC;
+                        border: 1px solid #EBEBEB;
+                        box-sizing: border-box;
+                        border-radius: 5px;
+                        font-size: 12.6509px;
+                        line-height: 19px;
+
+                        .digit-sm {
+                            margin-left: 25px;
+                            margin-right: 23px;
+                        }
+
+                        .b-minus,
+                        .b-plus {
+                            cursor: pointer;
+                        }
+                    }
+
+                    .item-summary {
+                        font-weight: 500;
+                        font-size: 20px;
+                        line-height: 24px;
+                    }
+                }
+            }
+
+            .bonus-menu {
+                background: #FFFFFF;
+                box-shadow: 0px 0px 27.2043px rgba(0, 0, 0, 0.06);
+                border-radius: 18.1362px;
+                padding: 37px 39px 50px 41px;
+
+                .bonus-header {
+                    font-size: 20px;
+                    line-height: 24px;
+                }
+
+                .bonus-money {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 26px;
+                    font-size: 20px;
+                    line-height: 24px;
+
+                    img {
+                        margin-right: 15px;
+                    }
+
+                    span {
+                        display: flex;
+                        align-items: center;
+                        font-size: 20px;
+                        line-height: 24px;
+                    }
+                }
+
+                .bonus-delivery {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 39px;
+
+                    img {
+                        margin-right: 14.5px;
+                    }
+
+                    span {
+                        font-weight: 500;
+                        font-size: 20px;
+                        line-height: 24px;
+                    }
+                }
+
+                .bonus-minorder {
+                    margin-top: 21px;
+                    padding-left: 120px;
+                    font-weight: 500;
+                    font-size: 11px;
+                    line-height: 13px;
+                }
+
+                .bonus-goal-menu {
+                    margin-top: 5px;
+                    font-weight: 500;
+                    font-size: 10.8817px;
+                    line-height: 13px;
+
+                    t:first-child {
+                        margin-right: 9px;
+                    }
+
+                    .slider {
+                        .range-line {
+                            width: 100%;
+                            height: 3px;
+                            background: #F2F2F2;
+                            border-radius: 2.28221px;
+                            position: relative;
+
+
+                            &:before {
+                                content: attr(data-mins);
+                                font-weight: 500;
+                                font-size: 10.8817px;
+                                line-height: 13px;
+                                position: absolute;
+                                top: -5px;
+                                left: -4px;
+                                display: inline-block;
+                            }
+
+                            &:after {
+                                content: attr(data-maxs);
+                                font-weight: 500;
+                                font-size: 10.8817px;
+                                line-height: 13px;
+                                position: absolute;
+                                top: -5px;
+                                right: 17px;
+                                display: inline-block;
+                            }
+
+                            .green-line {
+                                margin-left: 15px;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                background: #00AC4E;
+                                border-radius: 3px;
+                                height: 100%;
+                            }
+
+                            .round {
+                                width: 14px;
+                                height: 14px;
+                                background: #00AC4E;
+                                border: 3px solid #FFFFFF;
+                                border-radius: 50%;
+                                position: absolute;
+                                top: -5px;
+                                left: 33%;
+                                transform: translateX(-50%);
+
+                                &::before {
+                                    content: attr(data-min);
+                                    display: block;
+                                    font-weight: 500;
+                                    font-size: 11px;
+                                    line-height: 13px;
+                                    color: #000000;
+                                    position: absolute;
+                                    top: -50px;
+                                    width: 20px;
+                                    height: 11px;
+                                    left: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .bonus-footer {
+                    margin-top: 8px;
+                    font-weight: 400;
+                    font-size: 10px;
+                    line-height: 10px;
+                    text-align: center;
+                }
+            }
+        }
+
+        .bonus-cart-wrapper {
+            .cart-order {
+                background: #FFFFFF;
+                box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.06);
+                border-radius: 20px;
+                padding: 50px 33px 41px 33px;
+
+                .order-header {
+                    font-weight: 500;
+                    font-size: 20px;
+                    line-height: 25px;
+                }
+
+                .items-summary, .promo-code {
+                    padding-top: 35px;
+                    display: flex;
+                    justify-content:space-between;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 24px;
+                }
+
+                .promo-code {
+                    display:flex;
+                    justify-content:space-between;
+                    .code {
+                        color: #00AC4E;
+                    }
+                }
+
+                .total-summary {
+                    padding-top: 45px;
+                    font-weight: 500;
+
+                    .total-header {
+                        font-size: 16px;
+                        line-height: 24px;
+                    }
+
+                    .total-digit {
+                        padding-top: 6px;
+                        font-size: 20px;
+                        line-height: 25px;
+                        margin-bottom: 30px;
+                    }
+                }
+            }
+
+            .promo-menu {
+                .promo-header {
+                    font-weight: 500;
+                    font-size: 20px;
+                    line-height: 25px;
+                }
+
+                .promo-enter {
+                    padding-top: 20px;
+
+                    .promo-input {
+                        background: #FCFCFC;
+                        border: 1px solid #EBEBEB;
+                        box-sizing: border-box;
+                        border-radius: 5px;
+                        padding: 13px 0 17px;
+                        margin-right: 18px;
+                    }
+
+                    .promo-button {
+                        cursor:pointer;
+                        color: #FFFFFF;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 21px;
+                        background: #00AC4E;
+                        border-radius: 5px;
+                        text-decoration: none;
+                        padding: 13px 27px;
+                        &:hover{
+                            color:black;
                         }
                     }
                 }
