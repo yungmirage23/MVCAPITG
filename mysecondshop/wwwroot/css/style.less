@@ -1,3 +1,4 @@
+
 body {
     font-family: 'TT Norms Pro';
     color: black;
@@ -420,6 +421,7 @@ header {
             a {
                 margin-left: 30px;
                 text-decoration: none;
+                color:#000000;
 
                 div {
                     width: 70px;
@@ -2135,11 +2137,12 @@ footer {
 }
 
 .cofirmation-menu {
-    margin-bottom:60px;
+    margin-bottom: 60px;
+
     .confirmation-wrapper {
         padding-top: 40px;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
 
         .order-info {
             .order-header {
@@ -2180,6 +2183,7 @@ footer {
                         font-weight: 500;
                         font-size: 16px;
                         line-height: 15px;
+                        width: 250px;
                     }
 
                     .quantity {
@@ -2222,6 +2226,7 @@ footer {
                     display: flex;
 
                     .tab-deliver, .tab-selfdel {
+                        cursor: pointer;
                         padding: 10px 24px;
                         background-color: #EBEBEB;
                         border-radius: 9.59274px;
@@ -2296,6 +2301,13 @@ footer {
                     .label {
                         font-size: 15.6716px;
                         line-height: 24px;
+
+                        select {
+                            outline: 0px !important;
+                            -webkit-appearance: none;
+                            box-shadow: none !important;
+                            width: auto;
+                        }
                     }
 
                     .input-val {
@@ -2321,7 +2333,7 @@ footer {
                 background: #00AC4E;
                 border-radius: 5.59701px;
                 text-decoration: none;
-                margin-bottom:30px;
+                margin-bottom: 30px;
             }
         }
     }

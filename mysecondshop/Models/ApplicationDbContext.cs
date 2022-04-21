@@ -11,8 +11,7 @@ namespace RestWebAppl.Models
         {
         }
         public DbSet<Item> Items { get; set; }
-        public DbSet<Order> Orders { get; set; }
-       
+        public DbSet<Order> Orders { get; set; }    
 
     }
 }

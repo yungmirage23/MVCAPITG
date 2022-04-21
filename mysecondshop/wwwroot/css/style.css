@@ -337,6 +337,7 @@ header .menu-right .menu-user {
 header .menu-right .menu-user a {
   margin-left: 30px;
   text-decoration: none;
+  color: #000000;
 }
 header .menu-right .menu-user a div {
   width: 70px;
@@ -1734,7 +1735,7 @@ footer .footer .footer-right .sing-in span {
 .cofirmation-menu .confirmation-wrapper {
   padding-top: 40px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .cofirmation-menu .confirmation-wrapper .order-info .order-header {
   color: #333333;
@@ -1770,6 +1771,7 @@ footer .footer .footer-right .sing-in span {
   font-weight: 500;
   font-size: 16px;
   line-height: 15px;
+  width: 250px;
 }
 .cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .quantity {
   margin: 0px 63px 0px 75px;
@@ -1806,6 +1808,7 @@ footer .footer .footer-right .sing-in span {
 }
 .cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .tabs-wrapper .tab-deliver,
 .cofirmation-menu .confirmation-wrapper .order-info .bonus-footer .tabs-wrapper .tab-selfdel {
+  cursor: pointer;
   padding: 10px 24px;
   background-color: #EBEBEB;
   border-radius: 9.59274px;
@@ -1877,6 +1880,16 @@ footer .footer .footer-right .sing-in span {
 .cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-payment .label {
   font-size: 15.6716px;
   line-height: 24px;
+}
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-district .label select,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-fio .label select,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-phone .label select,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-adress .label select,
+.cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-payment .label select {
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+  width: auto;
 }
 .cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-district .input-val input,
 .cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-fio .input-val input,

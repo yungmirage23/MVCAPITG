@@ -83,7 +83,6 @@ namespace RestWebAppl.Controllers
             var serverfail = new Response { returnUrl = loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = false };
             return Json(serverfail);
         }
-
         public async Task<IActionResult> Cabinet(){
             var CurrentUser = await userManager.GetUserAsync(User);    
             var user = new UserDataViewModel()
@@ -151,8 +150,6 @@ namespace RestWebAppl.Controllers
             
             return RedirectToAction("Cabinet");
         }
-
-
         public async Task<ActionResult> Logout(string returnUrl = "/")
         {
             await singInManager.SignOutAsync();

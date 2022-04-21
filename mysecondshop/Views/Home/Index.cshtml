@@ -66,7 +66,7 @@
                 <span class=""></span>
               </div>
               <div class="price"><b>@p.Price UAH</b><span> За 500гр.</span></div>
-               <a asp-controller="Home" asp-action="Order" asp-route-itemId="@p.Id" class="to-cart">В корзину</a>
+               <a asp-controller="Order" asp-action="Item" asp-route-itemId="@p.Id" class="to-cart">В корзину</a>
             </div>
             }
           </div>

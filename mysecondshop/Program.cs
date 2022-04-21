@@ -54,11 +54,14 @@ app.UseMvc(routes => {
         name: null,
         template: "{controller}/{action}/{category}",
         defaults: new { Controller = "Home",action = "Shop",productPage=1 });
-    routes.MapRoute(name: null, template:"{controller}/{action}/{id?}");
     routes.MapRoute(
         name: null,
-        template: "",
-        defaults: new { Controller = "Home", action = "Delivery"});
+        template: "{action}/{itemId}",
+        defaults: new { Controller = "Order", action = "Item"});
+    routes.MapRoute(
+        name: null,
+        template: "{controller}/{action}",
+        defaults: new { Controller = "Home" });
 
 });
 //SeedData.FillDb(app);

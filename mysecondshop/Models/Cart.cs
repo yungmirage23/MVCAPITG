@@ -19,6 +19,14 @@ namespace RestWebAppl.Models
         {
             lineCollection.RemoveAll(l=>l.Item.Id==item.Id);
         }
+        public virtual void ChangeLine(Guid itemId)
+        {
+            if (itemId!=null)
+            {
+                lineCollection.FirstOrDefault(p=>p.Item.Id==itemId).Quantity++;
+                var a = lineCollection.FirstOrDefault(p => p.Item.Id == itemId);
+            } 
+        }
         public virtual void Clear()=>lineCollection.Clear();
         public virtual decimal ComputeTotalValue()=>lineCollection.Sum(s=>s.Item.Price * s.Quantity);
         public IEnumerable<CartLine> Lines => lineCollection;

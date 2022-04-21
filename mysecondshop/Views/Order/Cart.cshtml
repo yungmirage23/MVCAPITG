@@ -8,11 +8,14 @@
             <div class="cart-header">Корзина</div>
             <div class="items-wrapper">
             @foreach(var line in Model.Cart.Lines){
+            <form id="form" asp-action="QuantityIncrement"asp-controller="Order"asp-route-itemid="@line.Item.Id">
             <div class="cart-item">
                 <div class="item-delete">
-                  <a asp-action="RemoveFormCart" asp-route-itemid="@line.Item.Id" class="delete_btn">
+                  <div class="delete_btn">
+                   <a asp-action="RemoveFormCart" asp-controller="Order" asp-route-itemid="@line.Item.Id" class="delete_btn">
                     <img src="~/img/x-delete.svg" />
                   </a>
+                  </div>
                 </div>
                 <div class="item-image"></div>
                 <div class="item-name">@line.Item.Name</div>
@@ -21,8 +24,10 @@
                   <div class="digit-sm"><span class="jq">@line.Quantity</span></div>
                   <div class="b-plus">+</div>
                 </div>
-                <div class="item-summary"><span id="digit">@line.Item.Price</span> UAH</div>
+                @{var z=@line.Quantity * @line.Item.Price;}
+                <div class="item-summary"><span id="digit">@z</span> UAH</div>
               </div>
+            </form>
             }
             </div>
             <div class="bonus-menu">
@@ -66,7 +71,7 @@
                 <div class="total-header">Итого к оплате</div>
                 <div class="total-digit"><span>600</span> UAH</div>
               </div>
-              <div class="green-btn">Оформить заказ</div>
+              <a asp-action="Checkout" asp-controller="Order" class="green-btn">Оформить заказ</a>
             </div>
             <div class="promo-menu">
               <div class="promo-header">Промокод</div>
@@ -80,3 +85,12 @@
         </div>
       </div>
 </section>
+
+<script>
+    $(document).ready(function(){
+        $(".b-plus").click(function(){
+        var form=$(this).closest("form");
+        form.submit();
+        });
+    });
+</script>

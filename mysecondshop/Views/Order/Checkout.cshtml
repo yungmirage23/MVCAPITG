@@ -1,4 +1,6 @@
-﻿<section class="cofirmation-menu">
+﻿@model Order
+@inject Cart cart
+<section class="cofirmation-menu">
   <div class="container">
     <div class="confirmation-wrapper">
       <div class="order-info">
@@ -10,21 +12,26 @@
             Вы заказали:
           </div>
           <div class="items-wrapper">
+          @foreach(var item in cart.Lines){  
             <div class="cart-item">
               <div class="item-delete">
                 <div class="delete_btn">
-                  <img src="/img/x-delete.svg" />
+                  <a asp-action="RemoveFormCart" asp-controller="Order" asp-route-itemid="@item.Item.Id" class="delete_btn">
+                    <img src="~/img/x-delete.svg" />
+                  </a>
                 </div>
               </div>
-              <div class="item-image"></div>
-              <div class="item-name">Хачапури</div>
+              <div class="item-image"><img src=""/></div>
+              <div class="item-name">@item.Item.Name</div>
               <div class="quantity">
-                <div class="b-minus"><img src="/img/minus.svg" alt="" /></div>
-                <div class="digit-sm"><span class="jq">1</span></div>
-                <div class="b-plus"><img src="/img/plus.svg" alt="" /></div>
-              </div>
-              <div class="item-summary"><span id="digit">350</span> UAH</div>
-            </div>
+                <a  class="b-minus">-</a>
+                <div class="digit-sm"><span class="jq">@item.Quantity</span></div>
+                    <a asp-action="QuantityIncrement" asp-controller="Order" asp-route-itemId="@item.Item.Id" class="b-plus">+</a>
+                </div>
+              @{var z=@item.Quantity * @item.Item.Price;}
+              <div class="item-summary"><span id="digit">@z</span> UAH</div>
+            </div>              
+          }
           </div>
         </div>
         <div class="bonus-footer">
@@ -102,10 +109,11 @@
           </div>
           <div class="deliver-payment">
             <div class="label">
-              Способ оплаты
-            </div>
-            <div class="input-val">
-              <input placeholder="Наличные">
+              <select class="form-select input-val" aria-label=".form-select-lg example">
+                  <option selected>Способ оплаты</option>
+                  <option value="1">Наличные</option>
+                  <option value="2">Кредитная карта</option>
+              </select>
             </div>
           </div> 
         </div>

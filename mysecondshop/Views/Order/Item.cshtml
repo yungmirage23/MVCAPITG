@@ -17,7 +17,7 @@
               <div class="menu-reviews">Кол-во отзывов:&nbsp;<span>23</span></div>
               <div class="menu-price">
                 <div class="text">Цена за уп.</div>
-                <div  class="digit"><span id="price">@Model.Price</span>&nbsp;UAH</div>
+                <div class="digit"><span id="price">@Model.Price</span>&nbsp;UAH</div>
               </div>
               <div class="menu-qip">
                 <div class="text">Вес</div>
@@ -223,7 +223,7 @@
     $(function() {
     $("#AddToCart").click(function(){
         var quanti=parseInt($(".jq").text());
-        $.post("/Home/AddToCart",{itemid:"@Model.Id",quantity:quanti}).done(function(data){console.log(data.stutus);location.reload();});
+        $.post("/Order/AddToCart",{itemid:"@Model.Id",quantity:quanti}).done(function(data){console.log(data.stutus);location.reload();});
     });
     });
 </script>

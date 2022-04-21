@@ -145,7 +145,7 @@
                        else{
                             <a returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"class="profile"><img src="~/img/person.svg"/></a>
                         }
-                    <a asp-action="Cart" class="cart"><img src="~/img/shopping-cart.svg"/>
+                    <a asp-action="Cart" asp-controller="Order" class="cart"><img src="~/img/shopping-cart.svg"/>
                         @if(cartservise.Lines.Count()>0){
                         <span>Товаров в корзине: @cartservise.Lines.Count()</span>
                     }
