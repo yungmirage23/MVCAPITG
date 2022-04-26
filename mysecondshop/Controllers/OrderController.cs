@@ -17,9 +17,13 @@ namespace RestWebAppl.Controllers
             cart = cartService;
         }
 
-        public ViewResult Checkout()
+        public IActionResult Checkout()
         {
-
+            var Cart = GetCart();
+            if(Cart.Lines.Count() == 0)
+            {
+                return RedirectToAction("Shop","Home");
+            }
             return View(new Order());
         }
         [HttpGet]
@@ -81,20 +85,18 @@ namespace RestWebAppl.Controllers
         [HttpPost]
         public RedirectToActionResult QuantityIncrement(Guid itemId)
         {
-            cart.ChangeLine(itemId);
+            cart.AddQuantity(itemId);
+            SaveCart(cart);
+            return RedirectToAction("Cart");
+        }
+        [HttpPost]
+        public RedirectToActionResult QuantityDecrement(Guid itemId)
+        {
+            cart.MinusQuantity(itemId);
             SaveCart(cart);
             return RedirectToAction("Cart");
         }
 
-        [HttpPost]
-        public JsonResult QuantityDecrement(CartLine line)
-        {
-            if (line.Quantity > 1)
-            {
-                line.Quantity--;
-            }
-            return Json(line);
-        }
 
         private Cart GetCart()
         {

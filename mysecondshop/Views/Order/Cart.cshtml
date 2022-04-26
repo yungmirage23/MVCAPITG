@@ -1,40 +1,47 @@
 ﻿@using RestWebAppl.Models.ViewModels;
 @model CartIndexViewModel
+<div class="test">
 
+</div>
 <section class="cart-menu">
       <div class="container">
         <div class="cart-wrapper">
           <div class="cart-items">
             <div class="cart-header">Корзина</div>
             <div class="items-wrapper">
-            @foreach(var line in Model.Cart.Lines){
-            <form id="form" asp-action="QuantityIncrement"asp-controller="Order"asp-route-itemid="@line.Item.Id">
-            <div class="cart-item">
+            @if(Model.Cart.Lines.Count()>0)
+            {
+                @foreach(var line in Model.Cart.Lines){
+            <div class="cart-item" id="@line.Item.Id">
                 <div class="item-delete">
                   <div class="delete_btn">
                    <a asp-action="RemoveFormCart" asp-controller="Order" asp-route-itemid="@line.Item.Id" class="delete_btn">
                     <img src="~/img/x-delete.svg" />
-                  </a>
+                   </a>
                   </div>
                 </div>
                 <div class="item-image"></div>
                 <div class="item-name">@line.Item.Name</div>
+                <input id="aaa" type="hidden"value="@line.Item.Id.ToString()"/>
                 <div class="quantity">
                   <div class="b-minus">-</div>
                   <div class="digit-sm"><span class="jq">@line.Quantity</span></div>
                   <div class="b-plus">+</div>
                 </div>
                 @{var z=@line.Quantity * @line.Item.Price;}
-                <div class="item-summary"><span id="digit">@z</span> UAH</div>
+                <div class="item-summary"><span id="digit">@line.ComputeLineTotal()</span> UAH</div>
               </div>
-            </form>
+              }
+            }  
+            else{
+            <h1>Ваша корзина пуста</h1>
             }
             </div>
             <div class="bonus-menu">
-              <div class="bonus-header">Закажите на 3000 RUB и получите</div>
+              <div class="bonus-header">Закажите на 3000 UAH и получите</div>
               <div class="bonus-money">
                 <img src="/img/bonus-pig.svg" alt="" />
-                <b>30 RUB &nbsp;</b><span>на бонусный счет</span>
+                <b>30 UAH &nbsp;</b><span>на бонусный счет</span>
               </div>
               <div class="bonus-delivery">
                 <img src="/img/free-car.svg" />
@@ -58,18 +65,18 @@
           </div>
           <div class="bonus-cart-wrapper">
             <div class="cart-order">
-              <div class="order-header">Заказ <span>№47593</span></div>
+              <div class="order-header">Заказ</div>
               <div class="items-summary">
                 <div class="items-in-cart">Товаров в корзине</div>
-                <div class="summary-digit"><span>700</span> UAH</div>
+                <div class="summary-digit"><span>@Model.Cart.ComputeTotalValue()</span> UAH</div>
               </div>
               <div class="promo-code">
                 <div class="promo">Промокод</div>
-                <div class="code">- <span>100</span> UAH</div>
+                <div class="code">- <span>0</span> UAH</div>
               </div>
               <div class="total-summary">
                 <div class="total-header">Итого к оплате</div>
-                <div class="total-digit"><span>600</span> UAH</div>
+                <div class="total-digit"><span>@Model.Cart.ComputeTotalValue()</span> UAH</div>
               </div>
               <a asp-action="Checkout" asp-controller="Order" class="green-btn">Оформить заказ</a>
             </div>
@@ -83,14 +90,27 @@
             </div>
           </div>
         </div>
+        
       </div>
 </section>
-
 <script>
-    $(document).ready(function(){
-        $(".b-plus").click(function(){
-        var form=$(this).closest("form");
-        form.submit();
+    $(document).on("click", ".b-plus",function() {
+        var id=$(this).closest(".cart-item").attr("id");
+        $.post("/Order/QuantityIncrement",
+        {itemId:id})
+        .done(function(data){
+            $(".cart-wrapper").html($(".cart-items,.bonus-cart-wrapper",data));
+        });
+    });
+</script>
+<script>
+    $(document).on("click", ".b-minus",function() {
+        var id=$(this).closest(".cart-item").attr("id");
+        $.post("/Order/QuantityDecrement",
+        {itemId:id})
+        .done(function(data){
+            $(".cart-wrapper").html($(".cart-items,.bonus-cart-wrapper",data));
+            $(".menu-user").html($(".menu-user",data));
         });
     });
 </script>
