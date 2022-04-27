@@ -544,6 +544,9 @@ header .menu-right .menu-user a img {
   display: inline-block;
   text-align: center;
 }
+.home-products .products-wrapper .product .to-cart:hover {
+  color: black;
+}
 .home-products .products-wrapper .product .rating {
   margin-bottom: 2px;
 }
@@ -941,11 +944,17 @@ footer .footer .footer-right .sing-in span {
   width: 194.28px;
   height: 39.76px;
 }
+.order-menu .order-description .menu .buttons .button-big:hover {
+  color: black;
+}
 .order-menu .order-description .menu .buttons .button-small {
   background: #00AC4E;
   border-radius: 4.51818px;
   width: 48.8px;
   height: 39.76px;
+}
+.order-menu .order-description .menu .buttons .button-small svg:hover g rect {
+  fill: black;
 }
 .description-menu {
   margin-top: 60.48px;
@@ -1871,6 +1880,9 @@ footer .footer .footer-right .sing-in span {
   font-size: 19px;
   line-height: 24px;
 }
+.cofirmation-menu .confirmation-wrapper .delivery-info {
+  padding-left: 50px;
+}
 .cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper {
   margin-bottom: 50px;
 }
@@ -1904,7 +1916,7 @@ footer .footer .footer-right .sing-in span {
 .cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-phone .input-val input,
 .cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-adress .input-val input,
 .cofirmation-menu .confirmation-wrapper .delivery-info .info-wrapper .deliver-payment .input-val input {
-  width: 451px;
+  width: 300px;
   height: 64.02px;
   background: #FCFCFC;
   border: 1.1194px solid #EBEBEB;

@@ -9,7 +9,7 @@
 		<tr><th>Имя</th><th>Адрес</th><th colspan="2"></th><th>Детали</th><th></th></tr>
 		@foreach(Order o in Model){
 		<tr>
-			<td>@o.Name</td><td>@o.Country @o.City @o.Line1</td><th>Товар</th><th>Количество</th>
+			<td>@@</td><td>@@ @@</td><th>Товар</th><th>Количество</th>
 			<td>
 				<form asp-action="MarkShipped" method="post">
 					<input type="hidden" name="orderId" value="@o.OrderID">

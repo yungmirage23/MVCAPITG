@@ -666,6 +666,9 @@ header {
                 border-radius: 4.5px;
                 display: inline-block;
                 text-align: center;
+                &:hover{
+                    color:black;
+                }
             }
 
             .rating {
@@ -1162,18 +1165,28 @@ footer {
                     width: 194.28px;
                     height: 39.76px;
 
+                    &:hover {
+                        color: black;
+                    }
                 }
 
                 .button-small {
                     background: #00AC4E;
                     border-radius: 4.51818px;
                     width: 48.8px;
-                    height: 39.76px
+                    height: 39.76px;
+
+                    svg:hover{
+                        g{
+                            rect{
+                                fill:black;
+                            }
+                        }
+                    }
                 }
             }
         }
     }
-
 }
 
 .description-menu {
@@ -2168,7 +2181,7 @@ footer {
 
                 .cart-item {
                     display: flex;
-                    justify-content:flex-start;
+                    justify-content: flex-start;
                     align-items: center;
                     margin: 25px 0 25px 0;
 
@@ -2297,8 +2310,10 @@ footer {
         }
 
         .delivery-info {
+            padding-left: 50px;
             .info-wrapper {
                 margin-bottom: 50px;
+
 
                 .deliver-district, .deliver-fio, .deliver-phone, .deliver-adress, .deliver-payment {
                     margin-bottom: 16px;
@@ -2317,7 +2332,7 @@ footer {
 
                     .input-val {
                         input {
-                            width: 451px;
+                            width: 300px;
                             height: 64.02px;
                             background: #FCFCFC;
                             border: 1.1194px solid #EBEBEB;

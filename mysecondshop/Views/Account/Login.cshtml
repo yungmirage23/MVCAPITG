@@ -78,7 +78,7 @@
             };
             $.ajax({
                 type: "POST",
-                url: "Account/Login",
+                url: "@Url.Action("Login","Account")",
                 data: JSON.stringify(dataObject),
                 contentType: "application/json; charset=utf-8",
                 success: successFunc

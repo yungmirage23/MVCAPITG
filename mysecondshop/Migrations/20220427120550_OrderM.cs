@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RestWebAppl.Migrations
 {
-    public partial class Initial1 : Migration
+    public partial class OrderM : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,7 +25,7 @@ namespace RestWebAppl.Migrations
                 {
                     table.PrimaryKey("PK_Items", x => x.Id);
                 });
-
+            
             migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
@@ -33,11 +33,12 @@ namespace RestWebAppl.Migrations
                     OrderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Shipped = table.Column<bool>(type: "bit", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Line1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GiftWrap = table.Column<bool>(type: "bit", nullable: false)
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeliveryAdress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeliveryDistrict = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cash = table.Column<bool>(type: "bit", nullable: false),
+                    SelfDeliver = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,7 +71,7 @@ namespace RestWebAppl.Migrations
                         principalColumn: "OrderID");
                 });
 
-            migrationBuilder.CreateIndex(
+           migrationBuilder.CreateIndex(
                 name: "IX_CartLine_ItemId",
                 table: "CartLine",
                 column: "ItemId");
@@ -83,12 +84,12 @@ namespace RestWebAppl.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
+           migrationBuilder.DropTable(
                 name: "CartLine");
 
             migrationBuilder.DropTable(
                 name: "Items");
-
+           
             migrationBuilder.DropTable(
                 name: "Orders");
         }

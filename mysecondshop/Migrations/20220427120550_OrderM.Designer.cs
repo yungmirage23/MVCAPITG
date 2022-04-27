@@ -12,19 +12,19 @@ using RestWebAppl.Models;
 namespace RestWebAppl.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220331145333_Initial1")]
-    partial class Initial1
+    [Migration("20220427120550_OrderM")]
+    partial class OrderM
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.2")
+                .HasAnnotation("ProductVersion", "6.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("mysecondshop.Models.CartLine", b =>
+            modelBuilder.Entity("RestWebAppl.Models.CartLine", b =>
                 {
                     b.Property<int>("CartLineId")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace RestWebAppl.Migrations
                     b.ToTable("CartLine");
                 });
 
-            modelBuilder.Entity("mysecondshop.Models.Item", b =>
+            modelBuilder.Entity("RestWebAppl.Models.Item", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,7 +83,7 @@ namespace RestWebAppl.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("mysecondshop.Models.Order", b =>
+            modelBuilder.Entity("RestWebAppl.Models.Order", b =>
                 {
                     b.Property<int>("OrderID")
                         .ValueGeneratedOnAdd()
@@ -91,24 +91,27 @@ namespace RestWebAppl.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"), 1L, 1);
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("GiftWrap")
+                    b.Property<bool>("Cash")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Line1")
+                    b.Property<string>("DeliveryAdress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("DeliveryDistrict")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SelfDeliver")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Shipped")
                         .HasColumnType("bit");
@@ -118,22 +121,22 @@ namespace RestWebAppl.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("mysecondshop.Models.CartLine", b =>
+            modelBuilder.Entity("RestWebAppl.Models.CartLine", b =>
                 {
-                    b.HasOne("mysecondshop.Models.Item", "Item")
+                    b.HasOne("RestWebAppl.Models.Item", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("mysecondshop.Models.Order", null)
+                    b.HasOne("RestWebAppl.Models.Order", null)
                         .WithMany("Lines")
                         .HasForeignKey("OrderID");
 
                     b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("mysecondshop.Models.Order", b =>
+            modelBuilder.Entity("RestWebAppl.Models.Order", b =>
                 {
                     b.Navigation("Lines");
                 });

@@ -74,12 +74,13 @@
       </div>
       <div class="delivery-info">
         <div class="info-wrapper">
+        <form id="form-order">
           <div class="deliver-district">
             <div class="label">
               Район доставки
             </div>
             <div class="input-val">
-              <input placeholder="Выбрать">
+              <input id="distr" asp-for="DeliveryDistrict" placeholder="Выбрать">
             </div>
           </div>
           <div class="deliver-fio">
@@ -87,7 +88,7 @@
               ФИО
             </div>
             <div class="input-val">
-              <input placeholder="Введите Ваше полное имя">
+              <input id="fullnam" asp-for="FullName" placeholder="Введите Ваше полное имя">
             </div>
           </div> 
           <div class="deliver-phone">
@@ -95,7 +96,7 @@
               Телефон
             </div>
             <div class="input-val">
-              <input placeholder="+380">
+              <input id="phone" class="phone"asp-for="PhoneNumber" placeholder="+380">
             </div>
           </div>
           <div class="deliver-adress">
@@ -103,18 +104,20 @@
               Адрес доставки
             </div>
             <div class="input-val">
-              <input placeholder="Введите адрес доставки">
+              <input id="deladdrs" asp-for="DeliveryAdress" placeholder="Введите адрес доставки">
             </div>
           </div>
           <div class="deliver-payment">
             <div class="label">
-              <select class="form-select input-val" aria-label=".form-select-lg example">
-                  <option selected>Способ оплаты</option>
-                  <option value="1">Наличные</option>
-                  <option value="2">Кредитная карта</option>
-              </select>
+              <select id="cash" name="Cash"class="form-select input-val" aria-label=".form-select-lg example">
+                  <option value=""selected>Способ оплаты</option>
+                  <option value=true>Наличные</option>
+                  <option value=false>Кредитная карта</option>
+              </select>              
             </div>
-          </div> 
+          </div>
+          <div class="validation"></div>
+        </form>
         </div>
         <a class="submit-btn">
           Оформить заказ
@@ -123,12 +126,77 @@
     </div>
   </div>
 </section>
-
 <script>
-    
+    $(".phone").mask("+38(099)999-9999",{autoclear: false});
+</script>
+<script>
+    $("#form-order").validate({
+           errorLabelContainer:".validation",
+           rules: {
+            DeliveryDistrict:{
+                required:true,
+            },
+            FullName: {
+                required: true,
+            },
+            PhoneNumber: {
+                required: true,
+                minlength:15,
+            },
+            DeliveryAdress:{
+                required:true,
+            },
+            Cash:{
+                required:true,
+            },
+        },
+        messages: {
+            DeliveryDistrict:{
+                required:"Пожалуйста, укажите название района",
+            },
+            FullName: {
+                required: "Укажите полное имя",
+            },
+            PhoneNumber: {
+                required: "Поле номер телефона обязательно для заполнения",
+                minlength:"Номер телефона должен состоять минимум из 10 цифр",
+            },
+            DeliveryAdress:{
+                required:"Поле адрес обязательно для заполения",
+            },
+            Cash:{
+                required:"Пожалуйста, выберите способ оплаты",
+            },
+        },
+       });
 </script>
 
 <script>
+    $(".submit-btn").click(function(){
+        if($("#form-order").valid()){
+            if($(".tab-selfdel").hasClass("active")){
+                var selfdel=true;
+            }
+            else var selfdel=false;
+            var orderObject = {
+                'DeliveryDistrict': $("#distr").val(), 
+                'DeliveryAdress': $("#deladdrs").val(),
+                'FullName': $("#fullnam").val(),                
+                'PhoneNumber': $("#phone").val(),
+                'Cash': $("#cash").val(),
+                'SelfDeliver':selfdel,
+            };
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Checkout","Order")",
+                data: JSON.stringify(orderObject),
+                contentType: "application/json; charset=utf-8",
+                success: function(){
+                    location.href="/Home/Index"
+                }
+            });
+        }
+    });
     
 </script>
 <script>

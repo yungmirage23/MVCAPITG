@@ -17,23 +17,23 @@ namespace RestWebAppl.Controllers
             cart = cartService;
         }
 
-        public IActionResult Checkout()
-        {
-            var Cart = GetCart();
-            if(Cart.Lines.Count() == 0)
-            {
-                return RedirectToAction("Shop","Home");
-            }
-            return View(new Order());
-        }
         [HttpGet]
         public ViewResult Item(Guid itemId) => View(Repository.Items.FirstOrDefault(a => a.Id == itemId));
 
         public IActionResult Cart() => View(new CartIndexViewModel { Cart = GetCart() });
-
-        [HttpPost]
-        public IActionResult Checkout(Order order)
+        public IActionResult Checkout()
         {
+            var Cart = GetCart();
+            if (Cart.Lines.Count() == 0)
+            {
+                return RedirectToAction("Shop", "Home");
+            }
+            return View(new Order());
+        }
+        [HttpPost]
+        public JsonResult Checkout([FromBody]Order order)
+        {
+            var response = new Response();
             if (cart.Lines.Count() == 0)
             {
                 ModelState.AddModelError("", "Извините, Ваша корзина пустая");
@@ -42,11 +42,18 @@ namespace RestWebAppl.Controllers
             {
                 order.Lines = cart.Lines.ToArray();
                 orderRepository.SaveOrder(order);
-                return RedirectToAction("Home/Index");
+                cart.Clear();
+                response.dateTime = DateTime.Now.ToShortTimeString();
+                response.status = true;
+                response.returnUrl = "Home/Index";
+                return Json(response);
             }
             else
             {
-                return View(order);
+                response.status = false;
+                response.dateTime= DateTime.Now.ToShortTimeString();
+                response.returnUrl = "Order/Checkout";
+                return Json(response);
             }
         }
         [HttpPost]

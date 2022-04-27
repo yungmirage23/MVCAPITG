@@ -52,7 +52,7 @@
              <div class="product">
               <div class="img"></div>
               <div class="product-title">
-                <a href="#" class="title">@p.Name</a>
+                <a asp-controller="Order" asp-action="Item" asp-route-itemId="@p.Id" class="title">@p.Name</a>
               </div>
               <p class="description">
                 @p.Description

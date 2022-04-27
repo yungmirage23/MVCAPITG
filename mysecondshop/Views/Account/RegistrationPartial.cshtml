@@ -20,7 +20,7 @@
         <div class="header-text">Регистрация</div>
       </div>
       <div class="modal-form">
-        <form>
+        <form id="form_reg">
           <div class="inpt">
             <input asp-for="Phone" class="phone" placeholder="Телефон" />
           </div>
@@ -53,7 +53,7 @@
 </script>
 <script>
     $("#enter").click(function(){
-        $("form").validate({
+        $("#form_reg").validate({
         errorLabelContainer:".validation",
         rules: {
             Phone:{
@@ -101,7 +101,7 @@
             };
             $.ajax({
                 type: "POST",
-                url: "Account/RegistrationPartial",
+                url: "@Url.Action("RegistrationPartial","Account")",
                 data: JSON.stringify(dataObject),
                 contentType: "application/json; charset=utf-8",
                 success: successFunc

@@ -13,13 +13,13 @@ namespace RestWebAppl.Models
         public bool Shipped { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, введите Ваше имя")]
-        public string Name { get; set; }
-        [Required(ErrorMessage = "Пожалуйста, введите Ваш адрес")]
-        public string Line1 { get; set; }
-        [Required(ErrorMessage ="Пожалуйста, введите название города")]
-        public string City { get; set; }
-        [Required(ErrorMessage ="Пожалуйста, введите название страны")]
-        public string Country { get; set; }
-        public bool GiftWrap { get; set; }
+        public string FullName { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите название страны")]
+        public string PhoneNumber { get; set; }
+        public string? DeliveryAdress { get; set; }
+        public string? DeliveryDistrict { get; set; }
+        
+        public bool Cash { get; set; }
+        public bool SelfDeliver { get; set; }
     }
 }

@@ -41,12 +41,6 @@ namespace RestWebAppl.Controllers
                     await singInManager.SignOutAsync();
                     if ((await singInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
                     {
-                        /*var host = "http://localhost:5000";
-                        var path = loginModel.ReturnUrl;
-                        path = String.Join(
-                            "/",
-                            path.Split("/").Select(s => System.Net.WebUtility.UrlEncode(s))
-                        );*/
                         var serverlogin = new Response {returnUrl=loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = true };
                         return Json(serverlogin);
                     }
