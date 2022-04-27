@@ -66,7 +66,7 @@ namespace RestWebAppl.Controllers
             };
             return Json(response);
         }
-        public RedirectToActionResult RemoveFormCart(Guid itemid)
+        public IActionResult RemoveFormCart(Guid itemid,string ReturnUrl)
         {
             Item item = Repository.Items
                 .FirstOrDefault(p => p.Id == itemid);
@@ -80,7 +80,7 @@ namespace RestWebAppl.Controllers
             {
                 return RedirectToAction("Index","Home");
             }
-            return RedirectToAction("Cart");
+            return Redirect(ReturnUrl);
         }
         [HttpPost]
         public RedirectToActionResult QuantityIncrement(Guid itemId)
@@ -95,6 +95,49 @@ namespace RestWebAppl.Controllers
             cart.MinusQuantity(itemId);
             SaveCart(cart);
             return RedirectToAction("Cart");
+        }
+
+        [HttpPost]
+        public JsonResult IncrementJson(Guid itemId)
+        {
+            cart.AddQuantity(itemId);
+            SaveCart(cart);
+            var result = new
+            {
+                Quantity = 0,
+                Price = 0
+            };
+            if (cart.Lines.FirstOrDefault(p => p.Item.Id == itemId) != null)
+            {
+                var resultTrue = new
+                {
+                    Quantity = cart.Lines.FirstOrDefault(i => i.Item.Id == itemId).Quantity,
+                    Price = cart.Lines.FirstOrDefault(i => i.Item.Id == itemId).Item.Price
+                };
+                return Json(resultTrue);
+            }
+            return Json(result);
+        }
+        [HttpPost]
+        public JsonResult DecrementJson(Guid itemId)
+        {
+            cart.MinusQuantity(itemId);
+            SaveCart(cart);
+            var result = new
+            {
+                Quantity = 0,
+                Price = 0
+            };
+            if (cart.Lines.FirstOrDefault(p => p.Item.Id == itemId)!=null)
+            {
+                var resultTrue = new
+                {
+                    Quantity = cart.Lines.FirstOrDefault(i => i.Item.Id == itemId).Quantity,
+                    Price = cart.Lines.FirstOrDefault(i => i.Item.Id == itemId).Item.Price
+                };
+                return Json(resultTrue);
+            }
+            return Json(result);
         }
 
 

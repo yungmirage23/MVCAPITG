@@ -13,10 +13,10 @@
           </div>
           <div class="items-wrapper">
           @foreach(var line in cart.Lines){  
-            <div class="cart-item">
+            <div class="cart-item"id="@line.Item.Id">
               <div class="item-delete">
                 <div class="delete_btn">
-                  <a asp-action="RemoveFormCart" asp-controller="Order" asp-route-itemid="@line.Item.Id" class="delete_btn">
+                  <a asp-action="RemoveFormCart" asp-controller="Order" asp-route-ReturnUrl="@ViewContext.HttpContext.Request.Path.Value.ToString()" asp-route-itemid="@line.Item.Id" class="delete_btn">
                     <img src="~/img/x-delete.svg" />
                   </a>
                 </div>
@@ -24,16 +24,11 @@
               <div class="item-image"><img src=""/></div>
               <div class="item-name">@line.Item.Name</div>
               <div class="quantity">
-                <form asp-action="QuantityDecrement"asp-controller="Order"asp-route-itemid="@line.Item.Id">
                   <div class="b-minus">-</div>
-                </form>
-                <div class="digit-sm"><span class="jq">@line.Quantity</span></div>
-                <form asp-action="QuantityIncrement"asp-controller="Order"asp-route-itemid="@line.Item.Id">
-                    <div class="b-plus">+</div>
-                </form>
+                  <div class="digit-sm"><span class="jq">@line.Quantity</span></div>
+                  <div class="b-plus">+</div>
                 </div>
-              @{var z=@line.Quantity * @line.Item.Price;}
-              <div class="item-summary"><span id="digit">@z</span> UAH</div>
+              <div class="item-summary"><span class="tot" id="digit">@line.ComputeLineTotal()</span> UAH</div>
             </div>              
           }
           </div>
@@ -54,7 +49,7 @@
                   Итого
                 </div>
                 <div class="digit">
-                  700 UAH 
+                  <span id="total">@cart.ComputeTotalValue()</span> UAH 
                 </div>
               </div>
               <div class="del-bonus">
@@ -62,7 +57,7 @@
                   Доставка
                 </div>
                 <div class="digit">
-                  0  UAH
+                  <span id="discount-dig">100</span> UAH
                 </div>
               </div>
             </div>
@@ -71,7 +66,7 @@
                 Итого к оплате
               </div>
               <div class="total-sum">
-                700 UAH
+                <span id="total-sum">@cart.ComputeTotalValue()</span> UAH
               </div>
             </div>
           </div>
@@ -130,18 +125,84 @@
 </section>
 
 <script>
-    $(document).ready(function(){
-        $(".b-plus").click(function(){
-        var form=$(this).closest("form");
-        form.submit();
-        });
-    });
+    
+</script>
+
+<script>
+    
 </script>
 <script>
-    $(document).ready(function(){
-        $(".b-minus").click(function(){
-        var form=$(this).closest("form");
-        form.submit();
+    $(document).on("click", ".b-plus",function() {
+        var item=$(this).closest(".cart-item");
+        var id=item.attr("id");
+        var quantity=item.find(".jq");
+        var summary=item.find("#digit");
+        $.post("/Order/IncrementJson",
+        {itemId:id})
+        .done(function(data){
+            if(data.Quantity>1){
+                quantity.text(data.Quantity);
+                summary.text((data.Quantity*data.Price).toFixed(2).replace(".",","));
+                ChangeTotal();
+                TotalValue();
+            }            
         });
+    });
+    $(document).on("click", ".b-minus",function() {
+        var item=$(this).closest(".cart-item");
+        var id=item.attr("id");
+        var quantity=item.find(".jq");
+        if(parseInt(quantity.text())>1){
+            var summary=item.find("#digit");
+            $.post("/Order/DecrementJson",
+            {itemId:id})
+            .done(function(data){
+                if(data.Quantity>0){
+                    quantity.text(data.Quantity);
+                    summary.text((data.Quantity*data.Price).toFixed(2).replace(".",","));
+                    ChangeTotal();
+                    TotalValue();
+                }
+            });
+        }       
+    });
+
+    function TotalValue(){
+        if($(".tab-selfdel").hasClass("active")){
+            var b=parseFloat($("#total").text());
+            var c=b-(b/5);
+            $("#total-sum").text(c.toFixed(2).replace(".",","));
+        }
+        else{
+            var b=parseFloat($("#total").text());
+            var discount=parseFloat($("#discount-dig").text());
+            var c=b+discount;
+            $("#total-sum").text(c.toFixed(2).replace(".",","));
+        }
+    };
+
+    function ChangeTotal(){
+        var sum=0;
+        $(".tot").each(function(){
+            sum+=parseInt($(this).text());
+        });
+        $("#total").text(sum.toFixed(2).replace(".",","));
+    };
+   
+    $(document).on("click",".tab-selfdel",function(){
+        $(this).addClass("active");
+        $("#discount-dig").text("0");
+        $(".tab-deliver").removeClass("active");
+        $(".deliver-adress").hide();
+        $(".deliver-district").hide();  
+        TotalValue();
+    });
+    $(document).on("click",".tab-deliver",function(){
+        $(this).addClass("active");
+        $("#discount-dig").text("100");
+        $(".tab-selfdel").removeClass("active");
+        $(".deliver-adress").show();
+        $(".deliver-district").show();
+        TotalValue();
     });
 </script>

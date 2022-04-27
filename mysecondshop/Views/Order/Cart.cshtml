@@ -15,7 +15,7 @@
             <div class="cart-item" id="@line.Item.Id">
                 <div class="item-delete">
                   <div class="delete_btn">
-                   <a asp-action="RemoveFormCart" asp-controller="Order" asp-route-itemid="@line.Item.Id" class="delete_btn">
+                   <a asp-action="RemoveFormCart" asp-controller="Order" asp-route-ReturnUrl="@ViewContext.HttpContext.Request.Path.Value.ToString()" asp-route-itemid="@line.Item.Id" class="delete_btn">
                     <img src="~/img/x-delete.svg" />
                    </a>
                   </div>

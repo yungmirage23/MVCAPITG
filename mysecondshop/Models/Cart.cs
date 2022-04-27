@@ -21,14 +21,14 @@ namespace RestWebAppl.Models
         }
         public virtual void AddQuantity(Guid itemId)
         {
-            if (itemId!=null)
+            if (lineCollection.FirstOrDefault(p => p.Item.Id == itemId) != null)
             {
                 lineCollection.FirstOrDefault(p=>p.Item.Id==itemId).Quantity++;
             } 
         }
         public virtual void MinusQuantity(Guid itemId)
         {
-            if (itemId != null)
+            if (lineCollection.FirstOrDefault(p => p.Item.Id == itemId) != null)
             {
                 if (lineCollection.FirstOrDefault(p => p.Item.Id == itemId).Quantity > 1)
                 {

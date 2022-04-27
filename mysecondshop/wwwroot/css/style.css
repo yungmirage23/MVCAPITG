@@ -1518,7 +1518,6 @@ footer .footer .footer-right .sing-in span {
   width: 250px;
 }
 .cart-menu .cart-wrapper .cart-items .items-wrapper .cart-item .quantity {
-  margin-right: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1762,6 +1761,7 @@ footer .footer .footer-right .sing-in span {
 }
 .cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
   margin: 25px 0 25px 0;
 }
