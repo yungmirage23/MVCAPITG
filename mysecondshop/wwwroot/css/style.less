@@ -1,10 +1,9 @@
-
 body {
     font-family: 'TT Norms Pro';
     color: black;
     font-weight: 400;
-
 }
+
 body::after, body::before {
     /* these are the 2 half blocks which cover the content once the animation is triggered */
     height: 50vh;
@@ -26,6 +25,7 @@ body::after {
 body.page-is-changing::after, body.page-is-changing::before {
     transform: translateY(0);
 }
+
 .modal-dialog {
     background: #FFFFFF;
     box-shadow: 0px 0px 17.7465px rgba(0, 0, 0, 0.12);
@@ -225,8 +225,8 @@ body.page-is-changing::after, body.page-is-changing::before {
                     a {
                         color: #BDBDBD;
                     }
-                    b{
-                    
+
+                    b {
                     }
                 }
             }
@@ -265,7 +265,7 @@ body.page-is-changing::after, body.page-is-changing::before {
                 text-align: center;
                 color: #EB5757;
                 margin-bottom: 13px;
-                display:none;
+                display: none;
             }
         }
 
@@ -275,7 +275,7 @@ body.page-is-changing::after, body.page-is-changing::before {
             text-decoration-line: underline;
             color: #00AC4E;
             text-align: center;
-            cursor:pointer;
+            cursor: pointer;
         }
 
         button {
@@ -310,12 +310,11 @@ body.page-is-changing::after, body.page-is-changing::before {
             a {
                 text-decoration: none;
                 color: #00AC4E;
-                cursor:pointer;
+                cursor: pointer;
             }
         }
     }
 }
-
 
 *:focus {
     outline: -webkit-focus-ring-color auto 0px;
@@ -421,7 +420,7 @@ header {
             a {
                 margin-left: 30px;
                 text-decoration: none;
-                color:#000000;
+                color: #000000;
 
                 div {
                     width: 70px;
@@ -442,7 +441,6 @@ header {
         }
     }
 }
-
 
 .home-banner {
     z-index: 0;
@@ -519,7 +517,6 @@ header {
     }
 }
 
-
 .home-menu {
     .swiper-button-next:after {
         content: '' !important;
@@ -543,7 +540,6 @@ header {
     }
 
     .container {
-
         .swiper-container-menu {
             overflow: hidden;
             position: relative;
@@ -579,7 +575,6 @@ header {
     }
 }
 
-
 .home-products {
     margin-top: 22px;
     padding-left: 0px;
@@ -589,8 +584,9 @@ header {
         font-size: 27px;
         line-height: 19px;
         margin-bottom: 42px;
-        .allcat{
-            text-transform:lowercase;
+
+        .allcat {
+            text-transform: lowercase;
         }
     }
 
@@ -666,8 +662,9 @@ header {
                 border-radius: 4.5px;
                 display: inline-block;
                 text-align: center;
-                &:hover{
-                    color:black;
+
+                &:hover {
+                    color: black;
                 }
             }
 
@@ -720,8 +717,6 @@ header {
                         color: #FFFFFF;
                     }
                 }
-
-
 
                 a:focus {
                     box-shadow: none;
@@ -799,7 +794,6 @@ header {
             right: 0px;
         }
     }
-
 }
 
 footer {
@@ -809,7 +803,6 @@ footer {
     color: #FFFFFF;
 
     .footer-bottom {
-
         font-size: 12.3407px;
         line-height: 32px;
 
@@ -880,7 +873,6 @@ footer {
                     color: #FFFFFF;
                 }
             }
-
         }
 
         .footer-center {
@@ -900,7 +892,6 @@ footer {
                     margin-bottom: 25.61px;
                 }
             }
-
         }
 
         .footer-right {
@@ -929,7 +920,7 @@ footer {
     color: #FFFFFF;
     text-decoration: none;
     padding: 14px 38px;
-    cursor:pointer;
+    cursor: pointer;
 
     &:hover {
         text-decoration: none;
@@ -1145,7 +1136,6 @@ footer {
             }
 
             .buttons {
-
                 .button-big,
                 .button-small {
                     text-decoration: none;
@@ -1176,10 +1166,10 @@ footer {
                     width: 48.8px;
                     height: 39.76px;
 
-                    svg:hover{
-                        g{
-                            rect{
-                                fill:black;
+                    svg:hover {
+                        g {
+                            rect {
+                                fill: black;
                             }
                         }
                     }
@@ -1475,7 +1465,6 @@ footer {
                         border-radius: 2.28221px;
                         position: relative;
 
-
                         &:before {
                             content: attr(data-mins);
                             font-weight: 500;
@@ -1624,12 +1613,12 @@ footer {
                             height: 75px;
                             left: 223px;
                             top: 369px;
-                            background-color:transparent;
+                            background-color: transparent;
                             border-radius: 12px;
                         }
 
                         .load-photo {
-                            cursor:pointer;
+                            cursor: pointer;
                             padding-left: 18px;
                             font-weight: 500;
                             font-size: 18px;
@@ -1846,10 +1835,10 @@ footer {
     }
 }
 
-
 .cart-menu {
     padding-top: 45px;
-    margin-bottom:10px;
+    margin-bottom: 10px;
+
     .cart-wrapper {
         display: flex;
         justify-content: space-between;
@@ -1864,18 +1853,22 @@ footer {
             }
 
             .items-wrapper {
-                margin-bottom:220px;
-                h1{
-                    margin-top:50px;
-                    font-size:26pt;
+                margin-bottom: 220px;
+
+                h1 {
+                    margin-top: 50px;
+                    font-size: 26pt;
                 }
+
                 .cart-item {
                     display: flex;
                     align-items: center;
                     margin: 20px 0 22px;
-                    .item-delete{
-                        cursor:pointer;
+
+                    .item-delete {
+                        cursor: pointer;
                     }
+
                     .item-image {
                         background: #00AC4E;
                         border-radius: 5px;
@@ -1887,7 +1880,7 @@ footer {
                     .item-name {
                         font-size: 18px;
                         line-height: 21px;
-                        width:250px;
+                        width: 250px;
                     }
 
                     .quantity {
@@ -1994,7 +1987,6 @@ footer {
                             border-radius: 2.28221px;
                             position: relative;
 
-
                             &:before {
                                 content: attr(data-mins);
                                 font-weight: 500;
@@ -2082,15 +2074,16 @@ footer {
                 .items-summary, .promo-code {
                     padding-top: 35px;
                     display: flex;
-                    justify-content:space-between;
+                    justify-content: space-between;
                     font-weight: 500;
                     font-size: 16px;
                     line-height: 24px;
                 }
 
                 .promo-code {
-                    display:flex;
-                    justify-content:space-between;
+                    display: flex;
+                    justify-content: space-between;
+
                     .code {
                         color: #00AC4E;
                     }
@@ -2134,7 +2127,7 @@ footer {
                     }
 
                     .promo-button {
-                        cursor:pointer;
+                        cursor: pointer;
                         color: #FFFFFF;
                         font-weight: 500;
                         font-size: 14px;
@@ -2143,8 +2136,9 @@ footer {
                         border-radius: 5px;
                         text-decoration: none;
                         padding: 13px 27px;
-                        &:hover{
-                            color:black;
+
+                        &:hover {
+                            color: black;
                         }
                     }
                 }
@@ -2311,9 +2305,24 @@ footer {
 
         .delivery-info {
             padding-left: 50px;
+
             .info-wrapper {
                 margin-bottom: 50px;
+                display: flex;
 
+                .validation-order {
+                    display: flex;
+                    flex-direction: column;
+                    font-size: 10pt;
+                    color: crimson;
+
+                    label {
+                        width: 200px;
+                        text-align: center;
+                        margin-bottom:5px;
+                        line-height:15px;
+                    }
+                }
 
                 .deliver-district, .deliver-fio, .deliver-phone, .deliver-adress, .deliver-payment {
                     margin-bottom: 16px;
@@ -2354,6 +2363,11 @@ footer {
                 border-radius: 5.59701px;
                 text-decoration: none;
                 margin-bottom: 30px;
+                cursor: pointer;
+
+                &:hover {
+                    color: black;
+                }
             }
         }
     }

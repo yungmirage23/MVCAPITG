@@ -18,10 +18,10 @@
         <div class="header-text">Войти в личный кабинет</div>
       </div>
       <div class="modal-form">
-        <form>
+        <form id="form-log">
             <input id="return" type="hidden" asp-for="ReturnUrl" />
           <div class="inpt">
-            <input asp-for="Phone"class="phone"placeholder="Телефон"/>@*value="0685494492"*@
+            <input type="phone" asp-for="Phone"class="phone"placeholder="+38(___)"/>@*value="0685494492"*@
           </div>
           <div class="inpt">
             <input asp-for="Password" class="pass" placeholder="Пароль"/>@*value="dimarko619"*@
@@ -39,11 +39,12 @@
 </div>
 </div>
 <script>
+    $(function(){
     $(".phone").mask("+38(999)999-9999",{autoclear: false});
+    });
 </script>
 <script>
-    $("#enter").click(function(){
-        $("form").validate({ 
+    $("#form-log").validate({ 
         errorLabelContainer:".validation",
         rules: {
             Phone:{
@@ -67,9 +68,11 @@
                 maxlength:"Длина пароля не должна быть больше 12 символов",
             }
         },
-        success: "valid",
-        submitHandler: function(event)
-        {
+    });
+</script>
+<script>
+    $("#enter").click(function(){
+        if($("#form-log").valid()){
             $("#valid").css("display","none");
             var dataObject = {
                 'Phone': $(".phone").val(), 
@@ -97,13 +100,12 @@
             };
         }
     });
-    });
-
         
 </script>
 
 <script>
    $("#registration").click(function() {
+       $(".phone").mask();
        $('#login').modal('toggle');
        $.ajax({
         url:"/Account/RegistrationPartial",
