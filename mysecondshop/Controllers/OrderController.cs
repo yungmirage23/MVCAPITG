@@ -40,6 +40,7 @@ namespace RestWebAppl.Controllers
             }
             if (ModelState.IsValid)
             {
+                order.OrderDate = DateTime.Now.ToLongTimeString();
                 order.Lines = cart.Lines.ToArray();
                 orderRepository.SaveOrder(order);
                 cart.Clear();

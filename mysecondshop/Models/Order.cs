@@ -18,7 +18,8 @@ namespace RestWebAppl.Models
         public string PhoneNumber { get; set; }
         public string? DeliveryAdress { get; set; }
         public string? DeliveryDistrict { get; set; }
-        
+        public string? OrderDate { get; set; }
+        public string? DeliveryDate { get; set; }
         public bool Cash { get; set; }
         public bool SelfDeliver { get; set; }
     }
