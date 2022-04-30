@@ -3,7 +3,20 @@ body {
     color: black;
     font-weight: 400;
 }
+select {
+    outline: 0px !important;
+    -webkit-appearance: none;
+    box-shadow: none !important;
+    width: auto;
 
+    &#distr {
+        width: 300px;
+    }
+
+    &#cash {
+        width: 200px;
+    }
+}
 body::after, body::before {
     /* these are the 2 half blocks which cover the content once the animation is triggered */
     height: 50vh;
@@ -1792,12 +1805,14 @@ footer {
 
                             .item-name {
                                 font-weight: 500;
-                                font-size: 16.1493px;
+                                font-size: 16px;
                                 line-height: 15px;
                                 margin-right: 65px;
+                                width:150px;
                             }
 
                             .quantity {
+                                margin-right:auto;
                                 margin-right: 45px;
                                 display: flex;
                                 justify-content: center;
@@ -1810,6 +1825,8 @@ footer {
                             }
 
                             .summary {
+                                margin-left:auto;
+                                margin-right:0;
                                 font-weight: 500;
                                 font-size: 20.1866px;
                                 line-height: 17px;
@@ -2329,14 +2346,7 @@ footer {
 
                     .label {
                         font-size: 15.6716px;
-                        line-height: 24px;
-
-                        select {
-                            outline: 0px !important;
-                            -webkit-appearance: none;
-                            box-shadow: none !important;
-                            width: auto;
-                        }
+                        line-height: 24px;     
                     }
 
                     .input-val {

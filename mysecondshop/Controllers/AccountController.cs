@@ -14,8 +14,10 @@ namespace RestWebAppl.Controllers
     {
         private UserManager<ApplicationUser> userManager;
         private SignInManager<ApplicationUser> singInManager;
-        public AccountController(UserManager<ApplicationUser> usrMngr, SignInManager<ApplicationUser> singMng)
+        private IOrderRepository orderRepository;
+        public AccountController(IOrderRepository OrdRep,UserManager<ApplicationUser> usrMngr, SignInManager<ApplicationUser> singMng)
         {
+            orderRepository = OrdRep;
             userManager = usrMngr;
             singInManager = singMng;
         }
@@ -78,19 +80,21 @@ namespace RestWebAppl.Controllers
             return Json(serverfail);
         }
         public async Task<IActionResult> Cabinet(){
-            var CurrentUser = await userManager.GetUserAsync(User);    
+            var CurrentUser = await userManager.GetUserAsync(User);
             var user = new UserDataViewModel()
             {
-                User=new ApplicationUser()
+                User = new ApplicationUser()
                 {
                     FirstName = CurrentUser.FirstName,
                     LastName = CurrentUser.LastName,
-                    PatronymicName= CurrentUser.PatronymicName,
-                    AdditionalPhone=CurrentUser.AdditionalPhone,
+                    PatronymicName = CurrentUser.PatronymicName,
+                    AdditionalPhone = CurrentUser.AdditionalPhone,
                 },
+                Orders = orderRepository.Orders.Where(o => o.UserId == CurrentUser.UserName),
                 UserPhoto=CurrentUser.UserPhoto,
                 Email = CurrentUser.Email,
                 PhoneNumber = CurrentUser.PhoneNumber,
+                
             };
             return View(user);
         }

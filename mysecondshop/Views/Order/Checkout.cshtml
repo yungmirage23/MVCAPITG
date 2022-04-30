@@ -80,7 +80,16 @@
               Район доставки
             </div>
             <div class="input-val">
-              <input id="distr" asp-for="DeliveryDistrict" placeholder="Выбрать">
+              <select id="distr" name="DeliveryDistrict"class="form-select input-val" aria-label=".form-select-lg example">
+                  <option value=""selected>Выберите район доставки</option>
+                  <option value="Долгинцевский район">Долгинцевский район</option>
+                  <option value="Ингулецкий район">Ингулецкий район</option>
+                  <option value="Металлургический район">Металлургический район</option>
+                  <option value="Покровский район">Покровский район</option>
+                  <option value="Саксаганский район">Саксаганский район</option>
+                  <option value="Терновский район">Терновский район</option>
+                  <option value="Центрально-Городской район">Центрально-Городской район</option>
+              </select>  
             </div>
           </div>
           <div class="deliver-fio">
@@ -96,7 +105,7 @@
               Телефон
             </div>
             <div class="input-val">
-              <input id="phone" class="phone"asp-for="PhoneNumber" placeholder="+380">
+              <input id="phone" class="phone"asp-for="PhoneNumber"value="@User.Identity.Name" placeholder="+380">
             </div>
           </div>
           <div class="deliver-adress">

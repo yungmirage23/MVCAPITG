@@ -40,7 +40,13 @@ namespace RestWebAppl.Controllers
             }
             if (ModelState.IsValid)
             {
-                order.OrderDate = DateTime.Now.ToLongTimeString();
+                if (User.Identity.IsAuthenticated)
+                {
+                    order.UserId=User.Identity.Name;
+                }
+                order.OrderStatus = "Принят";
+                order.OrderTime = DateTime.Now.ToShortTimeString();
+                order.OrderDate = DateTime.Now.ToShortDateString();
                 order.Lines = cart.Lines.ToArray();
                 orderRepository.SaveOrder(order);
                 cart.Clear();

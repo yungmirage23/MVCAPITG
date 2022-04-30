@@ -132,90 +132,56 @@
         </div>
         <div id="tab-history" class="tab-history tab-pane fade">
           <div class="tab-wrapper">
+            @foreach(var order in Model.Orders){
             <div class="card-history">
               <div class="order-info">
                 <div class="order-id">
                   <span class="label">Номер заказа:</span
-                  ><span class="value">Заказ №2334678954</span>
+                  ><span class="value">@order.OrderID</span>
                 </div>
                 <div class="payment-method">
-                  <span class="label">Способ оплаты:</span
-                  ><span class="value">Банковская карта</span>
+                  <span class="label">Способ оплаты:</span>
+                  @{if(order.Cash==true){
+                      <span class="value">Наличные</span>
+                  }
+                  else{
+                      <span class="value">Банковская карта</span>
+                  }}
                 </div>
                 <div class="order-data">
                   <span class="label">Дата заказа:</span
-                  ><span class="value">19.05.2020</span>
+                  ><span class="value">@order.OrderDate</span>
                 </div>
                 <div class="delivety-data">
-                  <span class="label">Дата доставки:</span
-                  ><span class="value">23.05.2020</span>
+                  <span class="label">Дата доставки:</span>
+                  @if(order.Shipped){
+                      <span class="value">@order.DeliveryDate</span>
+                  }
+                  else{
+                      <span class="value">Не отправлен</span>
+                  }
                 </div>
                 <div class="order-status">
-                  <span class="label">Статус заказа:</span
-                  ><span class="value">Доставлен</span>
+                <span class="label">Статус заказа:</span>
+                    <span class="value">@order.OrderStatus</span>
                 </div>
               </div>
               <div class="items-wrapper">
+              @foreach(var line in order.Lines){
                 <div class="item-container">
                   <div class="item-image"></div>
-                  <div class="item-name">Хачапури</div>
-                  <div class="quantity"><span>1</span>шт</div>
-                  <div class="summary"><span>350</span>UAH</div>
+                  <div class="item-name">@line.Item.Name</div>
+                  <div class="quantity"><span>@line.Quantity</span>шт</div>
+                  <div class="summary"><span>@line.ComputeLineTotal()</span> UAH</div>
                 </div>
-                <div class="item-container">
-                  <div class="item-image"></div>
-                  <div class="item-name">Хачапури</div>
-                  <div class="quantity"><span>1</span>шт</div>
-                  <div class="summary"><span>350</span>UAH</div>
-                </div>
+              }
                 <div class="repeat-order">
                   <span>Повторить заказ</span
                   ><img src="/img/repeat-ico.svg" />
                 </div>
               </div>
             </div>
-            <div class="card-history">
-              <div class="order-info">
-                <div class="order-id">
-                  <span class="label">Номер заказа:</span
-                  ><span class="value">Заказ №2334678954</span>
-                </div>
-                <div class="payment-method">
-                  <span class="label">Способ оплаты:</span
-                  ><span class="value">Банковская карта</span>
-                </div>
-                <div class="order-data">
-                  <span class="label">Дата заказа:</span
-                  ><span class="value">19.05.2020</span>
-                </div>
-                <div class="delivety-data">
-                  <span class="label">Дата доставки:</span
-                  ><span class="value">23.05.2020</span>
-                </div>
-                <div class="order-status">
-                  <span class="label">Статус заказа:</span
-                  ><span class="value">Доставлен</span>
-                </div>
-              </div>
-              <div class="items-wrapper">
-                <div class="item-container">
-                  <div class="item-image"></div>
-                  <div class="item-name">Хачапури</div>
-                  <div class="quantity"><span>1</span>шт</div>
-                  <div class="summary"><span>350</span>UAH</div>
-                </div>
-                <div class="item-container">
-                  <div class="item-image"></div>
-                  <div class="item-name">Хачапури</div>
-                  <div class="quantity"><span>1</span>шт</div>
-                  <div class="summary"><span>350</span>UAH</div>
-                </div>
-                <div class="repeat-order">
-                  <span>Повторить заказ</span
-                  ><img src="/img/repeat-ico.svg" />
-                </div>
-              </div>
-            </div>
+            }
           </div>
         </div>
       </div>
