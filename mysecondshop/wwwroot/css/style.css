@@ -352,8 +352,8 @@ header .menu-right .menu-user a {
   color: #000000;
 }
 header .menu-right .menu-user a div {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   overflow: hidden;
   border-radius: 50%;
 }
@@ -492,13 +492,12 @@ header .menu-right .menu-user a img {
 }
 .home-products .products-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
 }
 .home-products .products-wrapper .product {
   width: 205px;
-  margin-bottom: 56px;
-  margin-right: 20px;
+  margin: 0 20px 56px 20px;
 }
 .home-products .products-wrapper .product a {
   text-decoration: none;
@@ -553,7 +552,7 @@ header .menu-right .menu-user a img {
   border-color: #FFFFFF;
   background-color: #00AC4E;
   border-radius: 4.5px;
-  display: inline-block;
+  display: block;
   text-align: center;
 }
 .home-products .products-wrapper .product .to-cart:hover {
@@ -1352,7 +1351,7 @@ footer .footer .footer-right .sing-in span {
 }
 .user-cabinet .personal-wrapper #tab-personal .tab-wrapper .data-name .name-data input {
   margin-top: 11px;
-  width: 179.01px;
+  width: 230px;
   height: 51.61px;
   left: 223px;
   top: 534.16px;
