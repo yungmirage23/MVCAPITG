@@ -15,9 +15,9 @@ namespace RestWebAppl.Models
             else
                 line.Quantity += quantity;
         }
-        public virtual void RemoveLine(Item item)
+        public virtual void RemoveLine(Guid id)
         {
-            lineCollection.RemoveAll(l=>l.Item.Id==item.Id);
+            lineCollection.RemoveAll(l=>l.Item.Id==id);
         }
         public virtual void AddQuantity(Guid itemId)
         {
@@ -35,7 +35,7 @@ namespace RestWebAppl.Models
                     lineCollection.FirstOrDefault(p => p.Item.Id == itemId).Quantity--;
                 }
                 else
-                lineCollection.RemoveAll(l => l.Item.Id==itemId);
+                    RemoveLine(itemId);                
             }
         }
         public virtual void Clear()=>lineCollection.Clear();

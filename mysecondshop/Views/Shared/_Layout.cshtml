@@ -156,7 +156,15 @@
           </div>
         </nav>
       </header>
-      @RenderBody()
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["error"]</div>
+        }
+        @RenderBody()
       <footer>
         <div class="container">
           <div class="footer">
@@ -206,7 +214,7 @@
 
 
  <script>
-   $(".profile").click(function() {
+   $(".profile ,.sing-in").click(function() {
    var url="/Account/Login";
    var ReturnUrl=$(this).attr("returnUrl");
    var fulladrs=url+'?returnUrl='+ReturnUrl;

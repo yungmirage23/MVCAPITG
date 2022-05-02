@@ -54,7 +54,7 @@
 
       <div class="tab-content">
         <div id="tab-personal" class="tab-personal tab-pane show active">
-          <form id="form" asp-action="Cabinet" method="post" enctype="multipart/form-data">
+          <form id="form-changedata" asp-action="Cabinet" method="post" enctype="multipart/form-data">
           <div class="tab-wrapper">
             <div class="data-name">
               <div class="name-header">Персональная информация</div>
@@ -87,6 +87,7 @@
                 <div class="yname">Адрес электронной почты</div>
                 <input asp-for="Email" placeholder="Email" />
               </div>
+              <a asp-action="Logout" asp-controller="Account"class="green-btn">Выйти</a>
             </div>
             <div class="data-pass">
               <div class="pass-header">
@@ -101,7 +102,7 @@
                 </div>
                 <div class="phone-number">
                   <div class="phonelabel">Дополнительный</div>
-                  <input asp-for="User.AdditionalPhone"/>
+                  <input name="AdditionalPhone" asp-for="User.AdditionalPhone"/>
                 </div>
               </div>
               <div class="change-pass-menu">
@@ -109,19 +110,19 @@
                 <div class="change-pass">
                   <div class="pass-label">Ваш старый пароль</div>
                   <div class="pass-input">
-                    <input placeholder="Старый пароль" />
+                    <input type="password" asp-for="OldPassword" placeholder="Старый пароль" />
                   </div>
                 </div>
                 <div class="change-pass">
                   <div class="pass-label">Ваш новый пароль</div>
                   <div class="pass-input">
-                    <input placeholder="Новый пароль" />
+                    <input type="password" asp-for="NewPassword" placeholder="Новый пароль" />
                   </div>
                 </div>
                 <div class="change-pass">
                   <div class="pass-label">Подтверждение</div>
                   <div class="pass-input">
-                    <input placeholder="Подтвердите пароль" />
+                    <input id="confirm-pass" placeholder="Подтвердите пароль" />
                   </div>
                 </div>
               </div>
@@ -211,7 +212,7 @@
                 return this.optional(element) || /^[\u0400-\u04FF]+$/i.test(value);
             }, "Letters only please");
             $(".save-changes").click(function(){
-                $("#form").validate({
+                $("#form-changedata").validate({
                     rules:{
                         FirstName:{lettersonly:true},
                         LastName:{lettersonly:true},
@@ -235,8 +236,8 @@
                         }
                     },
                 });
-                if($("#form").valid())
-                    $("#form").submit();
+                if($("#form-changedata").valid())
+                    $("#form-changedata").submit();
             });
         });
     </script>

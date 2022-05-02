@@ -26,6 +26,7 @@ namespace RestWebAppl.Controllers
             var Cart = GetCart();
             if (Cart.Lines.Count() == 0)
             {
+                TempData["error"] = $"Извините, Ваша корзина пустая";
                 return RedirectToAction("Shop", "Home");
             }
             return View(new Order());
@@ -36,6 +37,7 @@ namespace RestWebAppl.Controllers
             var response = new Response();
             if (cart.Lines.Count() == 0)
             {
+                TempData["error"] = $"Извините, Ваша корзина пустая";
                 ModelState.AddModelError("", "Извините, Ваша корзина пустая");
             }
             if (ModelState.IsValid)
@@ -53,6 +55,7 @@ namespace RestWebAppl.Controllers
                 response.dateTime = DateTime.Now.ToShortTimeString();
                 response.status = true;
                 response.returnUrl = "Home/Index";
+                TempData["message"] = $"Заказ оформлен. Ожидайте, мы вам перезвоним";
                 return Json(response);
             }
             else
@@ -60,6 +63,7 @@ namespace RestWebAppl.Controllers
                 response.status = false;
                 response.dateTime= DateTime.Now.ToShortTimeString();
                 response.returnUrl = "Order/Checkout";
+                TempData["error"] = $"Произошла ошибка при оформлении заказа, обратитесь в службу поддержки";
                 return Json(response);
             }
         }
@@ -72,6 +76,7 @@ namespace RestWebAppl.Controllers
                 Cart cart = GetCart();
                 cart.AddItem(item, quantity);
                 SaveCart(cart);
+                TempData["message"] = $"Товар успешно добавлен в корзину";
             }
             Response response = new Response()
             {
@@ -87,11 +92,13 @@ namespace RestWebAppl.Controllers
             if (item != null)
             {
                 Cart cart = GetCart();
-                cart.RemoveLine(item);
+                cart.RemoveLine(itemid);
                 SaveCart(cart);
-            }
+                TempData["message"] = $"Товар успешно удалён из корзины";
+            }            
             if (cart.Lines.Count() == 1)
             {
+                TempData["error"] = $"Ваша корзина пустая";
                 return RedirectToAction("Index","Home");
             }
             return Redirect(ReturnUrl);
@@ -108,6 +115,10 @@ namespace RestWebAppl.Controllers
         {
             cart.MinusQuantity(itemId);
             SaveCart(cart);
+            if (cart.Lines.Count() == 0)
+            {
+            TempData["message"] = $"Товар успешно удалён из корзины";
+            }
             return RedirectToAction("Cart");
         }
 
@@ -137,6 +148,10 @@ namespace RestWebAppl.Controllers
         {
             cart.MinusQuantity(itemId);
             SaveCart(cart);
+            if (cart.Lines.Count() == 0)
+            {
+                TempData["message"] = $"Товар успешно удалён из корзины";
+            }
             var result = new
             {
                 Quantity = 0,

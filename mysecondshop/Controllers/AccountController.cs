@@ -60,26 +60,44 @@ namespace RestWebAppl.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> RegistrationPartial([FromBody]LoginModel loginModel)
+        public async Task<JsonResult> RegistrationPartial([FromBody]LoginModel loginModel)
         {
             if (ModelState.IsValid)
             {
-                if (userManager.Users.FirstOrDefault(u => u.PhoneNumber == loginModel.Phone) == null)
-                {
-                    var user = new ApplicationUser
-                    {
-                        UserName=loginModel.Phone.Replace("+","").Replace("(","").Replace(")","").Replace("-",""),
-                        PhoneNumber =loginModel.Phone,
-                    };
-                    await userManager.CreateAsync(user,loginModel.Password);
-                    var serverlogin = new Response { returnUrl=loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = true };
-                    return Json(serverlogin);
-                } 
+                return await CreateUser(loginModel);
             }
             var serverfail = new Response { returnUrl = loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = false };
             return Json(serverfail);
         }
-        public async Task<IActionResult> Cabinet(){
+        public async Task<IActionResult> Cabinet() 
+        {
+            UserDataViewModel user = await ShowUserInfo();
+           return View(user);
+        } 
+        [HttpPost]
+        public async Task<IActionResult> Cabinet(UserDataViewModel usermodel)
+        {
+            if (ModelState.IsValid)
+            {
+                await ChangeUserData(usermodel);
+                if (usermodel.OldPassword != null && usermodel.NewPassword != null)
+                {
+                    await ChangeUserPassword(usermodel.OldPassword, usermodel.NewPassword);
+                }
+                if (TempData["error"] == null)
+                {
+                    TempData["message"] = $"Данные успешно изменены";
+                }
+            }
+            return RedirectToAction("Cabinet");
+        }
+        public async Task<ActionResult> Logout()
+        {
+            await singInManager.SignOutAsync();
+            return RedirectToAction("Index","Home");
+        }
+        private async Task<UserDataViewModel> ShowUserInfo()
+        {
             var CurrentUser = await userManager.GetUserAsync(User);
             var user = new UserDataViewModel()
             {
@@ -91,67 +109,96 @@ namespace RestWebAppl.Controllers
                     AdditionalPhone = CurrentUser.AdditionalPhone,
                 },
                 Orders = orderRepository.Orders.Where(o => o.UserId == CurrentUser.UserName),
-                UserPhoto=CurrentUser.UserPhoto,
+                UserPhoto = CurrentUser.UserPhoto,
                 Email = CurrentUser.Email,
                 PhoneNumber = CurrentUser.PhoneNumber,
-                
+
             };
-            return View(user);
+            return user;
         }
-        [HttpPost]
-        public async Task<IActionResult> Cabinet(UserDataViewModel usermodel)
+        private async Task ChangeUserData(UserDataViewModel usermodel)
         {
-            if (ModelState.IsValid)
+            var result = await userManager.GetUserAsync(User);/*usermodel.PhoneNumber.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "")*/
+
+            if (usermodel.Avatar != null)
             {
-
-                var result = await userManager.FindByNameAsync(User.Identity.Name);/*usermodel.PhoneNumber.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "")*/
-
-                if (usermodel.Avatar != null)
+                using (var ms = new MemoryStream())
                 {
-                    using (var ms = new MemoryStream())
-                    {
-                        usermodel.Avatar.CopyTo(ms);
-                        var fileBytes = ms.ToArray();
-                        result.UserPhoto = fileBytes;
-                        usermodel.UserPhoto = fileBytes;
-                    }
+                    usermodel.Avatar.CopyTo(ms);
+                    var fileBytes = ms.ToArray();
+                    result.UserPhoto = fileBytes;
+                    usermodel.UserPhoto = fileBytes;
                 }
-
-                if (!string.IsNullOrWhiteSpace(usermodel.User.FirstName) && usermodel.User.FirstName !=result.FirstName)
-                {
-                   result.FirstName = usermodel.User.FirstName;
-                }
-                else
-                    ModelState.AddModelError("", "Поле имя не может быть пустым");
-                if (!string.IsNullOrWhiteSpace(usermodel.User.LastName) && usermodel.User.LastName != result.LastName)
-                {
-                    result.LastName = usermodel.User.LastName;
-                }
-                else
-                    ModelState.AddModelError("", "Поле фамилия не может быть пустым");
-                if (!string.IsNullOrWhiteSpace(usermodel.User.PatronymicName) && usermodel.User.PatronymicName != result.PatronymicName)
-                {
-                    result.PatronymicName = usermodel.User.PatronymicName;
-                }
-                else
-                    ModelState.AddModelError("", "E-mail не может быть пустым");
-                if (!string.IsNullOrWhiteSpace(usermodel.Email) && usermodel.Email != result.Email)
-                {
-                    result.Email = usermodel.Email;
-                }
-                if (!string.IsNullOrWhiteSpace(usermodel.User.AdditionalPhone) && usermodel.User.AdditionalPhone != result.AdditionalPhone)
-                {
-                    result.AdditionalPhone = usermodel.User.AdditionalPhone;
-                }
-                await userManager.UpdateAsync(result);
             }
-            
-            return RedirectToAction("Cabinet");
+            if (!string.IsNullOrWhiteSpace(usermodel.User.FirstName) && usermodel.User.FirstName != result.FirstName)
+            {
+                result.FirstName = usermodel.User.FirstName;
+            }
+            else
+                ModelState.AddModelError("", "Поле имя не может быть пустым");
+            if (!string.IsNullOrWhiteSpace(usermodel.User.LastName) && usermodel.User.LastName != result.LastName)
+            {
+                result.LastName = usermodel.User.LastName;
+            }
+            else
+                ModelState.AddModelError("", "Поле фамилия не может быть пустым");
+            if (!string.IsNullOrWhiteSpace(usermodel.User.PatronymicName) && usermodel.User.PatronymicName != result.PatronymicName)
+            {
+                result.PatronymicName = usermodel.User.PatronymicName;
+            }
+            else
+                ModelState.AddModelError("", "E-mail не может быть пустым");
+            if (!string.IsNullOrWhiteSpace(usermodel.Email) && usermodel.Email != result.Email)
+            {
+                result.Email = usermodel.Email;
+            }
+            if (!string.IsNullOrWhiteSpace(usermodel.User.AdditionalPhone) && usermodel.User.AdditionalPhone != result.AdditionalPhone)
+            {
+                result.AdditionalPhone = usermodel.User.AdditionalPhone;
+            }
+            await userManager.UpdateAsync(result);
         }
-        public async Task<ActionResult> Logout(string returnUrl = "/")
+        public async Task ChangeUserPassword(string OldPassword,string NewPassword)
         {
-            await singInManager.SignOutAsync();
-            return RedirectToAction(returnUrl);
+            var result = await userManager.GetUserAsync(User);
+            var passwordVartification = userManager.PasswordHasher.VerifyHashedPassword(result, result.PasswordHash, OldPassword);
+            var newPasswordVartification = userManager.PasswordHasher.VerifyHashedPassword(result, result.PasswordHash, NewPassword);
+            if (newPasswordVartification == PasswordVerificationResult.Success)
+            {
+                TempData["error"] = $"Старый и новый пароли совпадают";
+                return;
+            }
+            else if (passwordVartification == PasswordVerificationResult.Success)
+            {
+                var token = await userManager.GeneratePasswordResetTokenAsync(result);
+                userManager.ResetPasswordAsync(result, token, NewPassword);
+            }
+            else
+            {
+                TempData["error"] = $"Не правильный пароль";
+                ModelState.AddModelError("", "Не правильный пароль");
+            }
+        }
+        private async Task<JsonResult> CreateUser(LoginModel loginModel)
+        {
+            if (userManager.Users.FirstOrDefault(u => u.PhoneNumber == loginModel.Phone) == null)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = loginModel.Phone.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", ""),
+                    PhoneNumber = loginModel.Phone,
+                };
+                await userManager.CreateAsync(user, loginModel.Password);
+                TempData["message"] = $"Аккаунт успешно зарегестрирован";
+                var serverlogin = new Response { returnUrl = loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = true };
+                return Json(serverlogin);
+            }
+            else
+            {
+                TempData["error"] = $"Аккаунт не зарегестрирован";
+                var serverlogin = new Response { returnUrl = loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = false };
+                return Json(serverlogin);
+            }    
         }
     }
 }
