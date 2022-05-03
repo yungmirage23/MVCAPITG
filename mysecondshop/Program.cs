@@ -19,6 +19,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(opts =>
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ConnectionString));
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddScoped<IRepository,EFRepository>();
+builder.Services.AddScoped<IReviewRepository,EFReviewRepository>();
 builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();
 builder.Services.AddScoped<Cart>(sp=>SessionCart.GetCart(sp));
 builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();

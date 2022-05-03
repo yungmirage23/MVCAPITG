@@ -50,7 +50,11 @@
              @foreach(var p in Model.Items)
             {
              <div class="product">
-              <a asp-controller="Order" asp-action="Item" asp-route-itemId="@p.Id" class="img"></a>
+              <a asp-controller="Order" asp-action="Item" asp-route-itemId="@p.Id" class="img">
+                  @if(@p.ImagePath!=null){
+                      <img src="~/uploads/@p.ImagePath">
+                  }
+              </a>
               <div class="product-title">
                 <a asp-controller="Order" asp-action="Item" asp-route-itemId="@p.Id" class="title">@p.Name</a>
               </div>

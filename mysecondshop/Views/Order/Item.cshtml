@@ -1,12 +1,16 @@
-﻿@model Item
+﻿@using RestWebAppl.Models.ViewModels;
+@model ItemPageViewModel
 <section class="order-menu">
       <div class="container">
         <div class="order-wrapper">
           <div class="order-description">
             <div class="item-photo">
+                @if(@Model.item.ImagePath!=null){
+                      <img src="~/uploads/@Model.item.ImagePath">
+                  }
             </div>
             <div class="menu">
-              <div class="items-name">@Model.Name</div>
+              <div class="items-name">@Model.item.Name</div>
               <div class="menu-rating">
                 <span><img src="/img/star-bigger.svg" /></span>
                 <span><img src="/img/star-bigger.svg" /></span>
@@ -17,7 +21,7 @@
               <div class="menu-reviews">Кол-во отзывов:&nbsp;<span>23</span></div>
               <div class="menu-price">
                 <div class="text">Цена за уп.</div>
-                <div class="digit"><span id="price">@Model.Price</span>&nbsp;UAH</div>
+                <div class="digit"><span id="price">@Model.item.Price</span>&nbsp;UAH</div>
               </div>
               <div class="menu-qip">
                 <div class="text">Вес</div>
@@ -34,7 +38,7 @@
               <div class="small-text">Ед. изм.: упаковка</div>
               <div class="menu-summary">
                 <div class="text">Итого к оплате</div>
-                <div  class="digit"><span id="summary">@Model.Price</span>&nbsp;UAH</div>
+                <div  class="digit"><span id="summary">@Model.item.Price</span>&nbsp;UAH</div>
               </div>
               <div class="buttons">
                 <a asp-action="Checkout" asp-controller="Order" class="button-big">Купить</a>
@@ -102,13 +106,14 @@
                 <h1>Отзывы</h1>
                 <div class="swiper slider-reviews">
                   <div class="swiper-wrapper">
+                  @foreach(var review in @Model.reviews){
                     <div class="swiper-slide">
                       <div class="review-header">
                         <div class="avatar">
                           <img href="#" src="/img/rev_photo.png">
                         </div>
                         <div class="user-info">
-                          <div class="name">Анатолий Петров <span><img src="/img/message.svg"></span></div>
+                          <div class="name">@review.User.FirstName @review.User.LastName <span><img src="/img/message.svg"></span></div>
                           <div class="rating">
                             <span class="active"></span>
                             <span class="active"></span>
@@ -116,76 +121,19 @@
                             <span class="active"></span>
                             <span class=""></span>
                           </div>
-                            <a  class="social-link"href="">vk.com/anatoliy</a>
+                            <a  class="social-link"href="">@review.User.PhoneNumber</a>
                         </div>
                       </div>
                       <div class="review-text">
-                        Заказал 5кг мяса, живу в Московской области.
-                        Как и обещал оператор, привезли через 1,5 часа.
-                        Свежее, как будто было живое еще по дороге.
-                        Действительно натуральные продукты. 
-                        Я обязательно буду заказывать дальше. 
-                        А теперь подробнее о плюсах и минусах всего магази...
+                          @review.Text
                         <div class="read-full"><a href="#">Читать полностью</a></div>
                       </div>
                     </div>
-                    <div class="swiper-slide">
-                      <div class="review-header">
-                        <div class="avatar">
-                          <img href="#" src="/img/rev_photo.png">
-                        </div>
-                        <div class="user-info">
-                          <div class="name">Анатолий Петров <span><img src="/img/message.svg"></span></div>
-                          <div class="rating">
-                            <span class="active"></span>
-                            <span class="active"></span>
-                            <span class="active"></span>
-                            <span class="active"></span>
-                            <span class=""></span>
-                          </div>
-                            <a  class="social-link"href="">vk.com/anatoliy</a>
-                        </div>
-                      </div>
-                      <div class="review-text">
-                        Заказал 5кг мяса, живу в Московской области.
-                        Как и обещал оператор, привезли через 1,5 часа.
-                        Свежее, как будто было живое еще по дороге.
-                        Действительно натуральные продукты. 
-                        Я обязательно буду заказывать дальше. 
-                        А теперь подробнее о плюсах и минусах всего магази...
-                        <div class="read-full"><a href="#">Читать полностью</a></div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="review-header">
-                        <div class="avatar">
-                          <img href="#" src="/img/rev_photo.png">
-                        </div>
-                        <div class="user-info">
-                          <div class="name">Анатолий Петров <span><img src="/img/message.svg"></span></div>
-                          <div class="rating">
-                            <span class="active"></span>
-                            <span class="active"></span>
-                            <span class="active"></span>
-                            <span class="active"></span>
-                            <span class=""></span>
-                          </div>
-                            <a  class="social-link"href="">vk.com/anatoliy</a>
-                        </div>
-                      </div>
-                      <div class="review-text">
-                        Заказал 5кг мяса, живу в Московской области.
-                        Как и обещал оператор, привезли через 1,5 часа.
-                        Свежее, как будто было живое еще по дороге.
-                        Действительно натуральные продукты. 
-                        Я обязательно буду заказывать дальше. 
-                        А теперь подробнее о плюсах и минусах всего магази...
-                        <div class="read-full"><a href="#">Читать полностью</a></div>
-                      </div>
-                    </div>
+                  }
                   </div>
                   <div class="swiper-button-next"><span>Ещё</span><img src="/img/arrowA.svg"></div>
                 </div>
+                <a class="green-btn" asp-route-itemId="@Model.item.Id" asp-action="AddReview">Добавить отзыв</a>
               </div>
             </div>
           </div>
@@ -231,7 +179,7 @@
     $(function() {
     $("#AddToCart").click(function(){
         var quanti=parseInt($(".jq").text());
-        $.post("@Url.Action("AddToCart","Order")",{itemid:"@Model.Id",quantity:quanti}).done(function(data){console.log(data.stutus);location.reload();});
+        $.post("@Url.Action("AddToCart","Order")",{itemid:"@Model.item.Id",quantity:quanti}).done(function(data){console.log(data.stutus);location.reload();});
     });
     });
 </script>

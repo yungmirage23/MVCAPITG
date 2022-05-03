@@ -2,23 +2,45 @@
 using RestWebAppl.Models;
 using RestWebAppl.Models.ViewModels;
 using RestWebAppl.Infrastructure;
-
+using Microsoft.AspNetCore.Identity;
 namespace RestWebAppl.Controllers
 {
     public class OrderController : Controller
     {
-        public IRepository Repository { get; set; }
+        private UserManager<ApplicationUser> userManager;
+        private IRepository Repository { get; set; }
         private IOrderRepository orderRepository;
         private Cart cart;
-        public OrderController(IOrderRepository OrdRep,IRepository itemrRep, Cart cartService)
+        private IReviewRepository reviewRepository;
+
+        public OrderController(IOrderRepository OrdRep, IRepository itemrRep, Cart cartService, IReviewRepository reviewRep,UserManager<ApplicationUser> userMngr)
         {
             orderRepository = OrdRep;
             Repository = itemrRep;
             cart = cartService;
+            reviewRepository = reviewRep;
+            userManager = userMngr;
+        }
+        [HttpGet]
+        public async Task<IActionResult> AddReview(Guid itemId) 
+        {
+            var user = await userManager.GetUserAsync(User);
+            var reviews = reviewRepository.Reviews.Where(i=>i.ItemId==itemId);
+            var item = Repository.Items.FirstOrDefault(i => i.Id == itemId);
+            var viewmodel = new ReviewAddViewModel() {Reviews=reviews,Item=item};
+            return View(viewmodel); 
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddReview(Guid itemId,string text)
+        {
+            var user = await userManager.GetUserAsync(User);
+            var review = new Review() {Text = text,User=user,ItemId=itemId};
+            reviewRepository.AddReview(review);
+            return RedirectToAction("Index","Home");
         }
 
         [HttpGet]
-        public ViewResult Item(Guid itemId) => View(Repository.Items.FirstOrDefault(a => a.Id == itemId));
+        public ViewResult Item(Guid itemId) => View(new ItemPageViewModel { item = Repository.Items.FirstOrDefault(a => a.Id == itemId), reviews = reviewRepository.Reviews.Where(r=>r.ItemId==itemId)});
 
         public IActionResult Cart() => View(new CartIndexViewModel { Cart = GetCart() });
         public IActionResult Checkout()
@@ -32,7 +54,7 @@ namespace RestWebAppl.Controllers
             return View(new Order());
         }
         [HttpPost]
-        public JsonResult Checkout([FromBody]Order order)
+        public JsonResult Checkout([FromBody] Order order)
         {
             var response = new Response();
             if (cart.Lines.Count() == 0)
@@ -44,7 +66,7 @@ namespace RestWebAppl.Controllers
             {
                 if (User.Identity.IsAuthenticated)
                 {
-                    order.UserId=User.Identity.Name;
+                    order.UserId = User.Identity.Name;
                 }
                 order.OrderStatus = "Принят";
                 order.OrderTime = DateTime.Now.ToShortTimeString();
@@ -61,12 +83,13 @@ namespace RestWebAppl.Controllers
             else
             {
                 response.status = false;
-                response.dateTime= DateTime.Now.ToShortTimeString();
+                response.dateTime = DateTime.Now.ToShortTimeString();
                 response.returnUrl = "Order/Checkout";
                 TempData["error"] = $"Произошла ошибка при оформлении заказа, обратитесь в службу поддержки";
                 return Json(response);
             }
         }
+
         [HttpPost]
         public JsonResult AddToCart(Guid itemid, int quantity)
         {

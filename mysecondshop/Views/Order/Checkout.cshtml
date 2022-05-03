@@ -21,7 +21,11 @@
                   </a>
                 </div>
               </div>
-              <div class="item-image"><img src=""/></div>
+              <div class="item-image">
+                  @if(@line.Item.ImagePath!=null){
+                      <img src="~/uploads/@line.Item.ImagePath">
+                  }
+              </div>
               <div class="item-name">@line.Item.Name</div>
               <div class="quantity">
                   <div class="b-minus">-</div>

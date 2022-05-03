@@ -532,6 +532,7 @@ header .menu-right .menu-user a img {
 .home-products .products-wrapper .product .img img {
   height: 100%;
   width: 100%;
+  object-fit: cover;
 }
 .home-products .products-wrapper .product .product-title {
   font-weight: 500;
@@ -849,8 +850,8 @@ footer .footer .footer-right .sing-in span {
   justify-content: space-around;
 }
 .order-menu .order-description .item-photo {
-  width: 646.1px;
-  height: 426.52px;
+  width: 640px;
+  height: 426px;
   background-image: url(/img/item-bg.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -860,6 +861,8 @@ footer .footer .footer-right .sing-in span {
 .order-menu .order-description .item-photo img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 .order-menu .order-description .menu {
   margin-left: 36.15px;
@@ -1044,11 +1047,14 @@ footer .footer .footer-right .sing-in span {
 .description-menu .description-wrapper .description-block .tab-content #parameters_product ul {
   height: 100%;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   display: flex;
   padding: 0;
   margin: 0;
   list-style: none;
+}
+.description-menu .description-wrapper .description-block .tab-content #parameters_product ul li {
+  margin-bottom: 12px;
 }
 .description-menu .description-wrapper .description-block .tab-content #reviews_product h1 {
   font-weight: 500;
@@ -1475,11 +1481,17 @@ footer .footer .footer-right .sing-in span {
   align-items: center;
 }
 .user-cabinet .personal-wrapper #tab-history .tab-wrapper .card-history .items-wrapper .item-container .item-image {
-  width: 78.92px;
-  height: 58.3px;
+  width: 79px;
+  height: 58px;
   background: #00AC4E;
-  border-radius: 3.55497px;
+  border-radius: 5px;
   margin-right: 25px;
+  overflow: hidden;
+}
+.user-cabinet .personal-wrapper #tab-history .tab-wrapper .card-history .items-wrapper .item-container .item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .user-cabinet .personal-wrapper #tab-history .tab-wrapper .card-history .items-wrapper .item-container .item-name {
   font-weight: 500;
@@ -1554,6 +1566,12 @@ footer .footer .footer-right .sing-in span {
   width: 111px;
   height: 82px;
   margin: 0px 38px 0 15px;
+  overflow: hidden;
+}
+.cart-menu .cart-wrapper .cart-items .items-wrapper .cart-item .item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .cart-menu .cart-wrapper .cart-items .items-wrapper .cart-item .item-name {
   font-size: 18px;
@@ -1814,8 +1832,13 @@ footer .footer .footer-right .sing-in span {
 .cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .item-image {
   background: #00AC4E;
   border-radius: 3.50806px;
-  width: 77.88px;
-  height: 57.53px;
+  width: 78px;
+  height: 58px;
+  overflow: hidden;
+}
+.cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .item-image img {
+  width: 100%;
+  object-fit: contain;
 }
 .cofirmation-menu .confirmation-wrapper .order-info .orders-wrapper .cart-item .item-name {
   padding-left: 25px;

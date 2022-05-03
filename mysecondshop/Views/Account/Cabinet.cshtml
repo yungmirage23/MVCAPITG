@@ -170,7 +170,10 @@
               <div class="items-wrapper">
               @foreach(var line in order.Lines){
                 <div class="item-container">
-                  <div class="item-image"></div>
+                  <div class="item-image">
+                  @if(@line.Item.ImagePath!=null){
+                      <img src="~/uploads/@line.Item.ImagePath">
+                  }</div>
                   <div class="item-name">@line.Item.Name</div>
                   <div class="quantity"><span>@line.Quantity</span>шт</div>
                   <div class="summary"><span>@line.ComputeLineTotal()</span> UAH</div>

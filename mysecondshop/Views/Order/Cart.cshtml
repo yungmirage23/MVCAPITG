@@ -20,7 +20,11 @@
                    </a>
                   </div>
                 </div>
-                <div class="item-image"></div>
+                <div class="item-image">
+                    @if(@line.Item.ImagePath!=null){
+                      <img src="~/uploads/@line.Item.ImagePath">
+                  }
+                </div>
                 <div class="item-name">@line.Item.Name</div>
                 <input id="aaa" type="hidden"value="@line.Item.Id.ToString()"/>
                 <div class="quantity">

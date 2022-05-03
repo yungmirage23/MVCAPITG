@@ -643,8 +643,9 @@ header {
                 overflow: hidden;
 
                 img {
-                    height: 100%;
-                    width: 100%;
+                    height:100%;
+                    width:100%;
+                    object-fit:cover;
                 }
             }
 
@@ -1035,8 +1036,8 @@ footer {
         justify-content: space-around;
 
         .item-photo {
-            width: 646.1px;
-            height: 426.52px;
+            width: 640px;
+            height: 426px;
             background-image: url(/img/item-bg.svg);
             background-repeat: no-repeat;
             background-position: center;
@@ -1045,7 +1046,9 @@ footer {
 
             img {
                 width: 100%;
-                height: 100%;
+                height:100%;
+                object-fit:contain;
+                object-position:center;
             }
         }
 
@@ -1274,11 +1277,14 @@ footer {
                     ul {
                         height: 100%;
                         flex-direction: column;
-                        justify-content: space-between;
+                        justify-content: flex-start;
                         display: flex;
                         padding: 0;
                         margin: 0;
                         list-style: none;
+                        li{
+                            margin-bottom:12px;
+                        }
                     }
                 }
 
@@ -1811,11 +1817,18 @@ footer {
                             align-items: center;
 
                             .item-image {
-                                width: 78.92px;
-                                height: 58.3px;
+                                width: 79px;
+                                height: 58px;
                                 background: #00AC4E;
-                                border-radius: 3.55497px;
+                                border-radius: 5px;
                                 margin-right: 25px;
+                                overflow:hidden;
+                                
+                                img{
+                                    width:100%;
+                                    height:100%;
+                                    object-fit:cover;
+                                }
                             }
 
                             .item-name {
@@ -1907,6 +1920,12 @@ footer {
                         width: 111px;
                         height: 82px;
                         margin: 0px 38px 0 15px;
+                        overflow:hidden;
+                        img{
+                            width:100%;
+                            height:100%;
+                            object-fit:cover;
+                        }
                     }
 
                     .item-name {
@@ -2218,8 +2237,13 @@ footer {
                     .item-image {
                         background: #00AC4E;
                         border-radius: 3.50806px;
-                        width: 77.88px;
-                        height: 57.53px;
+                        width: 78px;
+                        height: 58px;
+                        overflow:hidden;
+                        img{
+                            width:100%;
+                            object-fit:contain;
+                        }
                     }
 
                     .item-name {
