@@ -1282,8 +1282,9 @@ footer {
                         padding: 0;
                         margin: 0;
                         list-style: none;
-                        li{
-                            margin-bottom:12px;
+
+                        li {
+                            margin-bottom: 12px;
                         }
                     }
                 }
@@ -1322,7 +1323,7 @@ footer {
 
                             img {
                                 margin-left: 5.8px;
-                                width: 8.71px
+                                width: 9px;
                             }
 
                             &::after {
@@ -1339,9 +1340,11 @@ footer {
                                 padding: 13.62px 16.77px 13.98px 14.64px;
                                 background: rgba(242,242, 242, 0.75);
                                 border-radius: 11.1818px;
-                                width: 276px !important;
-                                height: 149.84px !important;
-
+                                width: 280px !important;
+                                height: 200px !important;
+                                display:flex;
+                                flex-direction:column;
+                                margin-bottom:50px;
                                 .review-header {
                                     margin-bottom: 5.59px;
                                     display: flex;
@@ -1350,8 +1353,8 @@ footer {
                                     .avatar {
                                         align-self: flex-start;
                                         margin-right: 5.03px;
-                                        width: 35px;
-                                        height: 35px;
+                                        width: 45px;
+                                        height: 45px;
 
                                         img {
                                             width: 100%;
@@ -1369,7 +1372,7 @@ footer {
                                         .name {
                                             margin-bottom: 3px;
                                             font-weight: 500;
-                                            font-size: 11.1818px;
+                                            font-size: 12px;
                                             line-height: 13px;
                                             color: #000000;
 
@@ -1383,13 +1386,13 @@ footer {
                                             display: flex;
 
                                             span {
-                                                width: 8px;
-                                                height: 8px;
+                                                width: 10px;
+                                                height: 10px;
                                                 background: url(/img/Base.svg);
                                                 display: inline-block;
 
                                                 &.active {
-                                                    background: url(/img/star-small.svg);
+                                                    background: url(../img/star.svg);
                                                     background-size: cover;
                                                 }
                                             }
@@ -1397,7 +1400,7 @@ footer {
 
                                         .social-link {
                                             font-weight: 400;
-                                            font-size: 10px;
+                                            font-size: 12px;
                                             line-height: 11px;
                                             color: #2D9CDB;
                                         }
@@ -1405,17 +1408,21 @@ footer {
                                 }
 
                                 .review-text {
+                                    margin-bottom:auto;
                                     font-weight: 400;
-                                    font-size: 8.94545px;
+                                    font-size: 12px;
                                     line-height: 11px;
+                                    resize:none;
+                                    border:none;
 
-                                    .read-full {
-                                        a {
-                                            font-weight: 500;
-                                            font-size: 7.82727px;
-                                            line-height: 9px;
-                                            color: #00AC4E;
-                                        }
+                                }
+
+                                .read-full {
+                                    a {
+                                        font-weight: 500;
+                                        font-size: 9px;
+                                        line-height: 9px;
+                                        color: #00AC4E;
                                     }
                                 }
                             }

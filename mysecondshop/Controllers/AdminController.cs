@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace RestWebAppl.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
         private readonly IWebHostEnvironment env;
@@ -22,27 +22,49 @@ namespace RestWebAppl.Controllers
         public IActionResult Index()=>View(repository.Items);
 
         public ViewResult Edit(Guid itemId)
-        { 
-          return View(repository.Items.FirstOrDefault(i=>i.Id==itemId));
-        }
-        [HttpPost]
-        public IActionResult Edit(Item item, IFormFile MyImage)
         {
-            if (ModelState.IsValid&&MyImage!=null)
-            {
-                var uniqueFileName = GetUniqueFileName(MyImage.FileName);
-                var uploads = Path.Combine(env.WebRootPath, "uploads");
-                var filePath = Path.Combine(uploads, uniqueFileName);
-                MyImage.CopyTo(new FileStream(filePath, FileMode.Create));
-                item.ImagePath= uniqueFileName;
-                repository.SaveItem(item);
-                TempData["message"] = $"Товар {item.Name} успешно сохранён";
-                return RedirectToAction("Index");
-            }
-            else
+            var item = repository.Items.FirstOrDefault(i => i.Id == itemId);
+            if(item!= null)
             {
                 return View(item);
             }
+            else
+                return View(item = new Item());
+            
+                     
+        }
+        [HttpPost]
+        public IActionResult Edit(Item item, IFormFile? MyImage)
+        {
+            var repitem=repository.Items.FirstOrDefault(i=>i.Id==item.Id);
+            if(repitem!= null)
+            {
+                if (ModelState.IsValid)
+                {
+                    TempData["message"] = $"Товар {item.Name} успешно сохранён";
+                    repitem.Description = item.Description;
+                    repitem.Category = item.Category;
+                    repitem.Price = item.Price;
+                    repitem.Name= item.Name;
+                    repitem.addedTime = item.addedTime;
+                    repository.SaveItem(repitem);
+                }
+                else
+                {
+                    TempData["error"] = $"Товар {item.Name} НЕ СОХРАНЁН";
+                    return View(item);
+                }
+                if (MyImage != null)
+                {
+                    var uniqueFileName = GetUniqueFileName(MyImage.FileName);
+                    var uploads = Path.Combine(env.WebRootPath, "uploads");
+                    var filePath = Path.Combine(uploads, uniqueFileName);
+                    MyImage.CopyTo(new FileStream(filePath, FileMode.Create));
+                    repitem.ImagePath = uniqueFileName;
+                    repository.SaveItem(repitem);
+                }
+            }
+            return RedirectToAction("Index");
         }
         public ViewResult Create(ItemsListViewModel pvm) => View("Edit", new Item() { addedTime=DateTime.Now.ToLongTimeString()});
         [HttpPost]
@@ -55,7 +77,6 @@ namespace RestWebAppl.Controllers
             }
            return RedirectToAction("Index");
         }
-        [Authorize]
         public ViewResult List() => View(orderRepository.Orders.Where(o => !o.Shipped));
         [HttpPost]
         public IActionResult MarkShipped(int orderId)

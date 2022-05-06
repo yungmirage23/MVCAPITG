@@ -1,4 +1,6 @@
 ﻿@using RestWebAppl.Models.ViewModels;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 @model ItemPageViewModel
 <section class="order-menu">
       <div class="container">
@@ -110,7 +112,13 @@
                     <div class="swiper-slide">
                       <div class="review-header">
                         <div class="avatar">
-                          <img href="#" src="/img/rev_photo.png">
+                            @if (review.User.UserPhoto!= null)
+                            {
+                                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(review.User.UserPhoto))"/>
+                            }
+                            else{
+                                <img src="/img/rev_photo.png">
+                            }
                         </div>
                         <div class="user-info">
                           <div class="name">@review.User.FirstName @review.User.LastName <span><img src="/img/message.svg"></span></div>
@@ -124,24 +132,28 @@
                             <a  class="social-link"href="">@review.User.PhoneNumber</a>
                         </div>
                       </div>
-                      <div class="review-text">
-                          @review.Text
-                        <div class="read-full"><a href="#">Читать полностью</a></div>
-                      </div>
+                      <textarea rows=10 readonly class="review-text">@review.Text</textarea>
+                      <div class="read-full"><a href="#">Читать полностью</a></div>
                     </div>
                   }
                   </div>
                   <div class="swiper-button-next"><span>Ещё</span><img src="/img/arrowA.svg"></div>
                 </div>
-                <a class="green-btn" asp-route-itemId="@Model.item.Id" asp-action="AddReview">Добавить отзыв</a>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                  <a class="green-btn" asp-route-itemId="@Model.item.Id" asp-action="AddReview">Добавить отзыв</a>  
+                }
+                else{
+                  <span>Для того, чтобы иметь возможность оставлять отзывы, необходимо авторизироваться.</span>
+                }
               </div>
             </div>
           </div>
           <div class="bonus-menu">
-            <div class="bonus-header">Закажите на 3000 RUB и получите</div>
+            <div class="bonus-header">Закажите на 3000 UAH и получите</div>
             <div class="bonus-money">
               <img src="/img/bonus-pig.svg" alt="" />
-              <b>30 RUB &nbsp;</b><span>на бонусный счет</span>
+              <b>30 UAH &nbsp;</b><span>на бонусный счет</span>
             </div>
             <div class="bonus-delivery">
               <img src="/img/free-car.svg" />
@@ -159,7 +171,7 @@
               </div>
             </div>
             <div class="bonus-footer">
-              Осталось <b>1988 RUB</b> до бесплатной доставки
+              Осталось <b>1988 UAH</b> до бесплатной доставки
             </div>
           </div>
         </div>

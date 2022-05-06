@@ -3,6 +3,7 @@ using RestWebAppl.Models;
 using RestWebAppl.Models.ViewModels;
 using RestWebAppl.Infrastructure;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 namespace RestWebAppl.Controllers
 {
     public class OrderController : Controller
@@ -21,6 +22,7 @@ namespace RestWebAppl.Controllers
             reviewRepository = reviewRep;
             userManager = userMngr;
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> AddReview(Guid itemId) 
         {
@@ -30,13 +32,14 @@ namespace RestWebAppl.Controllers
             var viewmodel = new ReviewAddViewModel() {Reviews=reviews,Item=item};
             return View(viewmodel); 
         }
+        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddReview(Guid itemId,string text)
+        public async Task<JsonResult> AddReview(Guid itemId,string text)
         {
             var user = await userManager.GetUserAsync(User);
             var review = new Review() {Text = text,User=user,ItemId=itemId};
             reviewRepository.AddReview(review);
-            return RedirectToAction("Index","Home");
+            return Json(itemId);
         }
 
         [HttpGet]

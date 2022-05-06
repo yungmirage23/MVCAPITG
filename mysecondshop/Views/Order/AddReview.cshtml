@@ -21,7 +21,10 @@
         $(".green-btn").click(function(){
             var text=$("#text-review").val();
             $.post("/Order/AddReview",
-            {"itemId":"@Model.Item.Id","text":text})
+            {"itemId":"@Model.Item.Id","text":text},function(data){
+                var url="/Item/"+data;
+                window.location = url;
+            });
         });
     });
 </script>

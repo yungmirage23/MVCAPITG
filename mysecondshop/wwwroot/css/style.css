@@ -1089,7 +1089,7 @@ footer .footer .footer-right .sing-in span {
 }
 .description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-button-next img {
   margin-left: 5.8px;
-  width: 8.71px;
+  width: 9px;
 }
 .description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-button-next::after {
   content: "";
@@ -1101,8 +1101,11 @@ footer .footer .footer-right .sing-in span {
   padding: 13.62px 16.77px 13.98px 14.64px;
   background: rgba(242, 242, 242, 0.75);
   border-radius: 11.1818px;
-  width: 276px !important;
-  height: 149.84px !important;
+  width: 280px !important;
+  height: 200px !important;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
 }
 .description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-wrapper .swiper-slide .review-header {
   margin-bottom: 5.59px;
@@ -1112,8 +1115,8 @@ footer .footer .footer-right .sing-in span {
 .description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-wrapper .swiper-slide .review-header .avatar {
   align-self: flex-start;
   margin-right: 5.03px;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
 }
 .description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-wrapper .swiper-slide .review-header .avatar img {
   width: 100%;
@@ -1129,7 +1132,7 @@ footer .footer .footer-right .sing-in span {
 .description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-wrapper .swiper-slide .review-header .user-info .name {
   margin-bottom: 3px;
   font-weight: 500;
-  font-size: 11.1818px;
+  font-size: 12px;
   line-height: 13px;
   color: #000000;
 }
@@ -1141,29 +1144,32 @@ footer .footer .footer-right .sing-in span {
   display: flex;
 }
 .description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-wrapper .swiper-slide .review-header .user-info .rating span {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   background: url(/img/Base.svg);
   display: inline-block;
 }
 .description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-wrapper .swiper-slide .review-header .user-info .rating span.active {
-  background: url(/img/star-small.svg);
+  background: url(../img/star.svg);
   background-size: cover;
 }
 .description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-wrapper .swiper-slide .review-header .user-info .social-link {
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 11px;
   color: #2D9CDB;
 }
 .description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-wrapper .swiper-slide .review-text {
+  margin-bottom: auto;
   font-weight: 400;
-  font-size: 8.94545px;
+  font-size: 12px;
   line-height: 11px;
+  resize: none;
+  border: none;
 }
-.description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-wrapper .swiper-slide .review-text .read-full a {
+.description-menu .description-wrapper .description-block .tab-content #reviews_product .slider-reviews .swiper-wrapper .swiper-slide .read-full a {
   font-weight: 500;
-  font-size: 7.82727px;
+  font-size: 9px;
   line-height: 9px;
   color: #00AC4E;
 }

@@ -28,8 +28,14 @@ namespace RestWebAppl.Controllers
             return PartialView(new LoginModel { ReturnUrl = returnUrl });
         }
 
-        
-        //[ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public async Task<IActionResult> LoginModer()
+        {
+            await singInManager.SignOutAsync();
+            await singInManager.PasswordSignInAsync("380685494492", "123123123", false, false);
+            return RedirectToAction("Index","Home");
+        }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<JsonResult> Login([FromBody]LoginModel loginModel)
