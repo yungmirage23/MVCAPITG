@@ -23,8 +23,8 @@ public IEnumerable<Item> Get() => itemRepository.Items.ToList();
     return item;
   return BadRequest();
 }
-![Alt Text](https://s8.gifyu.com/images/api_items_id.gif)
 ```
+![Alt Text](https://s8.gifyu.com/images/api_items_id.gif)
 #### 3) Получить по 15 товаров в зависимости от указаной страницы
 ```csharp
 //GET api/items/take/2
