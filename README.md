@@ -11,7 +11,7 @@
 [HttpGet]
 public IEnumerable<Item> Get() => itemRepository.Items.ToList();
 ```
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Alt Text](https://s8.gifyu.com/images/api_items.gif)
 #### 2) Получить товар по уникальному идентификатору
 ```csharp
 //GET api/items/F74349D5-52B4-4A4A-0382-08DA02C684C5
