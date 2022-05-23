@@ -140,152 +140,161 @@
   </div>
 </section>
 <script>
-    $(".phone").mask("+38(099)999-9999",{autoclear: false});
+	$(".phone").mask("+38(099)999-9999",{autoclear: false});
 </script>
 <script>
-    $("#form-order").validate({
-           errorLabelContainer:".validation-order",
-           rules: {
-            DeliveryDistrict:{
-                required:true,
-            },
-            FullName: {
-                required: true,
-            },
-            PhoneNumber: {
-                required: true,
-                minlength:15,
-            },
-            DeliveryAdress:{
-                required:true,
-            },
-            Cash:{
-                required:true,
-            },
-        },
-        messages: {
-            DeliveryDistrict:{
-                required:"Пожалуйста, укажите название района",
-            },
-            FullName: {
-                required: "Укажите полное имя",
-            },
-            PhoneNumber: {
-                required: "Поле номер телефона обязательно для заполнения",
-                minlength:"Номер телефона должен состоять минимум из 10 цифр",
-            },
-            DeliveryAdress:{
-                required:"Поле адрес обязательно для заполения",
-            },
-            Cash:{
-                required:"Пожалуйста, выберите способ оплаты",
-            },
-        },
-       });
+	jQuery.validator.addMethod("usPhoneFormat", function (value, element) {
+		var aaa=value.replace("+", "").replace("(", "").replace(")", "").replace("-", "").replace(/_/g, "");
+		return this.optional(element) || /^\d{12}$/.test(aaa);
+	}, "Пожалуйста введите корректный номер телефона");
+	$("#form-order").validate({
+		errorLabelContainer:".validation-order",
+		rules: {
+			DeliveryDistrict:{
+				required:true,
+			},
+			FullName: {
+				required: true,
+			},
+			PhoneNumber: {
+				required: true,
+				usPhoneFormat:true,
+			},
+			DeliveryAdress:{
+				required:true,
+			},
+			Cash:{
+				required:true,
+			},
+		},
+		messages: {
+			PhoneNumber: {
+				required:"Номер телефона обязателен для заполнения",
+			},
+			DeliveryDistrict:{
+				required:"Пожалуйста, укажите название района",
+			},
+			FullName: {
+				required: "Укажите полное имя",
+			},
+			PhoneNumber: {
+				required: "Поле номер телефона обязательно для заполнения",
+				minlength:"Номер телефона должен состоять минимум из 10 цифр",
+			},
+			DeliveryAdress:{
+				required:"Поле адрес обязательно для заполения",
+			},
+			Cash:{
+				required:"Пожалуйста, выберите способ оплаты",
+			},
+		},
+	});
 </script>
 
 <script>
-    $(".submit-btn").click(function(){
-        if($("#form-order").valid()){
-            if($(".tab-selfdel").hasClass("active")){
-                var selfdel=true;
-            }
-            else var selfdel=false;
-            var orderObject = {
-                'DeliveryDistrict': $("#distr").val(), 
-                'DeliveryAdress': $("#deladdrs").val(),
-                'FullName': $("#fullnam").val(),                
-                'PhoneNumber': $("#phone").val(),
-                'Cash': $("#cash").val(),
-                'SelfDeliver':selfdel,
-            };
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("Checkout","Order")",
-                data: JSON.stringify(orderObject),
-                contentType: "application/json; charset=utf-8",
-                success: function(){
-                    location.href="/Home/Index"
-                }
-            });
-        }
-    });
+	$(".submit-btn").click(function(){
+		if($("#form-order").valid()){
+			if($(".tab-selfdel").hasClass("active")){
+				var selfdel=true;
+			}
+			else var selfdel=false;
+			var orderObject = {
+				'DeliveryDistrict': $("#distr").val(), 
+				'DeliveryAdress': $("#deladdrs").val(),
+				'FullName': $("#fullnam").val(),                
+				'PhoneNumber': $("#phone").val(),
+				'Cash': $("#cash").val(),
+				'SelfDeliver':selfdel,
+			};
+			$.ajax({
+				type: "POST",
+				url: "@Url.Action("Checkout","Order")",
+				data: JSON.stringify(orderObject),
+				contentType: "application/json; charset=utf-8",
+				success: function(){
+					location.href="/Home/Index"
+				}
+			});
+		}
+	});
     
 </script>
 <script>
-    ChangeTotal();
-    TotalValue();
-    $(document).on("click", ".b-plus",function() {
-        var item=$(this).closest(".cart-item");
-        var id=item.attr("id");
-        var quantity=item.find(".jq");
-        var summary=item.find("#digit");
-        $.post("/Order/IncrementJson",
-        {itemId:id})
-        .done(function(data){
-            if(data.Quantity>1){
-                quantity.text(data.Quantity);
-                summary.text((data.Quantity*data.Price).toFixed(2).replace(".",","));
-                ChangeTotal();
-                TotalValue();
-            }            
-        });
-    });
-    $(document).on("click", ".b-minus",function() {
-        var item=$(this).closest(".cart-item");
-        var id=item.attr("id");
-        var quantity=item.find(".jq");
-        if(parseInt(quantity.text())>1){
-            var summary=item.find("#digit");
-            $.post("/Order/DecrementJson",
-            {itemId:id})
-            .done(function(data){
-                if(data.Quantity>0){
-                    quantity.text(data.Quantity);
-                    summary.text((data.Quantity*data.Price).toFixed(2).replace(".",","));
-                    ChangeTotal();
-                    TotalValue();
-                }
-            });
-        }       
-    });
+	ChangeTotal();
+	TotalValue();
+	$(document).on("click", ".b-plus",function() {
+		var item=$(this).closest(".cart-item");
+		var id=item.attr("id");
+		var quantity=item.find(".jq");
+		var summary=item.find("#digit");
+		$.post("/Order/IncrementJson",
+				{itemId:id})
+			.done(function(data){
+				if(data.Quantity>1){
+					quantity.text(data.Quantity);
+					summary.text((data.Quantity*data.Price).toFixed(2).replace(".",","));
+					ChangeTotal();
+					TotalValue();
+				}            
+			});
+	});
+	$(document).on("click", ".b-minus",function() {
+		var item=$(this).closest(".cart-item");
+		var id=item.attr("id");
+		var quantity=item.find(".jq");
+		if(parseInt(quantity.text())>1){
+			var summary=item.find("#digit");
+			$.post("/Order/DecrementJson",
+					{itemId:id})
+				.done(function(data){
+					if(data.Quantity>0){
+						quantity.text(data.Quantity);
+						summary.text((data.Quantity*data.Price).toFixed(2).replace(".",","));
+						ChangeTotal();
+						TotalValue();
+					}
+				});
+		}       
+	});
 
-    function TotalValue(){
-        if($(".tab-selfdel").hasClass("active")){
-            var b=parseFloat($("#total").text());
-            var c=b-(b/5);
-            $("#total-sum").text(c.toFixed(2).replace(".",","));
-        }
-        else{
-            var b=parseFloat($("#total").text());
-            var discount=parseFloat($("#discount-dig").text());
-            var c=b+discount;
-            $("#total-sum").text(c.toFixed(2).replace(".",","));
-        }
-    };
+	function TotalValue(){
+		if($(".tab-selfdel").hasClass("active")){
+			var b=parseFloat($("#total").text());
+			var c=b-(b/5);
+			$("#total-sum").text(c.toFixed(2).replace(".",","));
+		}
+		else{
+			var b=parseFloat($("#total").text());
+			var discount=parseFloat($("#discount-dig").text());
+			var c=b+discount;
+			$("#total-sum").text(c.toFixed(2).replace(".",","));
+		}
+	};
 
-    function ChangeTotal(){
-        var sum=0;
-        $(".tot").each(function(){
-            sum+=parseInt($(this).text());
-        });
-        $("#total").text(sum.toFixed(2).replace(".",","));
-    };
+	function ChangeTotal(){
+		var sum=0;
+		$(".tot").each(function(){
+			sum+=parseInt($(this).text());
+		});
+		$("#total").text(sum.toFixed(2).replace(".",","));
+	};
    
-    $(document).on("click",".tab-selfdel",function(){
-        $(this).addClass("active");
-        $("#discount-dig").text("0");
-        $(".tab-deliver").removeClass("active");
-        $(".deliver-adress").hide();
-        $(".deliver-district").hide();  
-        TotalValue();
-    });
-    $(document).on("click",".tab-deliver",function(){
-        $(this).addClass("active");
-        $("#discount-dig").text("100");
-        $(".tab-selfdel").removeClass("active");
-        $(".deliver-adress").show();
-        $(".deliver-district").show();
-        TotalValue();
-    });
+	$(document).on("click",".tab-selfdel",function(){
+		$(this).addClass("active");
+		$("#discount-dig").text("0");
+		$(".tab-deliver").removeClass("active");
+		$(".deliver-adress").hide();
+		$(".deliver-district").hide();
+		$("#form-order").valid();
+		TotalValue();
+	});
+	$(document).on("click",".tab-deliver",function(){
+		$(this).addClass("active");
+		$("#discount-dig").text("100");
+		$(".tab-selfdel").removeClass("active");
+		$(".deliver-adress").show();
+		$(".deliver-district").show();
+		$("#form-order").valid();
+		TotalValue();
+	});
 </script>

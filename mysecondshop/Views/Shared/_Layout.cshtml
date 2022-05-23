@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager 
 @inject Cart cartservise
@@ -37,125 +38,115 @@
   </head>
 
   <body>
-    <a asp-controller="Account" asp-action="LoginModer">Login Moder</a>
-    <div class="wrapper">
+  <div class="wrapper">
       <div class="modalwindow">
       </div>
-      <header>
-        <div class="row"></div>
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <div class="container">
-            <a class="navbar-brand" asp-action="Index" asp-controller="Home">
-              <img src="~/img/logo.png" alt="" />
-            </a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto">
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Меню
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" asp-controller="Home"asp-action="Shop" asp-route-category="Супы"asp-route-productPage="1">
-                        <span><img src="~/img/soup.svg" alt="" /></span>Супы
-                    </a>
-                    <a class="dropdown-item" asp-controller="Home"asp-action="Shop" asp-route-category="Хачапури"asp-route-productPage="1"
-                      ><span><img src="~/img/hachap.svg" alt="" /></span
-                      >Хачапури
-                      </a>
-                    <a class="dropdown-item" asp-controller="Home"asp-controller="Home"asp-action="Shop" asp-route-category="Холодные закуски"asp-route-productPage="1"
-                      ><span><img src="~/img/coldsnack.svg" alt="" /></span>Холодные закуски
-                    </a>
-                    <a class="dropdown-item" asp-controller="Home"asp-controller="Home"asp-action="Shop" asp-route-category="Хинкали"asp-route-productPage="1"
-                      ><span><img src="~/img/khinkal.svg" alt="" /></span>Хинкали
-                     </a>
-                    <a class="dropdown-item" asp-controller="Home"asp-action="Shop" asp-route-category="Шашлык"asp-route-productPage="1"
-                      ><span><img src="~/img/shashl.svg" alt="" /></span>Шашлык
-                    </a>
-                    <a class="dropdown-item" asp-controller="Home"asp-action="Shop" asp-route-category="Соусы"asp-route-productPage="1"
-                      ><span><img src="~/img/souce.svg" alt="" /></span>Соусы
-                    </a>
-                    <a class="dropdown-item" asp-controller="Home"asp-action="Shop" asp-route-category="Салаты"asp-route-productPage="1"
-                      ><span><img src="~/img/salad.svg" alt="" /></span>Салаты
-                    </a>
-                    <a class="dropdown-item" asp-controller="Home"asp-action="Shop" asp-route-category="Горячие блюда"asp-route-productPage="1"
-                      ><span><img src="~/img/hotdish.svg" alt="" /></span>Горячие блюда
-                    </a>
-                    <a class="dropdown-item" asp-controller="Home"asp-action="Shop" asp-route-category="Гарниры"asp-route-productPage="1"
-                      ><span><img src="~/img/garnish.svg" alt="" /></span>Гарниры
-                    </a>
-                    <a class="dropdown-item" asp-controller="Home"asp-action="Shop" asp-route-category="Десерты"asp-route-productPage="1"
-                      ><span><img src="~/img/desert.svg" alt="" /></span>Десерты
-                    </a>
-                    <a class="dropdown-item" asp-controller="Home"asp-action="Shop" asp-route-category="Напитки"asp-route-productPage="1"
-                      ><span><img src="~/img/drinks.svg" alt="" /></span>Напитки
-                    </a>
-                  </div>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" asp-action="Delivery" asp-controller="Home" aria-current="page">Доставка</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" asp-action="Payment" asp-controller="Home">Оплата</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="modal" data-bs-target="#booking" href="">Бронь стола</a>
-                </li>
-              </ul>
-              <div class="menu-right d-flex justify-content-between">
-                <div class="menu-contact">
-                  <a href="tel:+380685494492">
-                    <img src="~/img/phone.svg" alt="" />
-                    <span>+38 (068)549-44-92</span>
-                  </a>
-                </div>
-                <div class="menu-user">
-                    @if(SignInManager.IsSignedIn(User))
-                        {
-                        var currentuser = await UserManager.GetUserAsync(User);
-                        <a asp-action="Cabinet"asp-controller="Account">
-                            @if(currentuser.UserPhoto!=null)
-                            {
-                                var userPhoto = Convert.ToBase64String(currentuser.UserPhoto);
-                                <div class="obertka"><img id="avatar" src="data:image/jpeg;base64,@userPhoto"/></div>
-                            }
-                            else
-                            {
-                            <span>Привет, @User.Identity.Name</span>
-                            }
-                            </a>
-                    }
-                       else{
-                            <a returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"class="profile"><img src="~/img/person.svg"/></a>
-                        }
-                    <a asp-action="Cart" asp-controller="Order" class="cart"><img src="~/img/shopping-cart.svg"/>
-                        @if(cartservise.Lines.Count()>0){
-                        <span>Товаров в корзине: @cartservise.Lines.Count()</span>
-                    }
-                    </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header>
+	  <header>
+		  <div class="row"></div>
+		  <nav class="navbar navbar-expand-lg navbar-light">
+			  <div class="container">
+				  <a class="navbar-brand" asp-route-category="@null"asp-action="Index" asp-controller="Home">
+					  <img src="~/img/logo.png" alt=""/>
+				  </a>
+				  <button
+					  class="navbar-toggler"
+					  type="button"
+					  data-bs-toggle="collapse"
+					  data-bs-target="#navbarSupportedContent"
+					  aria-controls="navbarSupportedContent"
+					  aria-expanded="false"
+					  aria-label="Toggle navigation">
+					  <span class="navbar-toggler-icon"></span>
+				  </button>
+				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+					  <ul class="navbar-nav me-auto">
+						  <li class="nav-item dropdown">
+							  <a
+								  class="nav-link dropdown-toggle"
+								  href="#"
+								  id="navbarDropdown"
+								  role="button"
+								  data-bs-toggle="dropdown"
+								  aria-expanded="false">
+								  Меню
+							  </a>
+							  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Супы"asp-route-productPage="1">
+									  <span><img src="~/img/soup.svg" alt=""/></span>Супы
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Хачапури"asp-route-productPage="1">
+									  <span><img src="~/img/hachap.svg" alt=""/></span
+									  >Хачапури
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-controller="Home"asp-action="Index" asp-route-category="Холодные закуски"asp-route-productPage="1"><span><img src="~/img/coldsnack.svg" alt=""/></span>Холодные закуски
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-controller="Home"asp-action="Index" asp-route-category="Хинкали"asp-route-productPage="1"><span><img src="~/img/khinkal.svg" alt=""/></span>Хинкали
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Шашлык"asp-route-productPage="1"><span><img src="~/img/shashl.svg" alt=""/></span>Шашлык
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Соусы"asp-route-productPage="1"><span><img src="~/img/souce.svg" alt=""/></span>Соусы
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Салаты"asp-route-productPage="1"><span><img src="~/img/salad.svg" alt=""/></span>Салаты
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Горячие блюда"asp-route-productPage="1"><span><img src="~/img/hotdish.svg" alt=""/></span>Горячие блюда
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Гарниры"asp-route-productPage="1"><span><img src="~/img/garnish.svg" alt=""/></span>Гарниры
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Десерты"asp-route-productPage="1"><span><img src="~/img/desert.svg" alt=""/></span>Десерты
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Напитки"asp-route-productPage="1"><span><img src="~/img/drinks.svg" alt=""/></span>Напитки
+								  </a>
+							  </div>
+						  </li>
+						  <li class="nav-item active">
+							  <a class="nav-link" asp-action="Delivery" asp-controller="Home" aria-current="page">Доставка</a>
+						  </li>
+						  <li class="nav-item">
+							  <a class="nav-link" asp-action="Payment" asp-controller="Home">Оплата</a>
+						  </li>
+						  <li class="nav-item">
+							  <a class="nav-link" data-bs-toggle="modal" data-bs-target="#booking" href="">Бронь стола</a>
+						  </li>
+					  </ul>
+					  <div class="menu-right d-flex justify-content-between">
+						  <div class="menu-contact">
+							  <a href="tel:+380685494492">
+								  <img src="~/img/phone.svg" alt=""/>
+								  <span>+38 (068)549-44-92</span>
+							  </a>
+						  </div>
+						  <div class="menu-user">
+							  @if (SignInManager.IsSignedIn(User))
+							  {
+								  var currentuser = await UserManager.GetUserAsync(User);
+								  <a asp-action="Cabinet"asp-controller="Account">
+									  @if (currentuser.UserPhoto != null)
+									  {
+										  var userPhoto = Convert.ToBase64String(currentuser.UserPhoto);
+										  <div class="obertka"><img id="avatar" src="data:image/jpeg;base64,@userPhoto"/></div>
+									  }
+									  else
+									  {
+										  <span>Привет, @User.Identity.Name</span>
+									  }
+								  </a>
+							  }
+							  else
+							  {
+								  <a returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"class="profile"><img src="~/img/person.svg"/></a>
+							  }
+							  <a asp-action="Cart" asp-controller="Order" class="cart"><img src="~/img/shopping-cart.svg"/>
+								  @if (cartservise.Lines.Count() > 0)
+								  {
+									  <span>Товаров в корзине: @cartservise.Lines.Count()</span>
+								  }
+							  </a>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+		  </nav>
+	  </header>
         @if (TempData["message"] != null)
         {
             <div class="alert alert-success">@TempData["message"]</div>
@@ -202,7 +193,7 @@
           </div>
           <div class="footer-bottom">
             <div class="policy">
-              <span>©2020 Пиросмани</span>
+              <span>©2022 Пиросмани</span>
               <span>Условия и соглашения</span>
               <span>Политика конфиденциальности</span>
             </div>
@@ -212,56 +203,9 @@
     </div>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-
- <script>
-   $(".profile ,.sing-in").click(function() {
-   var url="/Account/Login";
-   var ReturnUrl=$(this).attr("returnUrl");
-   var fulladrs=url+'?returnUrl='+ReturnUrl;
-   $.ajax({
-        url:fulladrs,
-        type:"Get",
-        success: function(response){
-            $(".modalwindow").html(response);
-            $('#login').modal('show');
-        }
-    });
-   });
-</script>
-
-    
-
-    <script>
-      $(".play_yt").click(function () {
-        $(this).hide();
-        $(".ytvideo").attr(
-          "src",
-          "https://www.youtube.com/embed/ciibp6fAcYo?autoplay=1"
-        );
-      });
-      var swiper = new Swiper(".swiper-container", {
-        slidesPerView: 1,
-        pagination: {
-          el: ".swiper-pagination",
-          dynamicBullets: true,
-        },
-      });
-      var swiperMenu = new Swiper(".swiper-container-menu", {
-        slidesPerView: "auto",
-        spaceBetween: 63,
-        pagination: {
-          el: ".swiper-menu-pagination",
-          type: "progressbar",
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
-    </script>
-    
-    
-    
+  <script src="~/AjaxJqueryScripts/AJAX/SignInModal.js"></script>
+  <script src="~/AjaxJqueryScripts/JQ/YoutubeVideo.js"></script>
+  
   </body>
 </html>
 

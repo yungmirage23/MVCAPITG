@@ -4,119 +4,45 @@
     Layout="";
 }
 <div
-  class="modal fade"
-  id="login"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
+	class="modal fade"
+	id="login"
+	tabindex="-1"
+	aria-labelledby="exampleModalLabel"
+	aria-hidden="true"
 >
-  <div class="modal-dialog">
-<div class="modal-content">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      <div class="icon-header">
-        <img src="~/img/icon_login.svg" />
-        <div class="header-text">Войти в личный кабинет</div>
-      </div>
-      <div class="modal-form">
-        <form id="form-log">
-            <input id="return" type="hidden" asp-for="ReturnUrl" />
-          <div class="inpt">
-            <input type="phone" asp-for="Phone"class="phone"placeholder="+38(___)"/>@*value="0685494492"*@
-          </div>
-          <div class="inpt">
-            <input asp-for="Password" class="pass" placeholder="Пароль"/>@*value="dimarko619"*@
-          </div>
-          <div id="valid" class="error-txt">Не правильный номер телефона или пароль</div>
-          <div class="error-txt validation"></div>
-          <div class="forgot-pass">Забыли пароль?</div>
-            <button id="enter" class="green_btn">Войти</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <span>Впервые у нас?</span><a id="registration">Зарегистрироваться</a>
-      </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div class="icon-header">
+				<img src="~/img/icon_login.svg" />
+				<div class="header-text">Войти в личный кабинет</div>
+			</div>
+			<div class="modal-form">
+				<form id="form-log">
+					<div class="inpt">
+						<input asp-for="Phone"class="phone"placeholder="+38(___)"/>
+					</div>
+					<div class="inpt">
+						<input asp-for="Password" class="pass" placeholder="Пароль"/>
+					</div>
+					<div id="valid" class="error-txt">Не правильный номер телефона или пароль</div>
+					<div class="error-txt validation"></div>
+					<div class="forgot-pass">Забыли пароль?</div>
+					<button id="enter" class="green_btn">Войти</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<span>Впервые у нас?</span><a id="registration">Зарегистрироваться</a>
+			</div>
+		</div>
+	</div>
 </div>
-</div>
-</div>
-<script>
-    $(function(){
-    $(".phone").mask("+38(999)999-9999",{autoclear: false});
-    });
-</script>
-<script>
-    $("#form-log").validate({ 
-        errorLabelContainer:".validation",
-        rules: {
-            Phone:{
-                required:true,
-                minlength:15,
-            },
-            Password: {
-                required: true,
-                minlength:8,
-                maxlength:17,
-            }
-        },
-        messages: {
-            Phone:{
-                required:"Поле номер телефона обязательно для заполнения",
-                minlength:"Номер телефона должен состоять минимум из 10 цифр",
-            },
-            Password: {
-                required: "Поле пароль обязательно для заполнения",
-                minlength:"Минимальная длина пароля 8 символов",
-                maxlength:"Длина пароля не должна быть больше 12 символов",
-            }
-        },
-    });
-</script>
-<script>
-    $("#enter").click(function(){
-        if($("#form-log").valid()){
-            $("#valid").css("display","none");
-            var dataObject = {
-                'Phone': $(".phone").val(), 
-                'Password': $(".pass").val(),
-                'ReturnUrl': $("#return").val()
-            };
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("Login","Account")",
-                data: JSON.stringify(dataObject),
-                contentType: "application/json; charset=utf-8",
-                success: successFunc
-            });
-            return false;
-            function successFunc(response) {
-                switch(response.status){
-                    case true:
-                    $("#login").modal('toggle');
-                    location.reload();
-                    break;
-                    case false:
-                    $("#valid").css("display","block");
-                    break;
-                }
-            };
-        }
-    });
-        
-</script>
 
-<script>
-   $("#registration").click(function() {
-       $(".phone").mask();
-       $('#login').modal('toggle');
-       $.ajax({
-        url:"/Account/RegistrationPartial",
-        type:"Get",
-        success: function(response){
-            $(".modalwindow").html(response);
-            $('#registration').modal('show');
-       }
-    });
-   });
-</script>
+<script src="~/AjaxJqueryScripts/AJAX/RegistrainModal.js"></script>
+<script src="~/AjaxJqueryScripts/AJAX/AccountEnter.js"></script>
+<script src="~/AjaxJqueryScripts/JQ/PhoneMask.js"></script>
+<script src="~/AjaxJqueryScripts/JQ/LoginFormValidate.js"></script>
+
 
 
 

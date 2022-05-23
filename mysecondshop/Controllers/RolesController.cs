@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace RestWebAppl.Controllers
 {
+    //Controller for moderator . Shows views for editing and adding users roles. Deleting users
     [Authorize(Roles = "Moderator")]
     public class RolesController : Controller
     {
@@ -80,17 +81,17 @@ namespace RestWebAppl.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
         {
-            // получаем пользователя
+            // Gets user
             var user = await userManager.FindByIdAsync(userId);
             if (user != null)
             {
-                // получем список ролей пользователя
+                // Get user roles
                 var userRoles = await userManager.GetRolesAsync(user);
-                // получаем все роли
+                // Get all roles
                 var allRoles = roleMngr.Roles.ToList();
-                // получаем список ролей, которые были добавлены
+                // Get list of added roles
                 var addedRoles = roles.Except(userRoles);
-                // получаем роли, которые были удалены
+                // Gets list of removed roles
                 var removedRoles = userRoles.Except(roles);
 
                 await userManager.AddToRolesAsync(user, addedRoles);

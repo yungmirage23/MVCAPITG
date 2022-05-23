@@ -1,21 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestWebAppl.Models;
-using System.Linq;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using ClassLibrary.Models;
+using Microsoft.IdentityModel.Tokens;
+
 namespace RestWebAppl.Components
 {
+    //Returns list<string> of all categories for swiper with navigation
     public class NavigationMenuViewComponent:ViewComponent
     {
-        private IRepository repository;
-        public NavigationMenuViewComponent(IRepository rep)
+        readonly string apiRoute = "api/items/categories";
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            repository = rep;
-        }
-        public IViewComponentResult Invoke()
-        {
+            List<string> categories;
             ViewBag.SelectedCategory = RouteData?.Values["category"];
-            return View(repository.Items
-            .Select(x => x.Category)
-            .Distinct());
+            var a = await GetDataHttp<List<string>>.CreateAsync(apiRoute);
+            categories = a.ResultData;
+            return View(categories);
         }
     }
 }

@@ -27,11 +27,9 @@
 				<img src="~/uploads/@item.ImagePath"style="width:50%;">
 			</td>
 			<td class="text-center">
-				<form class=""asp-action="Delete" method="post">
+				<form class=""asp-controller="Admin"asp-action="Delete" asp-route-id="@item.Id" method="post">
 					<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-itemId="@item.Id">Изменить</a>
-					<input type="hidden" name="Id" value="@item.Id">
 					<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-					
 				</form>
 			</td>
 		</tr>

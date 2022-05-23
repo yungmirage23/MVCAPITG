@@ -6,19 +6,20 @@
 }
 @if(Model.Count()>0){
 	<table class="table align-middle table-bordered table-striped ">
-		<tr><th>Имя</th><th>Адрес</th><th colspan="2"></th><th>Детали</th></tr>
-		@foreach(Order o in Model){
-		<tr>
-			<td>@@</td><td>@@ @@</td><th>Товар</th><th>Количество</th>
-			<td>
-				<form asp-action="MarkShipped" method="post">
-					<input type="hidden" name="orderId" value="@o.OrderID">
-					<button type="submit" class="btn btn-outline-success">
-						Отправить
-					</button>
-				</form>
-			</td>
-		</tr>
+		<tr><th>Имя</th><th>Номер телефона</th><th>Адрес</th><th colspan="2"></th><th>Детали</th></tr>
+		@foreach(var o in Model){
+			<tr>
+				<td>@o.FullName</td>
+				<td>@o.PhoneNumber</td><td>@o.DeliveryDistrict</td><th>Товар</th><th>Количество</th>
+				<td>
+					<form asp-action="MarkShipped" method="post">
+						<input type="hidden" name="orderId" value="@o.OrderID">
+						<button type="submit" class="btn btn-outline-success">
+							Отправить
+						</button>
+					</form>
+				</td>
+			</tr>
 			@foreach(CartLine line in o.Lines){
 				<tr>
 					<td colspan="2"></td>

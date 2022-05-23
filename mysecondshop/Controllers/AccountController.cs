@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using RestWebAppl.Models.ViewModels;
 using RestWebAppl.Models;
-using System.Threading.Tasks;
-using System.Net;
 
 namespace RestWebAppl.Controllers
 {
@@ -14,20 +11,22 @@ namespace RestWebAppl.Controllers
     {
         private UserManager<ApplicationUser> userManager;
         private SignInManager<ApplicationUser> singInManager;
+        //repository with orders 
         private IOrderRepository orderRepository;
-        public AccountController(IOrderRepository OrdRep,UserManager<ApplicationUser> usrMngr, SignInManager<ApplicationUser> singMng)
+        public AccountController(IOrderRepository _ordRep,UserManager<ApplicationUser> _usrMngr, SignInManager<ApplicationUser> _singMng)
         {
-            orderRepository = OrdRep;
-            userManager = usrMngr;
-            singInManager = singMng;
+            orderRepository = _ordRep;
+            userManager = _usrMngr;
+            singInManager = _singMng;
         }
-
+        //Returns PartialView for login modal window 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            return PartialView(new LoginModel { ReturnUrl = returnUrl });
+            return PartialView(new LoginModel());
         }
-
+        //DELETE FOR PRODUCTION 
+        //LOGIN AS MODERATOR ROLE 
         [AllowAnonymous]
         public async Task<IActionResult> LoginModer()
         {
@@ -35,7 +34,8 @@ namespace RestWebAppl.Controllers
             await singInManager.PasswordSignInAsync("380685494492", "123123123", false, false);
             return RedirectToAction("Index","Home");
         }
-
+        //SIGN IN
+        // Takes loginModel{Phone number, Password}
         [AllowAnonymous]
         [HttpPost]
         public async Task<JsonResult> Login([FromBody]LoginModel loginModel)
@@ -43,27 +43,26 @@ namespace RestWebAppl.Controllers
 
             if (ModelState.IsValid)
             {
-                ApplicationUser user = await userManager.FindByNameAsync(loginModel.Phone.Replace("+", "").Replace("(","").Replace(")","").Replace("-",""));
+                ApplicationUser user = await userManager.FindByNameAsync(loginModel.Phone.Replace("+", "").Replace("(","").Replace(")","").Replace("-","").Replace("_",""));
                 if (user != null)
                 {
                     await singInManager.SignOutAsync();
                     if ((await singInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
                     {
-                        var serverlogin = new Response {returnUrl=loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = true };
-                        return Json(serverlogin);
+                        return Json(new{success=true});
                     }
                 }
             }
-            var serverfail = new Response { returnUrl=loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = false };
             ModelState.AddModelError("", "Непрвильный номер телефона или пароль, повторите ещё раз");
-            return Json(serverfail);
+            return Json(new { success = false });
         }
-
+        //Gets PartialView for registration modal
         [AllowAnonymous]
-        public ActionResult RegistrationPartial(string returnUrl)
+        public ActionResult RegistrationPartial()
         {
-            return PartialView(new LoginModel { ReturnUrl = returnUrl });
+            return PartialView(new LoginModel());
         }
+        //Post method to register user
         [HttpPost]
         [AllowAnonymous]
         public async Task<JsonResult> RegistrationPartial([FromBody]LoginModel loginModel)
@@ -72,9 +71,9 @@ namespace RestWebAppl.Controllers
             {
                 return await CreateUser(loginModel);
             }
-            var serverfail = new Response { returnUrl = loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = false };
-            return Json(serverfail);
+            return Json(new { success = false });
         }
+        //Gets view with user information
         public async Task<IActionResult> Cabinet() 
         {
             UserDataViewModel user = await ShowUserInfo();
@@ -97,11 +96,14 @@ namespace RestWebAppl.Controllers
             }
             return RedirectToAction("Cabinet");
         }
+        //LOGOUT 
         public async Task<ActionResult> Logout()
         {
             await singInManager.SignOutAsync();
             return RedirectToAction("Index","Home");
         }
+
+        //Gets current user and fill model with user info and returns it 
         private async Task<UserDataViewModel> ShowUserInfo()
         {
             var CurrentUser = await userManager.GetUserAsync(User);
@@ -122,6 +124,7 @@ namespace RestWebAppl.Controllers
             };
             return user;
         }
+        // Changes current user information
         private async Task ChangeUserData(UserDataViewModel usermodel)
         {
             var result = await userManager.GetUserAsync(User);/*usermodel.PhoneNumber.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "")*/
@@ -196,14 +199,12 @@ namespace RestWebAppl.Controllers
                 };
                 await userManager.CreateAsync(user, loginModel.Password);
                 TempData["message"] = $"Аккаунт успешно зарегестрирован";
-                var serverlogin = new Response { returnUrl = loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = true };
-                return Json(serverlogin);
+                return Json("serverlogin");
             }
             else
             {
                 TempData["error"] = $"Аккаунт не зарегестрирован";
-                var serverlogin = new Response { returnUrl = loginModel.ReturnUrl, dateTime = DateTime.Now.ToLongTimeString(), status = false };
-                return Json(serverlogin);
+                return Json("serverlogin");
             }    
         }
     }

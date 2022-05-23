@@ -3,86 +3,78 @@
 
 <section class="home-banner">
         <div class="container">
-          <div class="swiper swiper-container">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide block">
-                <img src="~/img/banner1.png" />
-                <h2>Подарок на первый заказ.</h2>
-                <p>Получите 500грн за подписку за рассылку</p>
-                <a data-bs-toggle="modal" data-bs-target="#subscribe"href="">Подписаться</a>
-              </div>
-              <div class="swiper-slide block">
-                <img src="~/img/banner1.png" />
-                <h2>Подарок на первый заказ.</h2>
-                <p>Получите 500грн за подписку за рассылку</p>
-                <a data-bs-toggle="modal" data-bs-target="#subscribe" href="">Подписаться</a>
-              </div>
-              <div class="swiper-slide block">
-                <img src="~/img/banner1.png" />
-                <h2>Подарок на первый заказ.</h2>
-                <p>Получите 500грн за подписку за рассылку</p>
-                <a data-bs-toggle="modal" data-bs-target="#subscribe" href="">Подписаться</a>
-              </div>
-              <div class="swiper-slide block">
-                <img src="~/img/banner1.png" />
-                <h2>Подарок на первый заказ.</h2>
-                <p>Получите 500грн за подписку за рассылку</p>
-                <a data-bs-toggle="modal" data-bs-target="#subscribe" href="">Подписаться</a>
-              </div>
-              <div class="swiper-slide block">
-                <img src="~/img/banner1.png" />
-                <h2>Подарок на первый заказ.</h2>
-                <p>Получите 500грн за подписку за рассылку</p>
-                <a data-bs-toggle="modal" data-bs-target="#subscribe" href="">Подписаться</a>
-              </div>
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>
+        <div class="swiper swiper-container">
+	        <div class="swiper-wrapper">
+		        <div class="swiper-slide block">
+			        <img src="~/img/banner1.png" />
+			        <h2>Подарок на первый заказ.</h2>
+			        <p>Получите 500грн за подписку за рассылку</p>
+			        <a data-bs-toggle="modal" data-bs-target="#subscribe"href="">Подписаться</a>
+		        </div>
+		        <div class="swiper-slide block">
+			        <img src="~/img/banner1.png" />
+			        <h2>Подарок на первый заказ.</h2>
+			        <p>Получите 500грн за подписку за рассылку</p>
+			        <a data-bs-toggle="modal" data-bs-target="#subscribe" href="">Подписаться</a>
+		        </div>
+		        <div class="swiper-slide block">
+			        <img src="~/img/banner1.png" />
+			        <h2>Подарок на первый заказ.</h2>
+			        <p>Получите 500грн за подписку за рассылку</p>
+			        <a data-bs-toggle="modal" data-bs-target="#subscribe" href="">Подписаться</a>
+		        </div>
+		        <div class="swiper-pagination"></div>
+	        </div>
         </div>
+		</div>
       </section>
 <section>
     @await Component.InvokeAsync("NavigationMenu")
 </section>
 
 <section class="home-products">
-        <div class="container">
-          <h3 class="all-products">Все товары категории</h3>
-          <div class="products-wrapper">
-             @foreach(var p in Model.Items)
-            {
-             <div class="product">
-              <a asp-controller="Order" asp-action="Item" asp-route-itemId="@p.Id" class="img">
-                  @if(@p.ImagePath!=null){
-                      <img src="~/uploads/@p.ImagePath">
-                  }
-              </a>
-              <div class="product-title">
-                <a asp-controller="Order" asp-action="Item" asp-route-itemId="@p.Id" class="title">@p.Name</a>
-              </div>
-              <p class="description">
-                @p.Description
-              </p>
-              <div class="rating">
-                <span class="active"></span>
-                <span class="active"></span>
-                <span class="active"></span>
-                <span class="active"></span>
-                <span class=""></span>
-              </div>
-              <div class="price"><b>@p.Price UAH</b><span> За 500гр.</span></div>
-               <a asp-controller="Order" asp-action="Item" asp-route-itemId="@p.Id" class="to-cart">В корзину</a>
-            </div>
-            }
-          </div>
+	<div class="container">
+		@if (@Model.CurrentCategory != null)
+        {
+	        <h3 class="all-products">Все товары категории <span class="allcat">@Model.CurrentCategory</span></h3>
+        }
+		<div class="products-wrapper">
+			@foreach (var p in Model.Items)
+			{
+				<div class="product">
+					<a asp-controller="Order" asp-action="Item" asp-route-itemId="@p.Id" class="img">
+						@if (@p.ImagePath != null)
+						{
+							<img src="~/uploads/@p.ImagePath">
+						}
+					</a>
+					<div class="product-title">
+						<a asp-controller="Order" asp-action="Item" asp-route-itemId="@p.Id" class="title">@p.Name</a>
+					</div>
+					<p class="description">
+						@p.Description
+					</p>
+					<div class="rating">
+						<span class="active"></span>
+						<span class="active"></span>
+						<span class="active"></span>
+						<span class="active"></span>
+						<span class=""></span>
+					</div>
+					<div class="price"><b>@p.Price UAH</b><span> За 500гр.</span></div>
+					<a asp-controller="Order" asp-action="Item" asp-route-itemId="@p.Id" class="to-cart">В корзину</a>
+				</div>
+			}
+		</div>
 		<div class="pagination-block">
-            <nav aria-label="Page navigation example">
-            @if(@Model.PagingInfo.TotalPages>1)
-            {
-                <ul class="pagination" page-model="@Model.PagingInfo" page-action="Index"page-classes-enabled=true ul-class="pagination" a-class="page-link" li-class="page-item" page-class-normal="" page-class-selected="aactive" ></ul>
-            }
-            </nav>
-        </div>
-        </div></section>
+			<nav aria-label="Page navigation example">
+				@if (@Model.PagingInfo.TotalPages > 1)
+				{
+					<ul class="pagination" page-model="@Model.PagingInfo" page-action="Index"page-classes-enabled=true ul-class="pagination" a-class="page-link" li-class="page-item" page-class-normal="" page-class-selected="aactive"></ul>
+				}
+			</nav>
+		</div>
+	</div></section>
  
 <section class="home-video">
         <div class="video1440">
