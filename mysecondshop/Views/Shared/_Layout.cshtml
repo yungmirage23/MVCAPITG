@@ -1,0 +1,313 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager 
+@inject Cart cartservise
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <link type="text/css" rel="stylesheet" href="~/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="~/fonts/fonts.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-masked-input/jquery.maskedinput.min.js"></script>
+    <title>Bokovenka residense</title>
+  </head>
+
+  <body>
+  <div class="wrapper">
+      <div class="modalwindow">
+      </div>
+	  <header>
+		  <div class="row"></div>
+		  <nav class="navbar navbar-expand-lg navbar-light">
+			  <div class="container">
+				  <a class="navbar-brand" asp-route-category="@null"asp-action="Index" asp-controller="Home">
+					  <img src="~/img/logo.png" alt=""/>
+				  </a>
+				  <button
+					  class="navbar-toggler"
+					  type="button"
+					  data-bs-toggle="collapse"
+					  data-bs-target="#navbarSupportedContent"
+					  aria-controls="navbarSupportedContent"
+					  aria-expanded="false"
+					  aria-label="Toggle navigation">
+					  <span class="navbar-toggler-icon"></span>
+				  </button>
+				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+					  <ul class="navbar-nav me-auto">
+						  <li class="nav-item dropdown">
+							  <a
+								  class="nav-link dropdown-toggle"
+								  href="#"
+								  id="navbarDropdown"
+								  role="button"
+								  data-bs-toggle="dropdown"
+								  aria-expanded="false">
+								  Меню
+							  </a>
+							  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Супы"asp-route-productPage="1">
+									  <span><img src="~/img/soup.svg" alt=""/></span>Супы
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Хачапури"asp-route-productPage="1">
+									  <span><img src="~/img/hachap.svg" alt=""/></span
+									  >Хачапури
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-controller="Home"asp-action="Index" asp-route-category="Холодные закуски"asp-route-productPage="1"><span><img src="~/img/coldsnack.svg" alt=""/></span>Холодные закуски
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-controller="Home"asp-action="Index" asp-route-category="Хинкали"asp-route-productPage="1"><span><img src="~/img/khinkal.svg" alt=""/></span>Хинкали
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Шашлык"asp-route-productPage="1"><span><img src="~/img/shashl.svg" alt=""/></span>Шашлык
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Соусы"asp-route-productPage="1"><span><img src="~/img/souce.svg" alt=""/></span>Соусы
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Салаты"asp-route-productPage="1"><span><img src="~/img/salad.svg" alt=""/></span>Салаты
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Горячие блюда"asp-route-productPage="1"><span><img src="~/img/hotdish.svg" alt=""/></span>Горячие блюда
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Гарниры"asp-route-productPage="1"><span><img src="~/img/garnish.svg" alt=""/></span>Гарниры
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Десерты"asp-route-productPage="1"><span><img src="~/img/desert.svg" alt=""/></span>Десерты
+								  </a>
+								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Напитки"asp-route-productPage="1"><span><img src="~/img/drinks.svg" alt=""/></span>Напитки
+								  </a>
+							  </div>
+						  </li>
+						  <li class="nav-item active">
+							  <a class="nav-link" asp-action="Delivery" asp-controller="Home" aria-current="page">Доставка</a>
+						  </li>
+						  <li class="nav-item">
+							  <a class="nav-link" asp-action="Payment" asp-controller="Home">Оплата</a>
+						  </li>
+						  <li class="nav-item">
+							  <a class="nav-link" data-bs-toggle="modal" data-bs-target="#booking" href="">Бронь стола</a>
+						  </li>
+					  </ul>
+					  <div class="menu-right d-flex justify-content-between">
+						  <div class="menu-contact">
+							  <a href="tel:+380685494492">
+								  <img src="~/img/phone.svg" alt=""/>
+								  <span>+38 (068)549-44-92</span>
+							  </a>
+						  </div>
+						  <div class="menu-user">
+							  @if (SignInManager.IsSignedIn(User))
+							  {
+								  var currentuser = await UserManager.GetUserAsync(User);
+								  <a asp-action="Cabinet"asp-controller="Account">
+									  @if (currentuser.UserPhoto != null)
+									  {
+										  var userPhoto = Convert.ToBase64String(currentuser.UserPhoto);
+										  <div class="obertka"><img id="avatar" src="data:image/jpeg;base64,@userPhoto"/></div>
+									  }
+									  else
+									  {
+										  <span>Привет, @User.Identity.Name</span>
+									  }
+								  </a>
+							  }
+							  else
+							  {
+								  <a returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"class="profile"><img src="~/img/person.svg"/></a>
+							  }
+							  <a asp-action="Cart" asp-controller="Order" class="cart"><img src="~/img/shopping-cart.svg"/>
+								  @if (cartservise.Lines.Count() > 0)
+								  {
+									  <span>Товаров в корзине: @cartservise.Lines.Count()</span>
+								  }
+							  </a>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+		  </nav>
+	  </header>
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["error"]</div>
+        }
+        @RenderBody()
+      <footer>
+        <div class="container">
+          <div class="footer">
+            <div class="footer-left">
+              <div class="contacts">
+                <div class="phone-item">
+                  <span>Бесплатный звонок по Украине</span>
+                  <a href="tel:+380685494492">+38 (068) 549-44-92</a>
+                </div>
+                <div class="phone-item">
+                  <span>Для приема заказов</span>
+                  <a href="tel:+380685494492">+38 (097) 382-74-11</a>
+                </div>
+              </div>
+              <div class="work-time">
+                График работы по будням с 9:00 до 18:00
+              </div>
+              <div class="work-email">
+                <a href="mailto:info@@.ru">Email: info@@.ru</a>
+                <a class="site-help"asp-action="Support"asp-controller="Home">Поддержка</a>
+              </div>
+            </div>
+            <div class="footer-center">
+              <div class="social">
+                <a href="#">мы в telegram  ></a>
+                <a href="#">мы в instagram ></a>
+              </div>
+            </div>
+            <div class="footer-right">
+              <div class="sing-in">
+                <img src="~/img/person2.svg" />
+                <span>Войти / Регистрация</span>
+              </div>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <div class="policy">
+              <span>©2022 Пиросмани</span>
+              <span>Условия и соглашения</span>
+              <span>Политика конфиденциальности</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  <script src="~/AjaxJqueryScripts/AJAX/SignInModal.js"></script>
+  <script src="~/AjaxJqueryScripts/JQ/YoutubeVideo.js"></script>
+  
+  </body>
+</html>
+
+
+<div
+  class="modal fade"
+  id="booking"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-big">
+    <div class="modal-content">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+      <div class="booking-top">
+        Бронирование стола
+      </div>
+      <div class="modal-form">
+        <form action="" method="post">
+          <div class="inpt">
+            <input class="name center" type="text" name="" placeholder="Имя" />
+          </div>
+          <div class="d-flex justify-content-between">
+            <input type="text" name="" placeholder="+380" />
+            <input type="text" name="" placeholder="Количество человек" />
+          </div>
+          <div class="d-flex justify-content-between">
+            <input type="text" name="" placeholder="Время: _ _ : _ _" />
+            <input type="date" name="" placeholder="Дата:  дд.мм.гг" />
+          </div>
+          <button class="green-btn">Забронировать</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div
+  class="modal fade"
+  id="subscribe"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-subscribe">
+    <div class="modal-content">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="icon-header">
+        <img src="/img/mail-big.svg" />
+        <div class="header-text">Подпишитесь на нашу рассылку и получите промокод на 500 RUB!</div>
+      </div>
+      <div class="modal-form">
+        <form method="post">
+          <div class="inpt">
+            <input class="mail" type="text" name="" placeholder="E-mail" />
+          </div>
+            <button class="green_btn">Отправить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="sms-confirm"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-subscribe">
+    <div class="modal-content">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="icon-header">
+        <img src="~/img/icon_login.svg" />
+        <div class="header-text">Подтвердите номер телефона</div>
+      </div>
+      <div class="modal-form singl-digit">
+        <form method="post">
+          <div class="inpt">
+            <input  type="text" name="" maxlength="1"/>
+            <span></span>
+            <input  type="text" name="" maxlength="1"/>
+            <span></span>
+            <input  type="text" name="" maxlength="1"/>
+            <span></span>
+            <input  type="text" name="" maxlength="1"/>
+          </div>
+		  <div class="send-again">
+              <a href="">Отправить повторно</a> <b>1:59</b>
+          </div>
+          <button class="green-btn">Далее</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
