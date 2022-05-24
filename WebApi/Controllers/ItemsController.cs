@@ -48,7 +48,7 @@ namespace WebApi.Controllers
             itemRepository.Items.Where(p => category == null || p.Category == category).ToList();
 
 
-        //POST api/items/{item}
+        //POST api/items/add/{item}
         [HttpPost("add")]
         public async Task<ActionResult<Item>> Post(Item item)
         {
