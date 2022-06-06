@@ -32,11 +32,12 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 // Used NewtonsoftJson lib to serialize and deserialize objects 
 builder.Services.AddMvc(options=>options.EnableEndpointRouting=false).AddNewtonsoftJson(options=>options.SerializerSettings.ContractResolver=new DefaultContractResolver());
-
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 app.UseStatusCodePages();
 app.UseStaticFiles();
+
 app.UseSession();
 app.UseAuthentication();
 app.UseMvc(routes => {

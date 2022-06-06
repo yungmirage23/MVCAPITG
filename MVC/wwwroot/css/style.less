@@ -172,6 +172,92 @@ body.page-is-changing::after, body.page-is-changing::before {
         }
     }
 
+    &.modal-confirm {
+        .icon-header {
+            margin-bottom: 25px !important;
+
+            .header-text {
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 18px;
+            }
+        }
+
+        .digit-inputs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            input {
+                font-weight: 500;
+                font-size: 24px;
+                line-height: 16px;
+                width: 33px;
+                height: 47px;
+                background: #FCFCFC;
+                border: 2px solid #EBEBEB;
+                border-radius: 5px;
+                text-align: center;
+            }
+
+            h1 {
+                margin: 0 7px 0 7px;
+                font-size: 12pt;
+            }
+        }
+
+        .repeatcode {
+            margin-top: 20px;
+
+            h1 {
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 18px;
+                text-align: center;
+                text-decoration-line: underline;
+                color: #BDBDBD;
+
+                span {
+                    margin-left: 10px;
+                    color: #000000;
+                    text-decoration-line: none !important;
+                }
+            }
+
+            &.active {
+                h1 {
+                    color: #00AC4E;
+                }
+
+                span {
+                    display: none;
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+
+        .explanation {
+            margin: 10px 0 10px 0;
+            text-align: center;
+            font-size: 14px;
+
+            #bot_id {
+                font-weight: 500;
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        .green-btn {
+            margin-top: 20px;
+            width: auto;
+            margin: 20px 75px 0 75px;
+        }
+    }
+
     .modal-content {
         border-radius: 18px;
         padding: 30px 42px 34px;
@@ -2428,3 +2514,5 @@ footer {
         }
     }
 }
+
+

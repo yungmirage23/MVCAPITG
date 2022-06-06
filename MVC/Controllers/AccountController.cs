@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using RestWebAppl.Models.ViewModels;
 using RestWebAppl.Models;
+using ClassLibrary.Models;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace RestWebAppl.Controllers
 {
@@ -13,13 +15,16 @@ namespace RestWebAppl.Controllers
         private SignInManager<ApplicationUser> singInManager;
         //repository with orders 
         private IOrderRepository orderRepository;
-        public AccountController(IOrderRepository _ordRep,UserManager<ApplicationUser> _usrMngr, SignInManager<ApplicationUser> _singMng)
+        private IMemoryCache cache;
+        public AccountController(IOrderRepository _ordRep,UserManager<ApplicationUser> _usrMngr, SignInManager<ApplicationUser> _singMng, IMemoryCache _cache)
         {
             orderRepository = _ordRep;
             userManager = _usrMngr;
             singInManager = _singMng;
+            cache = _cache;
         }
-        //Returns PartialView for login modal window 
+     
+        //Returns PartialView for login modal window
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -62,17 +67,42 @@ namespace RestWebAppl.Controllers
         {
             return PartialView(new LoginModel());
         }
-        //Post method to register user
+        //Post method to get code confirmation and set it to memory cache
         [HttpPost]
         [AllowAnonymous]
         public async Task<JsonResult> RegistrationPartial([FromBody]LoginModel loginModel)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && CheckFreeUserName(loginModel.Phone))
             {
-                return await CreateUser(loginModel);
+                var phoneNumer = loginModel.Phone.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "");
+                var ApiRoute = "http://localhost:8443/";
+                var postCode = await PostDataHttp<string>.CreateAsync("api/confirmation/create",phoneNumer,ApiRoute);
+                cache.Set(phoneNumer, postCode, new MemoryCacheEntryOptions
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                });
+                return Json(new {success = true,phoneNumer=phoneNumer});
             }
             return Json(new { success = false });
         }
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult PhoneConfirmation()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult PhoneConfirmation(string inputCode,string phoneNumber)
+		{
+            string code;
+            if(cache.TryGetValue(phoneNumber,out code)&&code==inputCode)
+			{
+                return Json(new { success = true });
+			}
+            return Json(new { success = false });
+		}
+
         //Gets view with user information
         public async Task<IActionResult> Cabinet() 
         {
@@ -188,9 +218,15 @@ namespace RestWebAppl.Controllers
                 ModelState.AddModelError("", "Не правильный пароль");
             }
         }
+        private bool CheckFreeUserName(string _phoneNumber)
+        {
+            var userName = _phoneNumber.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "");
+            if (userManager.Users.FirstOrDefault(u => u.UserName == userName) == null) return true;
+            return false;
+        }
         private async Task<JsonResult> CreateUser(LoginModel loginModel)
         {
-            if (userManager.Users.FirstOrDefault(u => u.PhoneNumber == loginModel.Phone) == null)
+            if (CheckFreeUserName(loginModel.Phone))
             {
                 var user = new ApplicationUser
                 {
@@ -198,13 +234,13 @@ namespace RestWebAppl.Controllers
                     PhoneNumber = loginModel.Phone,
                 };
                 await userManager.CreateAsync(user, loginModel.Password);
-                TempData["message"] = $"Аккаунт успешно зарегестрирован";
-                return Json("serverlogin");
+                TempData["message"] = $"Аккаунт успешно зарегистрирован";
+                return Json(new { success = true });
             }
             else
             {
-                TempData["error"] = $"Аккаунт не зарегестрирован";
-                return Json("serverlogin");
+                TempData["error"] = $"Аккаунт не зарегистрирован, пользователь с таким номером телефона уже существует";
+                return Json(new { success = false });
             }    
         }
     }

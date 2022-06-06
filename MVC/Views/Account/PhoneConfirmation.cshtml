@@ -1,0 +1,45 @@
+﻿<section class="phone-confirmation">
+    <div
+  class="modal fade"
+  id="confirmation"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+      <div class="icon-header">
+        <img src="~/img/icon_login.svg" />
+        <div class="header-text">Подтвердите номер телефона</div>
+      </div>
+      <div class="digit-inputs">
+          <input/>
+          <h1>-</h1>
+          <input  />
+          <h1>-</h1>
+          <input  />
+          <h1>-</h1>
+          <input/>
+      </div>
+      <div class="repeatcode active">
+          <h1>Отправить повторно <span id="timer-repeat">1:59</span></h1>
+      </div>
+      <div class="explanation">
+          <span>Для получения кода со своего телефона откройте телеграм бот : <a href="https://t.me/ShopBotKr_bot"id="bot_id">@@ShopBotKr_bot</a> <p>и следуйте инструкциям бота</p></span>
+      </div>
+      <div class="green-btn">Далее</div>
+    </div>
+  </div>
+</div>
+</section>
+<script>
+    $(document).ready(function(){
+        $('#confirmation').modal('show');
+    })
+</script>

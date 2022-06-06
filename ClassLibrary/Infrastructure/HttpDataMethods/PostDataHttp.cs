@@ -22,9 +22,29 @@ namespace ClassLibrary.Models
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(ApiDomain);
-                    var postTask = client.PostAsJsonAsync<T>(_apiRoute, item);
-                    postTask.Wait();
-                    ResponseMessage = postTask.Result;
+                    var postTask = await client.PostAsJsonAsync<T>(_apiRoute, item);
+                    ResponseMessage = postTask;
+                }
+            }
+            return ResponseMessage;
+        }
+        public static async Task<PostDataHttp<T>> CreateAsync(string _apiRoute, T item,string _ApiDomain)
+        {
+            PostDataHttp<T> x = new PostDataHttp<T>();
+            await x.RequestData(_apiRoute, item, _ApiDomain);
+            return x;
+        }
+        protected  async Task<HttpResponseMessage> RequestData(string _apiRoute, T item, string _ApiDomain)
+        {
+
+            using (HttpClient _client = new HttpClient())
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ApiDomain);
+                    var postTask = await client.PostAsJsonAsync<T>(_apiRoute, item);
+                  
+                    ResponseMessage = postTask;
                 }
             }
             return ResponseMessage;

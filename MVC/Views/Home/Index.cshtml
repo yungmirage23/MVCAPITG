@@ -27,12 +27,14 @@
 	        </div>
         </div>
 		</div>
-      </section>
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+</section>
 <section>
     @await Component.InvokeAsync("NavigationMenu")
 </section>
 
 <section class="home-products">
+	
 	<div class="container">
 		@if (@Model.CurrentCategory != null)
         {
@@ -97,6 +99,8 @@
           </div>
         </div>
  </section>
+ <script src="~/AjaxJqueryScripts/JQ/YoutubeVideo.js"></script>
+ 
 
 
 

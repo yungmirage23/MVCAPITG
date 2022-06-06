@@ -7,7 +7,7 @@
         type: "Get",
         success: function (response) {
             $(".modalwindow").html(response);
-            $('#login').modal('show');
+            $('#login').modal('show');  
         }
     });
 });

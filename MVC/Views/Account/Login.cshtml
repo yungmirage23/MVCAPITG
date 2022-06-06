@@ -12,6 +12,7 @@
 >
 	<div class="modal-dialog">
 		<div class="modal-content">
+			<div class="progress-bar"></div>
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			<div class="icon-header">
 				<img src="~/img/icon_login.svg" />
@@ -20,7 +21,7 @@
 			<div class="modal-form">
 				<form id="form-log">
 					<div class="inpt">
-						<input asp-for="Phone"class="phone"placeholder="+38(___)"/>
+						<input asp-for="Phone"class="phone"placeholder="Телефон"/>
 					</div>
 					<div class="inpt">
 						<input asp-for="Password" class="pass" placeholder="Пароль"/>
@@ -37,11 +38,10 @@
 		</div>
 	</div>
 </div>
-
-<script src="~/AjaxJqueryScripts/AJAX/RegistrainModal.js"></script>
-<script src="~/AjaxJqueryScripts/AJAX/AccountEnter.js"></script>
+<script src="~/AjaxJqueryScripts/AJAX/RegistraitionModal.js"></script>
 <script src="~/AjaxJqueryScripts/JQ/PhoneMask.js"></script>
 <script src="~/AjaxJqueryScripts/JQ/LoginFormValidate.js"></script>
+
 
 
 
