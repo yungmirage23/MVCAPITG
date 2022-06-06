@@ -1,0 +1,120 @@
+﻿@using RestWebAppl.Models.ViewModels;
+@model CartIndexViewModel
+<div class="test">
+
+</div>
+<section class="cart-menu">
+      <div class="container">
+        <div class="cart-wrapper">
+          <div class="cart-items">
+            <div class="cart-header">Корзина</div>
+            <div class="items-wrapper">
+            @if(Model.Cart.Lines.Count()>0)
+            {
+                @foreach(var line in Model.Cart.Lines){
+            <div class="cart-item" id="@line.Item.Id">
+                <div class="item-delete">
+                  <div class="delete_btn">
+                   <a asp-action="RemoveFormCart" asp-controller="Order" asp-route-ReturnUrl="@ViewContext.HttpContext.Request.Path.Value.ToString()" asp-route-itemid="@line.Item.Id" class="delete_btn">
+                    <img src="~/img/x-delete.svg" />
+                   </a>
+                  </div>
+                </div>
+                <div class="item-image">
+                    @if(@line.Item.ImagePath!=null){
+                      <img src="~/uploads/@line.Item.ImagePath">
+                  }
+                </div>
+                <div class="item-name">@line.Item.Name</div>
+                <input id="aaa" type="hidden"value="@line.Item.Id.ToString()"/>
+                <div class="quantity">
+                  <div class="b-minus">-</div>
+                  <div class="digit-sm"><span class="jq">@line.Quantity</span></div>
+                  <div class="b-plus">+</div>
+                </div>
+                @{var z=@line.Quantity * @line.Item.Price;}
+                <div class="item-summary"><span id="digit">@line.ComputeLineTotal()</span> UAH</div>
+              </div>
+              }
+            }  
+            else{
+            <h1>Ваша корзина пуста</h1>
+            }
+            </div>
+            <div class="bonus-menu">
+              <div class="bonus-header">Закажите на 3000 UAH и получите</div>
+              <div class="bonus-money">
+                <img src="/img/bonus-pig.svg" alt="" />
+                <b>30 UAH &nbsp;</b><span>на бонусный счет</span>
+              </div>
+              <div class="bonus-delivery">
+                <img src="/img/free-car.svg" />
+                <span>Бесплатная доставка</span>
+              </div>
+              <div class="bonus-minorder">
+                <b>1000</b><span>(минимальный заказ)</span>
+              </div>
+              <div class="bonus-goal-menu">
+                <div class="slider">
+                  <div class="range-line" data-mins="0" data-maxs="3000">
+                    <div style="width: 60%" class="green-line"></div>
+                    <div class="round"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bonus-footer">
+                Осталось <b>1988 UAH</b> до бесплатной доставки
+              </div>
+            </div>
+          </div>
+          <div class="bonus-cart-wrapper">
+            <div class="cart-order">
+              <div class="order-header">Заказ</div>
+              <div class="items-summary">
+                <div class="items-in-cart">Товаров в корзине</div>
+                <div class="summary-digit"><span>@Model.Cart.ComputeTotalValue()</span> UAH</div>
+              </div>
+              <div class="promo-code">
+                <div class="promo">Промокод</div>
+                <div class="code">- <span>0</span> UAH</div>
+              </div>
+              <div class="total-summary">
+                <div class="total-header">Итого к оплате</div>
+                <div class="total-digit"><span>@Model.Cart.ComputeTotalValue()</span> UAH</div>
+              </div>
+              <a asp-action="Checkout" asp-controller="Order" class="green-btn">Оформить заказ</a>
+            </div>
+            <div class="promo-menu">
+              <div class="promo-header">Промокод</div>
+              <div class="promo-enter">
+                <input class="promo-input" placeholder="Введите промокод" />
+                <a class="promo-button">Подтвердить</a>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        
+      </div>
+</section>
+<script>
+    $(document).on("click", ".b-plus",function() {
+        var id=$(this).closest(".cart-item").attr("id");
+        $.post("/Order/QuantityIncrement",
+        {itemId:id})
+        .done(function(data){
+            $(".cart-wrapper").html($(".cart-items,.bonus-cart-wrapper",data));
+        });
+    });
+</script>
+<script>
+    $(document).on("click", ".b-minus",function() {
+        var id=$(this).closest(".cart-item").attr("id");
+        $.post("/Order/QuantityDecrement",
+        {itemId:id})
+        .done(function(data){
+            $(".cart-wrapper").html($(".cart-items,.bonus-cart-wrapper",data));
+            $(".menu-user").html($(".menu-user",data));
+        });
+    });
+</script>

@@ -1,0 +1,300 @@
+﻿@model Order
+@inject Cart cart
+<section class="cofirmation-menu">
+  <div class="container">
+    <div class="confirmation-wrapper">
+      <div class="order-info">
+        <div class="order-header">
+          Оформление заказа
+        </div>
+        <div class="orders-wrapper">
+          <div class="order-head">
+            Вы заказали:
+          </div>
+          <div class="items-wrapper">
+          @foreach(var line in cart.Lines){  
+            <div class="cart-item"id="@line.Item.Id">
+              <div class="item-delete">
+                <div class="delete_btn">
+                  <a asp-action="RemoveFormCart" asp-controller="Order" asp-route-ReturnUrl="@ViewContext.HttpContext.Request.Path.Value.ToString()" asp-route-itemid="@line.Item.Id" class="delete_btn">
+                    <img src="~/img/x-delete.svg" />
+                  </a>
+                </div>
+              </div>
+              <div class="item-image">
+                  @if(@line.Item.ImagePath!=null){
+                      <img src="~/uploads/@line.Item.ImagePath">
+                  }
+              </div>
+              <div class="item-name">@line.Item.Name</div>
+              <div class="quantity">
+                  <div class="b-minus">-</div>
+                  <div class="digit-sm"><span class="jq">@line.Quantity</span></div>
+                  <div class="b-plus">+</div>
+                </div>
+              <div class="item-summary"><span class="tot" id="digit">@line.ComputeLineTotal()</span> UAH</div>
+            </div>              
+          }
+          </div>
+        </div>
+        <div class="bonus-footer">
+          <div class="tabs-wrapper">
+            <div class="tab-deliver active">
+              Доставка
+            </div>
+            <div class="tab-selfdel">
+              Самовывоз (- 20%)
+            </div>
+          </div>
+          <div class="bonus-info-menu">
+            <div class="total-sm">
+              <div class="sum">
+                <div class="label">
+                  Итого
+                </div>
+                <div class="digit">
+                  <span id="total">@cart.ComputeTotalValue()</span> UAH 
+                </div>
+              </div>
+              <div class="del-bonus">
+                <div class="label">
+                  Доставка
+                </div>
+                <div class="digit">
+                  <span id="discount-dig">100</span> UAH
+                </div>
+              </div>
+            </div>
+            <div class="total-total">
+              <div class="total-label">
+                Итого к оплате
+              </div>
+              <div class="total-sum">
+                <span id="total-sum">@cart.ComputeTotalValue()</span> UAH
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="delivery-info">
+        <div class="info-wrapper">
+        <form id="form-order">
+          <div class="deliver-district">
+            <div class="label">
+              Район доставки
+            </div>
+            <div class="input-val">
+              <select id="distr" name="DeliveryDistrict"class="form-select input-val" aria-label=".form-select-lg example">
+                  <option value=""selected>Выберите район доставки</option>
+                  <option value="Долгинцевский район">Долгинцевский район</option>
+                  <option value="Ингулецкий район">Ингулецкий район</option>
+                  <option value="Металлургический район">Металлургический район</option>
+                  <option value="Покровский район">Покровский район</option>
+                  <option value="Саксаганский район">Саксаганский район</option>
+                  <option value="Терновский район">Терновский район</option>
+                  <option value="Центрально-Городской район">Центрально-Городской район</option>
+              </select>  
+            </div>
+          </div>
+          <div class="deliver-fio">
+            <div class="label">
+              ФИО
+            </div>
+            <div class="input-val">
+              <input id="fullnam" asp-for="FullName" placeholder="Введите Ваше полное имя">
+            </div>
+          </div> 
+          <div class="deliver-phone">
+            <div class="label">
+              Телефон
+            </div>
+            <div class="input-val">
+              <input id="phone" class="phone"asp-for="PhoneNumber"value="@User.Identity.Name" placeholder="+380">
+            </div>
+          </div>
+          <div class="deliver-adress">
+            <div class="label">
+              Адрес доставки
+            </div>
+            <div class="input-val">
+              <input id="deladdrs" asp-for="DeliveryAdress" placeholder="Введите адрес доставки">
+            </div>
+          </div>
+          <div class="deliver-payment">
+            <div class="label">
+              <select id="cash" name="Cash"class="form-select input-val" aria-label=".form-select-lg example">
+                  <option value=""selected>Способ оплаты</option>
+                  <option value=true>Наличные</option>
+                  <option value=false>Кредитная карта</option>
+              </select>              
+            </div>
+          </div>
+          <div class="validation-order"></div>
+        </form>
+        </div>
+        <a class="submit-btn">
+          Оформить заказ
+        </a>              
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+	$(".phone").mask("+38(099)999-9999",{autoclear: false});
+</script>
+<script>
+	jQuery.validator.addMethod("usPhoneFormat", function (value, element) {
+		var aaa=value.replace("+", "").replace("(", "").replace(")", "").replace("-", "").replace(/_/g, "");
+		return this.optional(element) || /^\d{12}$/.test(aaa);
+	}, "Пожалуйста введите корректный номер телефона");
+	$("#form-order").validate({
+		errorLabelContainer:".validation-order",
+		rules: {
+			DeliveryDistrict:{
+				required:true,
+			},
+			FullName: {
+				required: true,
+			},
+			PhoneNumber: {
+				required: true,
+				usPhoneFormat:true,
+			},
+			DeliveryAdress:{
+				required:true,
+			},
+			Cash:{
+				required:true,
+			},
+		},
+		messages: {
+			PhoneNumber: {
+				required:"Номер телефона обязателен для заполнения",
+			},
+			DeliveryDistrict:{
+				required:"Пожалуйста, укажите название района",
+			},
+			FullName: {
+				required: "Укажите полное имя",
+			},
+			PhoneNumber: {
+				required: "Поле номер телефона обязательно для заполнения",
+				minlength:"Номер телефона должен состоять минимум из 10 цифр",
+			},
+			DeliveryAdress:{
+				required:"Поле адрес обязательно для заполения",
+			},
+			Cash:{
+				required:"Пожалуйста, выберите способ оплаты",
+			},
+		},
+	});
+</script>
+
+<script>
+	$(".submit-btn").click(function(){
+		if($("#form-order").valid()){
+			if($(".tab-selfdel").hasClass("active")){
+				var selfdel=true;
+			}
+			else var selfdel=false;
+			var orderObject = {
+				'DeliveryDistrict': $("#distr").val(), 
+				'DeliveryAdress': $("#deladdrs").val(),
+				'FullName': $("#fullnam").val(),                
+				'PhoneNumber': $("#phone").val(),
+				'Cash': $("#cash").val(),
+				'SelfDeliver':selfdel,
+			};
+			$.ajax({
+				type: "POST",
+				url: "@Url.Action("Checkout","Order")",
+				data: JSON.stringify(orderObject),
+				contentType: "application/json; charset=utf-8",
+				success: function(){
+					location.href="/Home/Index"
+				}
+			});
+		}
+	});
+    
+</script>
+<script>
+	ChangeTotal();
+	TotalValue();
+	$(document).on("click", ".b-plus",function() {
+		var item=$(this).closest(".cart-item");
+		var id=item.attr("id");
+		var quantity=item.find(".jq");
+		var summary=item.find("#digit");
+		$.post("/Order/IncrementJson",
+				{itemId:id})
+			.done(function(data){
+				if(data.Quantity>1){
+					quantity.text(data.Quantity);
+					summary.text((data.Quantity*data.Price).toFixed(2).replace(".",","));
+					ChangeTotal();
+					TotalValue();
+				}            
+			});
+	});
+	$(document).on("click", ".b-minus",function() {
+		var item=$(this).closest(".cart-item");
+		var id=item.attr("id");
+		var quantity=item.find(".jq");
+		if(parseInt(quantity.text())>1){
+			var summary=item.find("#digit");
+			$.post("/Order/DecrementJson",
+					{itemId:id})
+				.done(function(data){
+					if(data.Quantity>0){
+						quantity.text(data.Quantity);
+						summary.text((data.Quantity*data.Price).toFixed(2).replace(".",","));
+						ChangeTotal();
+						TotalValue();
+					}
+				});
+		}       
+	});
+
+	function TotalValue(){
+		if($(".tab-selfdel").hasClass("active")){
+			var b=parseFloat($("#total").text());
+			var c=b-(b/5);
+			$("#total-sum").text(c.toFixed(2).replace(".",","));
+		}
+		else{
+			var b=parseFloat($("#total").text());
+			var discount=parseFloat($("#discount-dig").text());
+			var c=b+discount;
+			$("#total-sum").text(c.toFixed(2).replace(".",","));
+		}
+	};
+
+	function ChangeTotal(){
+		var sum=0;
+		$(".tot").each(function(){
+			sum+=parseInt($(this).text());
+		});
+		$("#total").text(sum.toFixed(2).replace(".",","));
+	};
+   
+	$(document).on("click",".tab-selfdel",function(){
+		$(this).addClass("active");
+		$("#discount-dig").text("0");
+		$(".tab-deliver").removeClass("active");
+		$(".deliver-adress").hide();
+		$(".deliver-district").hide();
+		$("#form-order").valid();
+		TotalValue();
+	});
+	$(document).on("click",".tab-deliver",function(){
+		$(this).addClass("active");
+		$("#discount-dig").text("100");
+		$(".tab-selfdel").removeClass("active");
+		$(".deliver-adress").show();
+		$(".deliver-district").show();
+		$("#form-order").valid();
+		TotalValue();
+	});
+</script>

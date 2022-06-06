@@ -1,0 +1,30 @@
+﻿@using RestWebAppl.Models.ViewModels;
+@model ReviewAddViewModel
+
+<section class="page-content">
+    <div class="container">
+        <div class="support-message page-content-wrapper">
+            <h1>Доабвить отзыв про @Model.Item.Name</h1>
+            <textarea id="text-review" placeholder="Напишите отзыв..."></textarea>
+            <div class="d-flex">
+                <a class="green-btn"><span>Отправить</span></a>
+            </div>
+        </div>
+        @foreach (var review in @Model.Reviews )
+        {
+            <span>Отзыв</span><p>@review.User.FirstName: @review.Text</p>
+        }
+    </div>
+</section>
+<script>
+    $(function(){
+        $(".green-btn").click(function(){
+            var text=$("#text-review").val();
+            $.post("/Order/AddReview",
+            {"itemId":"@Model.Item.Id","text":text},function(data){
+                var url="/Item/"+data;
+                window.location = url;
+            });
+        });
+    });
+</script>

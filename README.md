@@ -67,7 +67,7 @@ public async Task<ActionResult<Item>> Post(Item item)
 ![Alt Text](https://s8.gifyu.com/images/api_items_add.gif)
 
 ### JWT Autentification
-При аутентификации пользователя ему выдаётся JWT Token, который дейвствует 30 минут. Он передаётся в заголовке запроса.
+При аутентификации пользователя ему выдаётся JWT Token, который действует 30 минут. Он передаётся в заголовке запроса.
 Если данные в токене не совпадают, сервер отвечает 401 Not Authorized.
 ![Alt Text](https://s8.gifyu.com/images/api_accounts.gif)
 
