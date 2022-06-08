@@ -1,9 +1,8 @@
 ﻿$(document).ready(function () {
-    NProgress.start()
+    NProgress.start();
 });
-
 $(window).on("load", function () {
-    NProgress.done()
+    NProgress.done();
 });
 jQuery(document).ajaxStart(function () {
     NProgress.start();

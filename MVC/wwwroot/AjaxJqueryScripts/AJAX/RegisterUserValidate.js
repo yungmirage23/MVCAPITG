@@ -58,8 +58,20 @@
 				function successFunc(response) {
 					switch (response.status) {
 						case true:
-							location.reload();
+							/*location.reload();*/
 							$("#registration").modal('toggle');
+							$.ajax({
+								url: "/Account/PhoneConfirmation",
+								type: "Get",
+								data: { "phoneNumber": response.phoneNumber},
+								success: function (response) {
+									$(".modalwindow").html(response);
+									$('#confirmation').on('shown.bs.modal', function () {
+										$('#first').focus();
+									})
+									$('#confirmation').modal('show');
+								}
+							});
 							break;
 						case false:
 							$("#valid").css("display", "block");

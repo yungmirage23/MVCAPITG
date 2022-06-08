@@ -41,7 +41,7 @@ namespace ClassLibrary.Models
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(ApiDomain);
+                    client.BaseAddress = new Uri(_ApiDomain);
                     var postTask = await client.PostAsJsonAsync<T>(_apiRoute, item);
                   
                     ResponseMessage = postTask;

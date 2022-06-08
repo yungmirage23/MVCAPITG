@@ -74,22 +74,23 @@ namespace RestWebAppl.Controllers
         {
             if (ModelState.IsValid && CheckFreeUserName(loginModel.Phone))
             {
-                var phoneNumer = loginModel.Phone.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "");
+                var phoneNumber = loginModel.Phone.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "");
                 var ApiRoute = "http://localhost:8443/";
-                var postCode = await PostDataHttp<string>.CreateAsync("api/confirmation/create",phoneNumer,ApiRoute);
-                cache.Set(phoneNumer, postCode, new MemoryCacheEntryOptions
+                var postCode = await PostDataHttp<string>.CreateAsync("api/phone/confirm", phoneNumber,ApiRoute);
+                var code =await postCode.ResponseMessage.Content.ReadAsStringAsync();
+                cache.Set(phoneNumber, code, new MemoryCacheEntryOptions
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 });
-                return Json(new {success = true,phoneNumer=phoneNumer});
+                return Json(new {status = true,phoneNumber=phoneNumber});
             }
-            return Json(new { success = false });
+            return Json(new { status = false });
         }
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult PhoneConfirmation()
+        public PartialViewResult PhoneConfirmation(string phoneNumber)
         {
-            return View();
+            return PartialView("PhoneConfirmation",phoneNumber);
         }
         [AllowAnonymous]
         [HttpPost]
@@ -98,6 +99,7 @@ namespace RestWebAppl.Controllers
             string code;
             if(cache.TryGetValue(phoneNumber,out code)&&code==inputCode)
 			{
+                TempData["message"] = $"Вы успешно зарегестрированы";
                 return Json(new { success = true });
 			}
             return Json(new { success = false });
