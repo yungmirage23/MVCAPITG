@@ -8,9 +8,12 @@ var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnect
 var IdentityConnectionString = builder.Configuration.GetConnectionString("IdentityConnectionString");
 
 // Add services to the container.
-
+builder.Services.AddMvc(options => options.EnableEndpointRouting = false).AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+builder.Services.AddSession();
+builder.Services.AddMemoryCache();
 // Added DbContexts | AppIdentityDbContext= UsersDB, ApplicationDbContext= Orders and Items DB
 builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(IdentityConnectionString));
+//"IdentityConnectionString": "Server = (localdb)\\mssqllocaldb; Database = Identity; Trusted_Connection = True;MultipleActiveResultSets=true"
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(opts =>
 {
     opts.Password.RequiredLength = 8;
@@ -18,6 +21,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(opts =>
     opts.Password.RequireDigit = false;
     opts.Password.RequireUppercase = false;
     opts.Password.RequireLowercase = false;
+    opts.SignIn.RequireConfirmedPhoneNumber = true;
 }).AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ConnectionString));
 builder.Services.AddScoped<IRepository, EFRepository>();
@@ -26,20 +30,20 @@ builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();
 // Added Shoping Cart services using Sessions
 builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddMemoryCache();
-builder.Services.AddSession();
+
+
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 // Used NewtonsoftJson lib to serialize and deserialize objects 
-builder.Services.AddMvc(options=>options.EnableEndpointRouting=false).AddNewtonsoftJson(options=>options.SerializerSettings.ContractResolver=new DefaultContractResolver());
+
 builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 app.UseStatusCodePages();
 app.UseStaticFiles();
-
 app.UseSession();
 app.UseAuthentication();
+app.UseAuthorization();
 app.UseMvc(routes => {
     routes.MapRoute(
         name: null,

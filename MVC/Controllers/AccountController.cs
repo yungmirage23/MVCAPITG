@@ -5,6 +5,7 @@ using RestWebAppl.Models.ViewModels;
 using RestWebAppl.Models;
 using ClassLibrary.Models;
 using Microsoft.Extensions.Caching.Memory;
+using RestWebAppl.Infrastructure;
 
 namespace RestWebAppl.Controllers
 {
@@ -16,12 +17,14 @@ namespace RestWebAppl.Controllers
         //repository with orders 
         private IOrderRepository orderRepository;
         private IMemoryCache cache;
-        public AccountController(IOrderRepository _ordRep,UserManager<ApplicationUser> _usrMngr, SignInManager<ApplicationUser> _singMng, IMemoryCache _cache)
+        private ISession session;
+        public AccountController(IServiceProvider services, IOrderRepository _ordRep,UserManager<ApplicationUser> _usrMngr, SignInManager<ApplicationUser> _singMng,IMemoryCache _cache)
         {
             orderRepository = _ordRep;
             userManager = _usrMngr;
             singInManager = _singMng;
             cache = _cache;
+            session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
         }
      
         //Returns PartialView for login modal window
@@ -52,7 +55,7 @@ namespace RestWebAppl.Controllers
                 if (user != null)
                 {
                     await singInManager.SignOutAsync();
-                    if ((await singInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
+                    if (user.PhoneNumberConfirmed&&(await singInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
                     {
                         return Json(new{success=true});
                     }
@@ -68,24 +71,29 @@ namespace RestWebAppl.Controllers
             return PartialView(new LoginModel());
         }
         //Post method to get code confirmation and set it to memory cache
+              
         [HttpPost]
         [AllowAnonymous]
         public async Task<JsonResult> RegistrationPartial([FromBody]LoginModel loginModel)
         {
-            if (ModelState.IsValid && CheckFreeUserName(loginModel.Phone))
-            {
-                var phoneNumber = loginModel.Phone.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "");
+            var phoneNumber= loginModel.Phone.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "");
+            if (ModelState.IsValid && CheckFreeUserName(phoneNumber))
+            {              
                 var ApiRoute = "http://localhost:8443/";
                 var postCode = await PostDataHttp<string>.CreateAsync("api/phone/confirm", phoneNumber,ApiRoute);
                 var code =await postCode.ResponseMessage.Content.ReadAsStringAsync();
-                cache.Set(phoneNumber, code, new MemoryCacheEntryOptions
+                var userData = new { password = loginModel.Password,code=code};
+                cache.Set(phoneNumber, userData, new MemoryCacheEntryOptions
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 });
+                
                 return Json(new {status = true,phoneNumber=phoneNumber});
             }
             return Json(new { status = false });
         }
+
+
         [AllowAnonymous]
         [HttpGet]
         public PartialViewResult PhoneConfirmation(string phoneNumber)
@@ -94,12 +102,14 @@ namespace RestWebAppl.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult PhoneConfirmation(string inputCode,string phoneNumber)
+        public async Task<JsonResult> PhoneConfirmation(string inputCode,string phoneNumber)
 		{
-            string code;
-            if(cache.TryGetValue(phoneNumber,out code)&&code==inputCode)
+            var userData = new { password= "", code="" };
+            if(cache.TryGetValue(phoneNumber,out userData)&&userData.code==inputCode)
 			{
-                TempData["message"] = $"Вы успешно зарегестрированы";
+                await CreateUser(phoneNumber, userData.password);
+                cache.Remove(phoneNumber);
+                TempData["message"] = $"Аккаунт успешно зарегестрирован";
                 return Json(new { success = true });
 			}
             return Json(new { success = false });
@@ -156,6 +166,23 @@ namespace RestWebAppl.Controllers
             };
             return user;
         }
+
+        private async Task CreateUser(string _phoneNumber, string _password)
+        {
+            var user = new ApplicationUser
+            {
+                UserName = _phoneNumber,
+                PhoneNumber = _phoneNumber,
+                PhoneNumberConfirmed=true,
+            };
+            await userManager.CreateAsync(user, _password);       
+        }
+        private bool CheckFreeUserName(string _phoneNumber)
+        {
+            if (userManager.Users.FirstOrDefault(u => u.UserName == _phoneNumber) == null) return true;
+            return false;
+        }
+
         // Changes current user information
         private async Task ChangeUserData(UserDataViewModel usermodel)
         {
@@ -212,7 +239,7 @@ namespace RestWebAppl.Controllers
             else if (passwordVartification == PasswordVerificationResult.Success)
             {
                 var token = await userManager.GeneratePasswordResetTokenAsync(result);
-                userManager.ResetPasswordAsync(result, token, NewPassword);
+                await userManager.ResetPasswordAsync(result, token, NewPassword);
             }
             else
             {
@@ -220,30 +247,8 @@ namespace RestWebAppl.Controllers
                 ModelState.AddModelError("", "Не правильный пароль");
             }
         }
-        private bool CheckFreeUserName(string _phoneNumber)
-        {
-            var userName = _phoneNumber.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "");
-            if (userManager.Users.FirstOrDefault(u => u.UserName == userName) == null) return true;
-            return false;
-        }
-        private async Task<JsonResult> CreateUser(LoginModel loginModel)
-        {
-            if (CheckFreeUserName(loginModel.Phone))
-            {
-                var user = new ApplicationUser
-                {
-                    UserName = loginModel.Phone.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", ""),
-                    PhoneNumber = loginModel.Phone,
-                };
-                await userManager.CreateAsync(user, loginModel.Password);
-                TempData["message"] = $"Аккаунт успешно зарегистрирован";
-                return Json(new { success = true });
-            }
-            else
-            {
-                TempData["error"] = $"Аккаунт не зарегистрирован, пользователь с таким номером телефона уже существует";
-                return Json(new { success = false });
-            }    
-        }
+
+
+        
     }
 }

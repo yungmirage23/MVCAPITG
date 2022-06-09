@@ -58,7 +58,6 @@
 				function successFunc(response) {
 					switch (response.status) {
 						case true:
-							/*location.reload();*/
 							$("#registration").modal('toggle');
 							$.ajax({
 								url: "/Account/PhoneConfirmation",
