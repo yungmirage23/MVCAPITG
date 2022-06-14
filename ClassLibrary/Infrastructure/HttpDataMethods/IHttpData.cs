@@ -8,7 +8,7 @@ namespace ClassLibrary.Models
 {
     public interface IHttpData<T>
     {
-        protected static string ApiDomain = "http://localhost:5263/";
+        protected static string ApiDomain = "http://webapibokovenka.azurewebsites.net/";
         public T ResultData { get; set; }
         public HttpResponseMessage ResponseMessage { get; set; }
 

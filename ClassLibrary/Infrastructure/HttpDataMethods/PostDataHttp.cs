@@ -5,7 +5,7 @@ namespace ClassLibrary.Models
 {
     public class PostDataHttp<T>:IHttpData<T>
     {
-        protected static string ApiDomain = "http://localhost:5263/";
+        protected static string ApiDomain = "http://webapibokovenka.azurewebsites.net/";
         public  T ResultData { get; set; }
         public HttpResponseMessage ResponseMessage { get; set; }
         public static async Task<PostDataHttp<T>> CreateAsync(string _apiRoute,T item)
