@@ -1405,6 +1405,9 @@ footer .footer .footer-right .sing-in span {
   justify-content: space-between;
   display: flex;
 }
+.user-cabinet .personal-wrapper #tab-personal .tab-wrapper .error {
+  color: red;
+}
 .user-cabinet .personal-wrapper #tab-personal .tab-wrapper .data-name .name-header {
   font-weight: 500;
   font-size: 28px;
@@ -1459,6 +1462,26 @@ footer .footer .footer-right .sing-in span {
   box-sizing: border-box;
   border-radius: 8.06373px;
 }
+.user-cabinet .personal-wrapper #tab-personal .tab-wrapper .data-name .buttons {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.user-cabinet .personal-wrapper #tab-personal .tab-wrapper .data-name .buttons .save-changes {
+  margin-left: 170px;
+  width: 184.1px;
+  height: 43.52px;
+  background: #00AC4E;
+  border-radius: 4.18415px;
+  text-align: center;
+  cursor: pointer;
+  padding: 13px 30px;
+  font-weight: 500;
+  font-size: 11.7156px;
+  line-height: 18px;
+  color: #FFFFFF;
+  text-decoration: none;
+}
 .user-cabinet .personal-wrapper #tab-personal .tab-wrapper .data-pass .pass-header {
   font-weight: 500;
   font-size: 28px;
@@ -1508,7 +1531,7 @@ footer .footer .footer-right .sing-in span {
   font-size: 14.2715px;
   line-height: 30px;
 }
-.user-cabinet .personal-wrapper #tab-personal .tab-wrapper .data-pass .save-changes {
+.user-cabinet .personal-wrapper #tab-personal .tab-wrapper .data-pass #save-password {
   width: 184.1px;
   height: 43.52px;
   background: #00AC4E;

@@ -87,22 +87,24 @@
                 <div class="yname">Адрес электронной почты</div>
                 <input asp-for="Email" placeholder="Email" />
               </div>
-              <a asp-action="Logout" asp-controller="Account"class="green-btn">Выйти</a>
+              <div class="buttons">
+                  <a asp-action="Logout" asp-controller="Account"class="green-btn">Выйти</a>
+                  <a class="save-changes">Сохранить изменения</a>
+              </div>             
             </div>
             <div class="data-pass">
               <div class="pass-header">
                 Контактная информация
                 <p>(подтверждение заказов)</p>
               </div>
-
               <div class="phone-menu">
                 <div class="phone-number">
                   <div class="phonelabel">Основной телефон</div>
-                  <input asp-for="PhoneNumber"/>
+                  <input asp-for="PhoneNumber" placeholder="+380"/>
                 </div>
                 <div class="phone-number">
                   <div class="phonelabel">Дополнительный</div>
-                  <input name="AdditionalPhone" asp-for="User.AdditionalPhone"/>
+                  <input id="AdditionalPhone" asp-for="User.AdditionalPhone"placeholder="+380"/>
                 </div>
               </div>
               <div class="change-pass-menu">
@@ -110,23 +112,23 @@
                 <div class="change-pass">
                   <div class="pass-label">Ваш старый пароль</div>
                   <div class="pass-input">
-                    <input type="password" asp-for="OldPassword" placeholder="Старый пароль" />
+                    <input type="password" id="OldPassword" placeholder="Старый пароль" />
                   </div>
                 </div>
                 <div class="change-pass">
                   <div class="pass-label">Ваш новый пароль</div>
                   <div class="pass-input">
-                    <input type="password" asp-for="NewPassword" placeholder="Новый пароль" />
+                    <input type="password" id="NewPassword" placeholder="Новый пароль" />
                   </div>
                 </div>
                 <div class="change-pass">
                   <div class="pass-label">Подтверждение</div>
                   <div class="pass-input">
-                    <input id="confirm-pass" placeholder="Подтвердите пароль" />
+                    <input id="confirm-pass" type="password" placeholder="Подтвердите пароль" />
                   </div>
                 </div>
               </div>
-              <a class="save-changes">Сохранить изменения</a>
+              <a id="save-password">Изменить пароль</a>
             </div>
           </div>
           </form>
@@ -192,52 +194,11 @@
     </div>
   </div>
 </section>
-    <script>
-        var loadFile = function(event) {
-            var reader = new FileReader();
-            reader.onload = function(){
-                var output = document.getElementById('photo_place');
-                output.src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        };
+<script>
+$("#AdditionalPhone,#PhoneNumber").mask("+38(999)999-9999",{autoclear: false});
 </script>
-
-    <script>
-        $("#AdditionalPhone,#PhoneNumber").mask("+38(999)999-9999",{autoclear: false});
-    </script>
-    <script>
-        $(document).ready(function(){
-            jQuery.validator.addMethod("lettersonly", function(value, element) {
-                return this.optional(element) || /^[\u0400-\u04FF]+$/i.test(value);
-            }, "Letters only please");
-            $(".save-changes").click(function(){
-                $("#form-changedata").validate({
-                    rules:{
-                        FirstName:{lettersonly:true},
-                        LastName:{lettersonly:true},
-                        PatronymicName:{lettersonly:true},
-                        Email:{email:true},
-                        AdditionalPhone:{
-                        },
-                        PhoneNumber:{
-                        minlength:10,
-                        }
-                    },
-                    messages:{
-                        FirstName:{lettersonly:"Пожалуйста, используйте кирилицу"},
-                        LastName:{lettersonly:"Пожалуйста, используйте кирилицу"},
-                        PatronymicName:{lettersonly:"Пожалуйста, используйте кирилицу"},
-                        Email:{email:"Введите корректный Email адресс"},
-                        AdditionalPhone:{
-                        },
-                        PhoneNumber:{
-                        minlength:"Номер телефона должен состоять минимум из 10 цифр",
-                        }
-                    },
-                });
-                if($("#form-changedata").valid())
-                    $("#form-changedata").submit();
-            });
-        });
-    </script>
+<script src="~/AjaxJqueryScripts/FileLoad.js"></script>
+<script src="~/AjaxJqueryScripts/ChangePassword.js"></script>
+<script src="~/AjaxJqueryScripts/JQ/ChangeUserDataValidate.js"></script>
+    
+    

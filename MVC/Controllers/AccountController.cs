@@ -79,7 +79,7 @@ namespace RestWebAppl.Controllers
             var phoneNumber= loginModel.Phone.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "");
             if (ModelState.IsValid && CheckFreeUserName(phoneNumber))
             {              
-                var ApiRoute = "http://localhost:8443/";
+                var ApiRoute = "https://telegrammirage.azurewebsites.net/";
                 var postCode = await PostDataHttp<string>.CreateAsync("api/phone/confirm", phoneNumber,ApiRoute);
                 var code =await postCode.ResponseMessage.Content.ReadAsStringAsync();
                 var userData = new { password = loginModel.Password,code=code};
@@ -127,16 +127,14 @@ namespace RestWebAppl.Controllers
             if (ModelState.IsValid)
             {
                 await ChangeUserData(usermodel);
-                if (usermodel.OldPassword != null && usermodel.NewPassword != null)
-                {
-                    await ChangeUserPassword(usermodel.OldPassword, usermodel.NewPassword);
-                }
-                if (TempData["error"] == null)
-                {
-                    TempData["message"] = $"Данные успешно изменены";
-                }
             }
             return RedirectToAction("Cabinet");
+        }
+        [HttpPost]
+        public async Task<JsonResult> ChangePassword(string _newPassword, string _oldPassword)
+        {
+            return await ChangeUserPassword(_newPassword, _oldPassword);
+            
         }
         //LOGOUT 
         public async Task<ActionResult> Logout()
@@ -186,7 +184,7 @@ namespace RestWebAppl.Controllers
         // Changes current user information
         private async Task ChangeUserData(UserDataViewModel usermodel)
         {
-            var result = await userManager.GetUserAsync(User);/*usermodel.PhoneNumber.Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "")*/
+            var result = await userManager.GetUserAsync(User);
 
             if (usermodel.Avatar != null)
             {
@@ -226,7 +224,7 @@ namespace RestWebAppl.Controllers
             }
             await userManager.UpdateAsync(result);
         }
-        public async Task ChangeUserPassword(string OldPassword,string NewPassword)
+        public async Task<JsonResult> ChangeUserPassword(string OldPassword,string NewPassword)
         {
             var result = await userManager.GetUserAsync(User);
             var passwordVartification = userManager.PasswordHasher.VerifyHashedPassword(result, result.PasswordHash, OldPassword);
@@ -234,17 +232,19 @@ namespace RestWebAppl.Controllers
             if (newPasswordVartification == PasswordVerificationResult.Success)
             {
                 TempData["error"] = $"Старый и новый пароли совпадают";
-                return;
+                return Json (new {success=false});
             }
             else if (passwordVartification == PasswordVerificationResult.Success)
             {
                 var token = await userManager.GeneratePasswordResetTokenAsync(result);
                 await userManager.ResetPasswordAsync(result, token, NewPassword);
+                return Json(new { success = true });
             }
             else
             {
                 TempData["error"] = $"Не правильный пароль";
                 ModelState.AddModelError("", "Не правильный пароль");
+                return Json(new { success = false });
             }
         }
 
