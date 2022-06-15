@@ -1,0 +1,43 @@
+﻿<div
+  class="modal fade"
+  id="subscribe"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-subscribe">
+    <div class="modal-content">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="icon-header">
+        <img src="/img/mail-big.svg" />
+        <div class="header-text">Подпишитесь на нашу рассылку и получите промокод на 500 RUB!</div>
+      </div>
+      <div class="modal-form">
+          <div class="inpt">
+              <input class="mail" id="mail" type="text" name="Email" placeholder="E-mail" />
+          </div>
+          <div class="error-txt"></div>
+              <button type="button" id="emailsend" class="green_btn">Отправить</button>
+          </div>
+          </div>
+  </div>
+</div>
+<script>
+    $(function(){
+        $("#emailsend").click(function(){
+            var email = $("#mail").val();
+            $.post("/Home/SubscribeEmail",
+            {"Email":email},
+            function(response){
+                if(response.success){
+                    $('#subscribe').modal('toggle');
+                    location.reload();
+                }
+                else{
+                    $("#error-txt").css("color","red");
+                    $("#error-txt").text("Произошла ошибка");
+                }
+            });
+        });
+    });
+</script>

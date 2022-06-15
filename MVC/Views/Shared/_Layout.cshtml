@@ -47,7 +47,7 @@
 		  <div class="row"></div>
 		  <nav class="navbar navbar-expand-lg navbar-light">
 			  <div class="container">
-				  <a class="navbar-brand" asp-route-category="@null"asp-action="Index" asp-controller="Home">
+				  <a class="navbar-brand" asp-action="Index" asp-controller="Home">
 					  <img src="~/img/logo.png" alt=""/>
 				  </a>
 				  <button
@@ -73,31 +73,17 @@
 								  Меню
 							  </a>
 							  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Супы"asp-route-productPage="1">
-									  <span><img src="~/img/soup.svg" alt=""/></span>Супы
-								  </a>
-								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Хачапури"asp-route-productPage="1">
-									  <span><img src="~/img/hachap.svg" alt=""/></span
-									  >Хачапури
-								  </a>
-								  <a class="dropdown-item" asp-controller="Home"asp-controller="Home"asp-action="Index" asp-route-category="Холодные закуски"asp-route-productPage="1"><span><img src="~/img/coldsnack.svg" alt=""/></span>Холодные закуски
-								  </a>
-								  <a class="dropdown-item" asp-controller="Home"asp-controller="Home"asp-action="Index" asp-route-category="Хинкали"asp-route-productPage="1"><span><img src="~/img/khinkal.svg" alt=""/></span>Хинкали
-								  </a>
-								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Шашлык"asp-route-productPage="1"><span><img src="~/img/shashl.svg" alt=""/></span>Шашлык
-								  </a>
-								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Соусы"asp-route-productPage="1"><span><img src="~/img/souce.svg" alt=""/></span>Соусы
-								  </a>
-								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Салаты"asp-route-productPage="1"><span><img src="~/img/salad.svg" alt=""/></span>Салаты
-								  </a>
-								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Горячие блюда"asp-route-productPage="1"><span><img src="~/img/hotdish.svg" alt=""/></span>Горячие блюда
-								  </a>
-								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Гарниры"asp-route-productPage="1"><span><img src="~/img/garnish.svg" alt=""/></span>Гарниры
-								  </a>
-								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Десерты"asp-route-productPage="1"><span><img src="~/img/desert.svg" alt=""/></span>Десерты
-								  </a>
-								  <a class="dropdown-item" asp-controller="Home"asp-action="Index" asp-route-category="Напитки"asp-route-productPage="1"><span><img src="~/img/drinks.svg" alt=""/></span>Напитки
-								  </a>
+								  <a class="dropdown-item w"><span><img src="~/img/soup.svg" alt=""/></span>Супы</a>
+                                  <a class="dropdown-item w"><span><img src="~/img/hachap.svg" alt=""/></span>Хачапури</a>
+								  <a class="dropdown-item w"><span><img src="~/img/coldsnack.svg" alt=""/></span>Холодные закуски</a>
+								  <a class="dropdown-item w"><span><img src="~/img/khinkal.svg" alt=""/></span>Хинкали</a>
+								  <a class="dropdown-item w"><span><img src="~/img/shashl.svg" alt=""/></span>Шашлык</a>
+								  <a class="dropdown-item w"><span><img src="~/img/souce.svg" alt=""/></span>Соусы</a>
+								  <a class="dropdown-item w"><span><img src="~/img/salad.svg" alt=""/></span>Салаты</a>
+								  <a class="dropdown-item w"><span><img src="~/img/hotdish.svg" alt=""/></span>Горячие блюда</a>
+                                  <a class="dropdown-item w"><span><img src="~/img/garnish.svg" alt=""/></span>Гарнир</a>
+								  <a class="dropdown-item w"><span><img src="~/img/desert.svg" alt=""/></span>Десерты</a>
+                                  <a class="dropdown-item w"><span><img src="~/img/drinks.svg" alt=""/></span>Напитки</a>
 							  </div>
 						  </li>
 						  <li class="nav-item active">
@@ -203,6 +189,7 @@
         </div>
       </footer>
     </div>
+    <script src="~/AjaxJqueryScripts/AJAX/EmailModal.js"></script>
     <script src="~/AjaxJqueryScripts/AJAX/SignInModal.js"></script>
   </body>
 </html>
@@ -240,35 +227,6 @@
             <input type="date" name="" placeholder="Дата:  дд.мм.гг" />
           </div>
           <button class="green-btn">Забронировать</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-<div
-  class="modal fade"
-  id="subscribe"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-subscribe">
-    <div class="modal-content">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      <div class="icon-header">
-        <img src="/img/mail-big.svg" />
-        <div class="header-text">Подпишитесь на нашу рассылку и получите промокод на 500 RUB!</div>
-      </div>
-      <div class="modal-form">
-        <form method="post">
-          <div class="inpt">
-            <input class="mail" type="text" name="" placeholder="E-mail" />
-          </div>
-            <button class="green_btn">Отправить</button>
         </form>
       </div>
     </div>

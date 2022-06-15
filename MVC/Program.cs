@@ -2,11 +2,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using RestWebAppl.Models;
 using Newtonsoft.Json.Serialization;
+using RestaurantMVC.Infrastructure.EmailService;
+using ClassLibrary.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
 var IdentityConnectionString = builder.Configuration.GetConnectionString("IdentityConnectionString");
 
+var emailConfig = builder.Configuration
+        .GetSection("EmailConfiguration")
+        .Get<EmailConfiguration>();
+builder.Services.AddSingleton(emailConfig);
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 // Add services to the container.
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false).AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 builder.Services.AddSession();
@@ -24,6 +32,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(opts =>
     opts.SignIn.RequireConfirmedPhoneNumber = true;
 }).AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ConnectionString));
+builder.Services.AddScoped<IPromoCodeService, PromoCodeService>();
 builder.Services.AddScoped<IRepository, EFRepository>();
 builder.Services.AddScoped<IReviewRepository, EFReviewRepository>();
 builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();

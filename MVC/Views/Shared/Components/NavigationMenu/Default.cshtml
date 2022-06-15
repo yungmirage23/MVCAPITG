@@ -6,10 +6,10 @@
 				@foreach(string category in Model)
 				{
 					<a class="swiper-slide @(category==ViewBag.SelectedCategory?"aactive":"w")"
-					asp-action="Index"
+					@*asp-action="Index"
 					asp-controller="Home"
 					asp-route-category="@category"
-					asp-route-productPage="1"
+					asp-route-productPage="1"*@
 					>@category</a>
 				}
 			</div>
@@ -18,3 +18,21 @@
 		  </div>
 		</div>
 	</section>
+	<script>
+	$( document ).ready(function() {
+		$(".w").on("click",function(){
+			category=$(this).text();
+			$(".w:not(:contains("+ category +"))").removeClass("aactive");
+			$(".w:not(:contains("+ category +"))").removeClass("updating");
+			$(".w:contains("+ category +")").addClass("updating");
+			$.get("/Home/Index",
+            {"category":category},
+			function(data){
+				$(".w:contains("+ category +")").removeClass("updating");
+				$(".w:contains("+ category +")").addClass("aactive");
+                $(".home-products").html($(".home-products",data));
+				
+            });
+		}); 
+	});
+	</script>

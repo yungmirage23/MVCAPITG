@@ -59,7 +59,6 @@ body.page-is-changing::after, body.page-is-changing::before {
     box-shadow: 0px 0px 17.7465px rgba(0, 0, 0, 0.12);
     max-width: 384px;
     border-radius: 18px;
-
     &.modal-registr {
         width: 384px;
 
@@ -629,6 +628,9 @@ header {
             font-weight: 500;
             font-size: 25.3018px;
             margin-top: 34px;
+            &:hover{
+                cursor:pointer;
+            }
         }
     }
 }
@@ -675,8 +677,17 @@ header {
                 width: auto !important;
                 display: inline;
 
+                &:hover {
+                    cursor: pointer;
+                }
+
                 &.aactive {
                     background-color: #00AC4E;
+                    color: #FFFFFF;
+                    border-radius: 5px;
+                }
+                &.updating {
+                    background-color: #018C40;
                     color: #FFFFFF;
                     border-radius: 5px;
                 }
@@ -711,7 +722,7 @@ header {
         justify-content:center;
         flex-wrap: wrap;
         .product {
-            width: 205px;
+            width: 210px;
             margin: 0 20px 56px 20px;
 
             a {

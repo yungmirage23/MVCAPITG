@@ -514,6 +514,9 @@ header .menu-right .menu-user a img {
   font-size: 25.3018px;
   margin-top: 34px;
 }
+.home-banner .block a:hover {
+  cursor: pointer;
+}
 .home-menu .swiper-button-next:after {
   content: '' !important;
   background-image: url(/img/arrowRight.svg);
@@ -551,8 +554,16 @@ header .menu-right .menu-user a img {
   width: auto !important;
   display: inline;
 }
+.home-menu .container .swiper-container-menu a:hover {
+  cursor: pointer;
+}
 .home-menu .container .swiper-container-menu a.aactive {
   background-color: #00AC4E;
+  color: #FFFFFF;
+  border-radius: 5px;
+}
+.home-menu .container .swiper-container-menu a.updating {
+  background-color: #018C40;
   color: #FFFFFF;
   border-radius: 5px;
 }
@@ -580,7 +591,7 @@ header .menu-right .menu-user a img {
   flex-wrap: wrap;
 }
 .home-products .products-wrapper .product {
-  width: 205px;
+  width: 210px;
   margin: 0 20px 56px 20px;
 }
 .home-products .products-wrapper .product a {

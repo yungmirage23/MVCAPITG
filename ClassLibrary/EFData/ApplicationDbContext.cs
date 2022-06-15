@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ClassLibrary.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +13,7 @@ namespace RestWebAppl.Models
         }
         public DbSet<Item> Items { get; set; }
         public DbSet<Order> Orders { get; set; }    
+        public DbSet<PromoCode> PromoCodes { get; set; }
 
     }
 }
