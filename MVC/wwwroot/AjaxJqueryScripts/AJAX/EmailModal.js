@@ -1,4 +1,4 @@
-﻿$("#emailmodal").click(function () {
+﻿$(".emailmodal").click(function () {
     $.ajax({
         url: "/Home/SubscribeEmail",
         type: "Get",

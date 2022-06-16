@@ -516,6 +516,7 @@ header .menu-right .menu-user a img {
 }
 .home-banner .block a:hover {
   cursor: pointer;
+  color: black;
 }
 .home-menu .swiper-button-next:after {
   content: '' !important;
