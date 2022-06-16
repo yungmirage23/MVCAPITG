@@ -88,12 +88,18 @@ namespace RestWebAppl.Controllers
         [HttpPost]
         public JsonResult SubscribeEmail(string Email)
         {
-            var code = _promoCodeService.CreatePromoCode(Email);
-            var message = new Message(new string[] { Email }, "Подписка на рассылку предложений", "Добрый день! Спасибо, за то что подписались на нашу рассылку,\n теперь вы будете получать выгодные предложения\n"+
-                $"на свой почтовый аккаунт - {code.Email}.\n" +
-                $"Ваш промо код :{code.Code}");
-            _emailSender.SendEmail(message);
-            return Json(new { success = true });
+            var promoCode=_promoCodeService.PromoCodes.FirstOrDefault(c=>c.Email==Email);
+            if(promoCode == null)
+            {
+                var code = _promoCodeService.CreatePromoCode(Email);
+                var message = new Message(new string[] { Email }, "Подписка на рассылку предложений", "Добрый день! Спасибо, за то что подписались на нашу рассылку,\n теперь вы будете получать выгодные предложения\n" +
+                    $"на свой почтовый аккаунт - {code.Email}.\n" +
+                    $"Ваш промо код :{code.Code}");
+                _emailSender.SendEmail(message);
+                return Json(new { success = true });
+            }
+            else
+                return Json(new { success = false });
         }
 
         //Delivery page

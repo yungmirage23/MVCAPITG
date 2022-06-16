@@ -33,10 +33,9 @@
                     $('#subscribe').modal('toggle');
                     location.reload();
                 }
-                else{
-                    $("#error-txt").css("color","red");
-                    $("#error-txt").text("Произошла ошибка");
-                }
+                $(".error-txt").css("display","block");
+                $(".error-txt").css("color","red");
+                $(".error-txt").text("Произошла ошибка");
             });
         });
     });
